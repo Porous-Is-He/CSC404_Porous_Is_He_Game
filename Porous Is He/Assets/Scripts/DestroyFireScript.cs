@@ -23,6 +23,6 @@ public class DestroyFireScript : MonoBehaviour
 
         //if want water drop to be gone
         Destroy(this.gameObject);
-        KeepScore.Score += 1;
+ 
     }
 }
