@@ -31,7 +31,6 @@ public class ProjectileScript : MonoBehaviour
             {
                 fs.Stop();
 
-                KeepScore.Score += 1;
             }
             // Put out fire
             //Destroy(other.gameObject);

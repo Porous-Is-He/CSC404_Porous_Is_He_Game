@@ -29,7 +29,7 @@ public class ArsonistScript : MonoBehaviour
 
             if (gameTime - lastFire > fireDelay)
             {
-                Debug.Log("Starting Fire");
+                //Debug.Log("Starting Fire");
                 lastFire = gameTime;
                 LightFire(2);
             }
