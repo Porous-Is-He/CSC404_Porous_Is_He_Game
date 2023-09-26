@@ -1,27 +1,56 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class waterTracker : MonoBehaviour
+public class WaterTracker : MonoBehaviour
 {
-    public static int WaterLeft = 0;
+    public Text waterAmountText;
+    private static int waterAmount;
+    public static int maxWaterAmount = 3;
+
     // Start is called before the first frame update
     void Start()
     {
+        waterAmount = 0;
         
+        waterAmountText.text = "Water Amount: " + waterAmount;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (WaterLeft >= 3)
+        if(waterAmount > maxWaterAmount)
         {
-            WaterLeft = 3;
+            waterAmount = maxWaterAmount;
         }
+        UpdateWaterAmountText();
+
+
     }
-    private void OnGUI()
+
+    private void UpdateWaterAmountText()
     {
-        GUI.skin.box.fontSize = 10;
-        GUI.Box(new Rect(100, 100, 100, 40), "Water Left:" + WaterLeft.ToString());
+        waterAmountText.text = "Water Amount: " + waterAmount.ToString();
     }
+
+    public void SetWaterAmount(int amount)
+    {
+        waterAmount = amount;
+        
+    }
+
+    public void DecrementWaterAmount()
+    {
+        waterAmount--;
+        
+    }
+
+    public int GetWaterAmount()
+    {
+        return waterAmount;
+    }
+
+
+
 }

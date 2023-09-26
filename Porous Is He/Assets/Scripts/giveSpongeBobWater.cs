@@ -19,10 +19,13 @@ public class giveSpongeBobWater : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Player")
-        {
-            waterTracker.WaterLeft = 3;
+        if (collision.gameObject.tag == "Player") {
+
+            //WaterTracker.SetWaterAmount(WaterTracker.maxWaterAmount);
+            GameObject.Find("waterUI").GetComponent<WaterTracker>().SetWaterAmount(3);
         }
+
+        
     }
 
     
