@@ -40,13 +40,13 @@ public class WaterTracker : MonoBehaviour
         
     }
 
-    public static void DecrementWaterAmount()
+    public void DecrementWaterAmount()
     {
         waterAmount--;
         
     }
 
-    public static int GetWaterAmount()
+    public int GetWaterAmount()
     {
         return waterAmount;
     }
