@@ -34,7 +34,7 @@ public class WaterTracker : MonoBehaviour
         waterAmountText.text = "Water Amount: " + waterAmount.ToString();
     }
 
-    public static void SetWaterAmount(int amount)
+    public void SetWaterAmount(int amount)
     {
         waterAmount = amount;
         
