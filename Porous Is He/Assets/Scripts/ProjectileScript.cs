@@ -34,13 +34,8 @@ public class ProjectileScript : MonoBehaviour
             }
             // Put out fire
             //Destroy(other.gameObject);
-            //Destroy(gameObject);
+            
         }
-        else
-        {
-
-        }
-        
-        
+        Destroy(gameObject);
     }
 }
