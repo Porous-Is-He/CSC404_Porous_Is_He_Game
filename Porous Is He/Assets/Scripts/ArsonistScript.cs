@@ -25,7 +25,7 @@ public class ArsonistScript : MonoBehaviour
 
             gameTime += Time.deltaTime;
 
-            float fireDelay = 1.0f;
+            float fireDelay = 5.0f;
 
             if (gameTime - lastFire > fireDelay)
             {
@@ -55,9 +55,11 @@ public class ArsonistScript : MonoBehaviour
 
     void LightFire(int retries)
     {
-        GameObject Building = GameObject.Find("Building");
+        GameObject Building = GameObject.Find("BurningBuilding");
         Transform[] fires = gameObject.GetComponentsInChildren<Transform>(Building);
-        int random = Random.Range(0, fires.Length - 1);
+        int random = Random.Range(0, Building.transform.childCount);
+        Debug.Log(random);
+        Debug.Log(fires.Length - 1);
         GameObject randomFire = Building.transform.GetChild(random).gameObject;
         FireScript fireScript = randomFire.GetComponent<FireScript>();
         if (fireScript.IsOnFire() && retries > 0)
@@ -68,10 +70,10 @@ public class ArsonistScript : MonoBehaviour
         else
         {
             fireScript.Begin();
-            if (CountFires() >= 7)
-            {
-                Stop();
-            }
+            //if (CountFires() >= 7)
+            //{
+            //    Stop();
+            //}
         }
     }
 
