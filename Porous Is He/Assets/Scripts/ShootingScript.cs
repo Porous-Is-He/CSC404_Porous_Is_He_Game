@@ -7,7 +7,6 @@ using Random = UnityEngine.Random;
 
 public class ShootingScript : MonoBehaviour
 {
-    public Camera fpsCam;
     public GameObject bullet;
     public float shootForce;
     public float timeBetweenShooting, reloadTime;
@@ -38,12 +37,12 @@ public class ShootingScript : MonoBehaviour
     {
         _readyToShoot = false;
         Vector3 attackPointPos = transform.position;
-        
+
         // Find hit position
-        Ray ray = fpsCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
     
         // Check if ray hits something
-        Vector3 targetPoint = ray.GetPoint(75); // a point far away from player
+        Vector3 targetPoint = ray.GetPoint(40); // a point far away from player
        
         
         // Calculate direction from attackPoint to targetPoint

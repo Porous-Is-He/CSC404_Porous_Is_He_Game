@@ -134,9 +134,8 @@ GameObject:
   - component: {fileID: 11516387}
   - component: {fileID: 11516391}
   - component: {fileID: 11516390}
-  - component: {fileID: 11516389}
   - component: {fileID: 11516388}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: ProjectileSpawn
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -170,33 +169,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cfd9b04b1bb44daaba0f9f6dda6441c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fpsCam: {fileID: 963194227}
   bullet: {fileID: 3923626563938340269, guid: fe4163e170e3f4e87a540cea553691e6, type: 3}
   shootForce: 15
   timeBetweenShooting: 0.1
   reloadTime: 2
   magazineSize: 100
---- !u!65 &11516389
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 11516386}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &11516390
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -204,7 +181,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 11516386}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1752,7 +1729,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.35172668, y: -0.00000003945378, z: -0.000000014824171, w: 0.93610275}
+  m_LocalRotation: {x: -0.35172662, y: -0.00000003945378, z: -0.000000014824168, w: 0.93610275}
   m_LocalPosition: {x: 0, y: 0.076900005, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1957,7 +1934,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1028227428}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.35172668, y: -1.7893497e-15, z: -1.4462662e-15, w: 0.9361028}
+  m_LocalRotation: {x: -0.35172665, y: -0.000000027898036, z: -0.000000010482271, w: 0.93610275}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1978,6 +1955,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1885745481}
     m_Modifications:
+    - target: {fileID: -8789335945617548533, guid: 3bcdf7cbe4c01db4faa244fb83fab1a7, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3bcdf7cbe4c01db4faa244fb83fab1a7, type: 3}
       propertyPath: m_LocalScale.x
       value: 18.946497
@@ -2030,9 +2011,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -3345377730800434879, guid: 3bcdf7cbe4c01db4faa244fb83fab1a7, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 3bcdf7cbe4c01db4faa244fb83fab1a7, type: 3}
       propertyPath: m_Name
       value: Sponge_Po
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3bcdf7cbe4c01db4faa244fb83fab1a7, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3720522920770473024, guid: 3bcdf7cbe4c01db4faa244fb83fab1a7, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3112,7 +3105,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1690552602}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.4331887, y: 0.000000017947901, z: 0.000000008626207, w: 0.90130323}
+  m_LocalRotation: {x: -0.4331887, y: -0.0000000111261675, z: -0.000000005347511, w: 0.9013033}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3191,7 +3184,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1721777067}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.38268346, y: 0.000000015896623, z: 0.0000000065845964, w: 0.92387956}
+  m_LocalRotation: {x: -0.38268346, y: 0.000000018397472, z: 0.000000007620482, w: 0.92387956}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3285,7 +3278,7 @@ GameObject:
   - component: {fileID: 1885745482}
   - component: {fileID: 1885745483}
   - component: {fileID: 1885745484}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
