@@ -52,6 +52,9 @@ public class FireScript : MonoBehaviour
 
         //Go to the "You have completed the demo" Scene
         SceneManager.LoadScene("GameOver");
+
+        //Unlock the cursor
+        Cursor.lockState = CursorLockMode.None;
     }
 
     //private void OnParticleCollision(GameObject other)
