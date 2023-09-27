@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FireScript : MonoBehaviour
 {
@@ -48,6 +49,9 @@ public class FireScript : MonoBehaviour
     {
         isOnFire = false;
         this.transform.Find("FireModel").gameObject.SetActive(false);
+
+        //Go to the "You have completed the demo" Scene
+        SceneManager.LoadScene("GameOver");
     }
 
     //private void OnParticleCollision(GameObject other)
