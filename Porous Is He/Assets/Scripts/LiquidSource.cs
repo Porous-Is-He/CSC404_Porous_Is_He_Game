@@ -8,14 +8,12 @@ public class LiquidSource : MonoBehaviour
     //this script is attached to a liquid source
     public string liquidType;
     public int maxLiquid;
-    public int amountAbsorbed;
 
     private LiquidInfo liquid;
     private const int INFINITE = -1;
 
     private Vector3 originalScale;
     private Vector3 newScale;
-
 
 
     void Start()
