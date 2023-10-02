@@ -6,6 +6,7 @@ public class SwitchCamera : MonoBehaviour
 {
     public GameObject moveCamera;
     public GameObject aimCamera;
+    public Transform projectile;
     public Canvas crosshair;
 
     private bool switched;
@@ -36,6 +37,11 @@ public class SwitchCamera : MonoBehaviour
                 aimCamera.SetActive(true);
                 crosshair.enabled = true;
                 gameObject.GetComponent<MoverScript>().enabled = false;
+                
+                projectile = transform.Find("ProjectileSpawn");
+
+                projectile.GetComponent<ShootingScript>().enabled = true;
+
                 switched = false;
 
             }
@@ -48,6 +54,11 @@ public class SwitchCamera : MonoBehaviour
             aimCamera.SetActive(false);
             crosshair.enabled = false;
             gameObject.GetComponent<MoverScript>().enabled = true;
+
+            projectile = transform.Find("ProjectileSpawn");
+
+            projectile.GetComponent<ShootingScript>().enabled = true;
+
             switched = true;
 
         }
