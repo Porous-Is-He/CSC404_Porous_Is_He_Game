@@ -25,7 +25,7 @@ public class ShootingScript : MonoBehaviour
     
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && _bulletsLeft > 0 && _readyToShoot && !_reloading)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && Input.GetKey(KeyCode.Mouse1) && _bulletsLeft > 0 && _readyToShoot && !_reloading)
         {
             Shoot();
         } else if (Input.GetKeyDown(KeyCode.R)) {
