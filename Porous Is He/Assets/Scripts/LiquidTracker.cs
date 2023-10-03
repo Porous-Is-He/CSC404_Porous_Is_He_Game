@@ -28,7 +28,7 @@ public class LiquidTracker : MonoBehaviour
 
     public LiquidInfo GetSelectedLiquid()
     {
-        if (liquidSelectionIndex == -1)
+        if (liquidSelectionIndex != -1)
         {
             return playerLiquids[liquidSelectionIndex];
 
