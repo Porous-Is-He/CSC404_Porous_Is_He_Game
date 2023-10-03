@@ -46,7 +46,7 @@ public class FlameScript : MonoBehaviour, ReactantInterface
             var fireSprite = this.transform.parent.Find("FireSprite");
             var newScale = new Vector3(1.2f, 1.2f * fireLevel, 1.2f);
             fireSprite.transform.localScale = newScale;
-            fireSprite.transform.position = new Vector3(0f, newScale.y * 0.5f, 0f);
+            fireSprite.transform.localPosition = new Vector3(0f, newScale.y * 0.5f, 0f);
         }
     }
 }
