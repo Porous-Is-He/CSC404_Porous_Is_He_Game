@@ -58,8 +58,8 @@ public class ArsonistScript : MonoBehaviour
         GameObject Building = GameObject.Find("BurningBuilding");
         Transform[] fires = gameObject.GetComponentsInChildren<Transform>(Building);
         int random = Random.Range(0, Building.transform.childCount);
-        Debug.Log(random);
-        Debug.Log(fires.Length - 1);
+
+
         GameObject randomFire = Building.transform.GetChild(random).gameObject;
         FireScript fireScript = randomFire.GetComponent<FireScript>();
         if (fireScript.IsOnFire() && retries > 0)

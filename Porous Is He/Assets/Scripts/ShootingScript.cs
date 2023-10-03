@@ -35,25 +35,16 @@ public class ShootingScript : MonoBehaviour
 
     private void Shoot()
     {
+        if (!CanShoot())
+            return;
+
         _readyToShoot = false;
-        Vector3 attackPointPos = transform.position;
 
-        // Find hit position
-        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-    
-        // Check if ray hits something
-        Vector3 targetPoint = ray.GetPoint(40); // a point far away from player
-       
-        
-        // Calculate direction from attackPoint to targetPoint
-        Vector3 direction = targetPoint - attackPointPos;
-        
-        // Spawn bullet
-        GameObject currentBullet = Instantiate(bullet, attackPointPos, Quaternion.identity);
-        currentBullet.transform.forward = direction.normalized;
-        currentBullet.GetComponent<Rigidbody>().AddForce(direction.normalized * shootForce, ForceMode.Impulse);
+        CreateBullet();
 
-        _bulletsLeft--;
+        DeductLiquid();
+
+        //_bulletsLeft--;
         Invoke("ResetShot", timeBetweenShooting);
     }
     private void ResetShot()
@@ -71,5 +62,50 @@ public class ShootingScript : MonoBehaviour
     {
         _bulletsLeft = magazineSize;
         _reloading = false;
+    }
+
+
+    private bool CanShoot()
+    {
+        GameObject Player = GameObject.Find("Player");
+        LiquidTracker LiqTrack = Player.GetComponent<LiquidTracker>();
+        LiquidInfo Liquid = LiqTrack.GetSelectedLiquid();
+
+        if (Liquid.liquidAmount == 0)
+            return false;
+
+        return true;
+    }
+    private void DeductLiquid()
+    {
+        GameObject Player = GameObject.Find("Player");
+        LiquidTracker LiqTrack = Player.GetComponent<LiquidTracker>();
+        LiqTrack.RemoveSelectedLiquid(1);
+    }
+    private void CreateBullet()
+    {
+        GameObject Player = GameObject.Find("Player");
+        LiquidTracker LiqTrack = Player.GetComponent<LiquidTracker>();
+        LiquidInfo Liquid = LiqTrack.GetSelectedLiquid();
+
+        Vector3 attackPointPos = transform.position;
+
+        // Find hit position
+        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+
+        // Check if ray hits something
+        Vector3 targetPoint = ray.GetPoint(40); // a point far away from player
+
+
+        // Calculate direction from attackPoint to targetPoint
+        Vector3 direction = targetPoint - attackPointPos;
+
+        // Spawn bullet
+        //GameObject currentBullet = Instantiate(bullet, attackPointPos, Quaternion.identity);
+        GameObject currentBullet = transform.GetComponent<ProjectileFactory>().NewProjectile(Liquid, attackPointPos, Quaternion.identity);
+        currentBullet.transform.forward = direction.normalized;
+        currentBullet.GetComponent<Rigidbody>().AddForce(direction.normalized * shootForce, ForceMode.Impulse);
+
+        Debug.Log("firing");
     }
 }

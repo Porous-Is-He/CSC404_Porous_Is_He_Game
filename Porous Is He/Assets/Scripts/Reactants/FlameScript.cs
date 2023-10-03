@@ -13,6 +13,8 @@ public class FlameScript : MonoBehaviour, ReactantInterface
 
     public void ApplyLiquid(LiquidInfo liquid)
     {
+        Debug.Log("Hello");
+
         if (liquid.liquidType == "Water")
         {
             fireLevel--;
@@ -43,10 +45,35 @@ public class FlameScript : MonoBehaviour, ReactantInterface
     {
         if (lastFireLevel != fireLevel)
         {
-            var fireSprite = this.transform.parent.Find("FireSprite");
-            var newScale = new Vector3(1.2f, 1.2f * fireLevel, 1.2f);
-            fireSprite.transform.localScale = newScale;
-            fireSprite.transform.localPosition = new Vector3(0f, newScale.y * 0.5f, 0f);
+            //var fireSprite = this.transform.parent.Find("FireSprite");
+            //var newScale = new Vector3(1.2f, 1.2f * fireLevel, 1.2f);
+            //fireSprite.transform.localScale = newScale;
+            //fireSprite.transform.localPosition = new Vector3(0f, newScale.y * 0.5f, 0f);
+
+            //var fireSprite = gameObject;
+            //var newScale = new Vector3(1.0f, 1.0f * (float)fireLevel / 3.0f + 0.1f, 1.0f);
+            //fireSprite.transform.localScale = newScale;
+            //fireSprite.transform.localPosition = new Vector3(0f, newScale.y * 0.5f, 0f);
+
+            if (lastFireLevel == 0 || fireLevel == 0)
+            {
+                Transform[] fireEffects = gameObject.GetComponentsInChildren<Transform>(transform);
+
+                for (int i = 0; i < transform.childCount; ++i)
+                {
+                    ParticleSystem fireParticle = transform.GetChild(i).GetComponent<ParticleSystem>();
+                    if (fireParticle)
+                    {
+                        if (fireLevel == 0)
+                            fireParticle.Stop();
+                        else
+                            fireParticle.Play();
+                    }
+
+                }
+            }
+
+            lastFireLevel = fireLevel;
         }
     }
 }
