@@ -6,8 +6,8 @@ public class LiquidTracker : MonoBehaviour
 {
     private LiquidInfo[] playerLiquids;
 
-    // current liquid index, -1 means the index has never been set
-    private int liquidSelectionIndex = -1;
+    // current liquid index
+    private int liquidSelectionIndex = 0;
 
     // max number of liquid types player is allowed to have
     public int maxLiquidType = 2;
@@ -18,6 +18,10 @@ public class LiquidTracker : MonoBehaviour
     void Start()
     {
         playerLiquids = new LiquidInfo[maxLiquidType];
+        for (int i = 0; i < maxLiquidType; ++i)
+        {
+            playerLiquids[i] = new LiquidInfo("None", 0);
+        }
     }
 
     // Update is called once per frame
@@ -28,15 +32,7 @@ public class LiquidTracker : MonoBehaviour
 
     public LiquidInfo GetSelectedLiquid()
     {
-        if (liquidSelectionIndex != -1)
-        {
-            return playerLiquids[liquidSelectionIndex];
-
-        }
-        else
-        {
-            return null;
-        }
+        return playerLiquids[liquidSelectionIndex];
         
     }
 
