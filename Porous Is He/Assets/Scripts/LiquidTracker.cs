@@ -20,7 +20,10 @@ public class LiquidTracker : MonoBehaviour
         playerLiquids = new LiquidInfo[maxLiquidType];
         for (int i = 0; i < maxLiquidType; ++i)
         {
-            playerLiquids[i] = new LiquidInfo("None", 0);
+            if (i == 0)
+                playerLiquids[i] = new LiquidInfo("Water", 3);
+            else
+                playerLiquids[i] = new LiquidInfo("None", 0);
         }
     }
 
