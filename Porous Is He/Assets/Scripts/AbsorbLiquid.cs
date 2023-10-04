@@ -38,7 +38,7 @@ public class AbsorbLiquid : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 LiquidInfo liquid = hit.collider.gameObject.GetComponent<LiquidSource>().AbsorbLiquid(amountAbsorbed);
-
+                gameObject.GetComponent<PoSoundManager>().PlaySound("Absorb");
                 gameObject.GetComponent<LiquidTracker>().AddSelectedLiquid(liquid);
             }
         }
