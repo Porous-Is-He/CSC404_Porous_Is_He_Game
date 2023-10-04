@@ -94,7 +94,7 @@ public class ShootingScript : MonoBehaviour
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
 
         // Check if ray hits something
-        Vector3 targetPoint = ray.GetPoint(40); // a point far away from player
+        Vector3 targetPoint = ray.GetPoint(20); // a point far away from player
 
 
         // Calculate direction from attackPoint to targetPoint

@@ -65,8 +65,12 @@ public class FlameScript : MonoBehaviour, ReactantInterface
                     if (fireParticle)
                     {
                         if (fireLevel == 0)
+                        {
                             fireParticle.Stop();
-                        else
+
+                            // Temporary. Remove later.
+                            Destroy(gameObject);
+                        } else
                             fireParticle.Play();
                     }
 
