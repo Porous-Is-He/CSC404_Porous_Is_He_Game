@@ -32,6 +32,12 @@ public class FlameScript : MonoBehaviour, ReactantInterface
         {
             fireLevel = maxFireLevel;
         }
+
+        if (fireLevel != lastFireLevel)
+        {
+            AudioClip audioClip = Resources.Load<AudioClip>("Sounds/Extinguish");
+            AudioSource.PlayClipAtPoint(audioClip, transform.position, 0.5f);
+        }
     }
 
     // Start is called before the first frame update
@@ -55,7 +61,7 @@ public class FlameScript : MonoBehaviour, ReactantInterface
             //fireSprite.transform.localScale = newScale;
             //fireSprite.transform.localPosition = new Vector3(0f, newScale.y * 0.5f, 0f);
 
-            if (lastFireLevel == 0 || fireLevel == 0)
+            if (lastFireLevel <= 0 || fireLevel == 0)
             {
                 Transform[] fireEffects = gameObject.GetComponentsInChildren<Transform>(transform);
 
@@ -71,6 +77,16 @@ public class FlameScript : MonoBehaviour, ReactantInterface
                     }
 
                 }
+
+                AudioSource audioSrc = transform.GetComponent<AudioSource>();
+                AudioClip audioClip = Resources.Load<AudioClip>("Sounds/FireBurning");
+                audioSrc.loop = true;
+                audioSrc.clip = audioClip;
+
+                if (fireLevel == 0)
+                    audioSrc.Stop();
+                else
+                    audioSrc.Play();
             }
 
             lastFireLevel = fireLevel;

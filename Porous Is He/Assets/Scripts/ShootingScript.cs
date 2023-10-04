@@ -106,6 +106,9 @@ public class ShootingScript : MonoBehaviour
         currentBullet.transform.forward = direction.normalized;
         currentBullet.GetComponent<Rigidbody>().AddForce(direction.normalized * shootForce, ForceMode.Impulse);
 
+        PoSoundManager playerSound = Player.GetComponent<PoSoundManager>();
+        playerSound.PlaySound("Shoot");
+
         Debug.Log("firing");
     }
 }
