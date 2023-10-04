@@ -69,9 +69,9 @@ public class SwitchCamera : MonoBehaviour
         rotationX -= speedV * Input.GetAxis("Mouse Y");
         rotationY += speedH * Input.GetAxis("Mouse X");
 
-        if (rotationX > 0.0f)
+        if (rotationX > 20.0f)
         {
-            rotationX = 0.0f;
+            rotationX = 20.0f;
         }
         else if (rotationX < -60.0f)
         {

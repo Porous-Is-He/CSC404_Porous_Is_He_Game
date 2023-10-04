@@ -8,8 +8,8 @@ public class MoverScript : MonoBehaviour
     private CharacterController controller;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
-    private float playerSpeed = 3.0f;
-    private float jumpHeight = 1.0f;
+    private float playerSpeed = 6.0f;
+    private float jumpHeight = 1.3f;
     private float gravityValue = -90.81f;
 
     // Start is called before the first frame update

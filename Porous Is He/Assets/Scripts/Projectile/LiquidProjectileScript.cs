@@ -34,6 +34,10 @@ public class LiquidProjectileScript : MonoBehaviour
             // Put out fire
             //Destroy(other.gameObject);
 
+        } else
+        {
+            AudioClip audioClip = Resources.Load<AudioClip>("Sounds/WaterHitFloor");
+            AudioSource.PlayClipAtPoint(audioClip, transform.position, 0.5f);
         }
         Destroy(gameObject);
     }
