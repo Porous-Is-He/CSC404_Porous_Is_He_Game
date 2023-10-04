@@ -25,22 +25,17 @@ public class ProjectileScript : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Fire"))
         {
-            FireScript fs = other.gameObject.GetComponent<FireScript>();
+            /*FireScript fs = other.gameObject.GetComponent<FireScript>();
 
             if (fs.IsOnFire() == true)
             {
                 fs.Stop();
 
-            }
+            }*/
             // Put out fire
-            //Destroy(other.gameObject);
-            //Destroy(gameObject);
+            Destroy(other.gameObject);
+            
         }
-        else
-        {
-
-        }
-        
-        
+        Destroy(gameObject);
     }
 }
