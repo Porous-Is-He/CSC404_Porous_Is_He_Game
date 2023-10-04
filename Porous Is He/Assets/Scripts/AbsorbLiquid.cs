@@ -22,7 +22,9 @@ public class AbsorbLiquid : MonoBehaviour
         // if player is touching water and presses E, then absorb the liquid
         if (hit.collider.gameObject.tag == "Water" && Input.GetKeyDown(KeyCode.E))
         {
-            hit.collider.gameObject.GetComponent<LiquidSource>().AbsorbLiquid(amountAbsorbed);
+            LiquidInfo liquid = hit.collider.gameObject.GetComponent<LiquidSource>().AbsorbLiquid(amountAbsorbed);
+
+            gameObject.GetComponent<LiquidTracker>().AddSelectedLiquid(liquid);
         }
     }
 }

@@ -9,6 +9,7 @@ public class LiquidSource : MonoBehaviour
     public string liquidType;
     public int maxLiquid;
 
+    private int remainingLiquid;
     private LiquidInfo liquid;
     private const int INFINITE = -1;
 
@@ -18,9 +19,9 @@ public class LiquidSource : MonoBehaviour
 
     void Start()
     {
-        liquid = new LiquidInfo(liquidType, maxLiquid);
         originalScale = transform.localScale;
         newScale = originalScale;
+        remainingLiquid = maxLiquid;
     }
 
     void Update()
@@ -28,7 +29,7 @@ public class LiquidSource : MonoBehaviour
         // rescale the liquid puddle if it is not infinite
         if (maxLiquid != INFINITE)
         {
-            float liquidRatio = (float)liquid.liquidAmount / (float)maxLiquid;
+            float liquidRatio = (float)remainingLiquid / (float)maxLiquid;
             newScale = new Vector3(originalScale.x * liquidRatio, originalScale.y * liquidRatio, originalScale.z * liquidRatio);
             transform.localScale = Vector3.Lerp(transform.localScale, newScale, 2 * Time.deltaTime);
 
@@ -43,15 +44,21 @@ public class LiquidSource : MonoBehaviour
 
     public LiquidInfo AbsorbLiquid(int amount)
     {
+        liquid = new LiquidInfo(liquidType, amount);
+
         if (maxLiquid == INFINITE) return liquid;
 
-        if (liquid.liquidAmount - amount <= 0)
+        int tempLiquid = remainingLiquid - amount;
+
+        if (tempLiquid <= 0)
         {
-            liquid.liquidAmount = 0;
+            liquid.liquidAmount = remainingLiquid;
+            remainingLiquid = 0;
         }
         else
         {
-            liquid.liquidAmount -= amount;
+            liquid.liquidAmount = amount;
+            remainingLiquid = tempLiquid;
         }
         return liquid;
     }
