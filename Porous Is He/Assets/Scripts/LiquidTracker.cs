@@ -108,6 +108,6 @@ public class LiquidTracker : MonoBehaviour
 
         
 
-        return Mathf.Max(weight, maxLiquidAmount);
+        return Mathf.Min(weight, maxLiquidAmount);
     }
 }

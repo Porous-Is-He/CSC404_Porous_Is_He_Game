@@ -7312,8 +7312,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Kitchen
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1833447032333364170, guid: 85bdd689b285d9844a2c3cd5e1fb40c6, type: 3}
+    - target: {fileID: 5397267843260130359, guid: 85bdd689b285d9844a2c3cd5e1fb40c6, type: 3}
+      propertyPath: m_Constraints
+      value: 126
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:

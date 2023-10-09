@@ -22,9 +22,10 @@ public class HeavyCollider : MonoBehaviour
 
      void OnCollisionEnter(Collision collision)
     {
-        // int playerWeight = GameObject.Find("Player").GetComponent<LiquidTracker>().CalcWeight();
-        if (collision.gameObject.tag == "Player")
-            //&& playerWeight == GameObject.Find("Player").GetComponent<LiquidTracker>().maxLiquidAmount)
+        int playerWeight = GameObject.Find("Player").GetComponent<LiquidTracker>().CalcWeight();
+
+        if (collision.gameObject.tag == "Player"
+           && playerWeight >= GameObject.Find("Player").GetComponent<LiquidTracker>().maxLiquidAmount)
         {
             Instantiate(brokenObject, transform.position, transform.rotation);
             Destroy(gameObject);
