@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class MoverScript : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class MoverScript : MonoBehaviour
     private float playerSpeed = 6.0f;
     private float jumpHeight = 1.3f;
     private float gravityValue = -90.81f;
+
 
     // Start is called before the first frame update
     void Start()

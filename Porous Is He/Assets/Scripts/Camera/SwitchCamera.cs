@@ -25,7 +25,7 @@ public class SwitchCamera : MonoBehaviour
     void Update()
     {
         //rotation = transform.rotation;
-        if (Input.GetKey(KeyCode.Mouse1))
+        if (Input.GetButton("Fire2"))
         {
             if (switched)
             {
