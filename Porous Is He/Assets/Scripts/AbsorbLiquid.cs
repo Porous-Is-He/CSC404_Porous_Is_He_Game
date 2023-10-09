@@ -35,7 +35,7 @@ public class AbsorbLiquid : MonoBehaviour
         {
 
             interactUI.SetActive(true);
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetButtonDown("Fire3"))
             {
                 LiquidInfo liquid = hit.collider.gameObject.GetComponent<LiquidSource>().AbsorbLiquid(amountAbsorbed);
                 gameObject.GetComponent<PoSoundManager>().PlaySound("Absorb");
