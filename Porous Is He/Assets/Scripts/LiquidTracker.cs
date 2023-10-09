@@ -95,4 +95,19 @@ public class LiquidTracker : MonoBehaviour
         liquidSelectionIndex = index;
     }
 
+    public int CalcWeight()
+    {
+        int weight = 0;
+        for(int i = 0; i < maxLiquidType; i++)
+        {
+            if(playerLiquids[i] != null)
+            {
+                weight += playerLiquids[i].liquidAmount;
+            }
+        }
+
+        
+
+        return Mathf.Max(weight, maxLiquidAmount);
+    }
 }
