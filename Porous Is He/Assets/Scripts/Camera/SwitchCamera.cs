@@ -109,9 +109,9 @@ public class SwitchCamera : MonoBehaviour
         rotationX -= speedV * inputVector.y;
         rotationY += speedH * inputVector.x;
 
-        if (rotationX > 28.0f)
+        if (rotationX > 31.0f)
         {
-            rotationX = 28.0f;
+            rotationX = 31.0f;
         }
         else if (rotationX < -16.0f)
         {

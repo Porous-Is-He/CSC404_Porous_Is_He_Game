@@ -62,6 +62,8 @@ public class MoverScript : MonoBehaviour
         if (IsGrounded() && playerVelocity < 0f)
         {
             playerVelocity = 0.0f;
+            direction.x = 0f;
+            direction.z = 0f;
         }
         else
         {
@@ -69,8 +71,6 @@ public class MoverScript : MonoBehaviour
         }
 
         direction.y = playerVelocity;
-        direction.x = 0f;
-        direction.z = 0f;
     }
 
     private void Move()
