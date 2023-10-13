@@ -2,68 +2,34 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Burst.Intrinsics;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
 public class ShootingScript : MonoBehaviour
 {
+
     public GameObject bullet;
     public float shootForce;
-    public float timeBetweenShooting, reloadTime;
-    public int magazineSize;
+    [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask();
+    public bool aiming = false;
 
-    private int _bulletsLeft;
-    private bool _shooting, _readyToShoot, _reloading;
-    
-    //public TextMeshProUGUI ammunition;
+    private PlayerInputActions playerInputActions;
 
     void Start()
     {
-        _bulletsLeft = magazineSize;
-        _readyToShoot = true;
+        playerInputActions = new PlayerInputActions();
+        playerInputActions.Player.Enable();
+        playerInputActions.Player.Shoot.started += Shoot;
     }
     
-    void Update()
+    private void Shoot(InputAction.CallbackContext context)
     {
-        if (Input.GetButtonDown("Fire1") && Input.GetButton("Fire2") && _bulletsLeft > 0 && _readyToShoot && !_reloading)
-        {
-            Shoot();
-        } else if (Input.GetKeyDown(KeyCode.R)) {
-            Reload();
-        }
-    }
-
-    private void Shoot()
-    {
-        if (!CanShoot())
-            return;
-
-        _readyToShoot = false;
-
+        if (!CanShoot())return;
         CreateBullet();
-
         DeductLiquid();
-
-        //_bulletsLeft--;
-        Invoke("ResetShot", timeBetweenShooting);
     }
-    private void ResetShot()
-    {
-        _readyToShoot = true;
-    }
-
-    private void Reload()
-    {
-        _reloading = true;
-        Invoke("ReloadFinished", reloadTime);
-    }
-
-    private void ReloadFinished()
-    {
-        _bulletsLeft = magazineSize;
-        _reloading = false;
-    }
-
 
     private bool CanShoot()
     {
@@ -73,6 +39,7 @@ public class ShootingScript : MonoBehaviour
 
         if (Liquid.liquidAmount == 0)
             return false;
+        if (!aiming) return false;
 
         return true;
     }
@@ -90,12 +57,16 @@ public class ShootingScript : MonoBehaviour
 
         Vector3 attackPointPos = transform.position;
 
-        // Find hit position
-        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        // Find hit position (at center of screen)
+        Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
+        Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
 
-        // Check if ray hits something
-        Vector3 targetPoint = ray.GetPoint(20); // a point far away from player
-
+        // If ray hit something, aim there
+        Vector3 targetPoint = ray.GetPoint(50);
+        if (Physics.Raycast(ray, out RaycastHit raycastHit, 999f, aimColliderLayerMask))
+        {
+            targetPoint = raycastHit.point;
+        }
 
         // Calculate direction from attackPoint to targetPoint
         Vector3 direction = targetPoint - attackPointPos;
@@ -109,6 +80,5 @@ public class ShootingScript : MonoBehaviour
         PoSoundManager playerSound = Player.GetComponent<PoSoundManager>();
         playerSound.PlaySound("Shoot");
 
-        Debug.Log("firing");
     }
 }
