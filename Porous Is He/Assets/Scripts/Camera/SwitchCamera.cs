@@ -16,8 +16,8 @@ public class SwitchCamera : MonoBehaviour
     private bool aiming = false;
     [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask();
 
-    public float speedV = 0.001f;
-    public float speedH = 0.001f;
+    public float speedV = 0.3f;
+    public float speedH = 0.3f;
     private float rotationX = 0.0f;
     private float rotationY = 0.0f;
 
