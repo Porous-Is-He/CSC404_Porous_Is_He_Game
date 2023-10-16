@@ -9,7 +9,7 @@ using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class MoverScript : MonoBehaviour
 {
-    private CharacterController controller;
+    public CharacterController controller;
     private PlayerInputActions playerInputActions;
     private Transform cameraMainTransform;
 
@@ -26,7 +26,13 @@ public class MoverScript : MonoBehaviour
     private float playerSpeed = 6.0f;
     private float turnSmoothTime = 0.05f;
     private float turnSmoothVelocity;
+    
+    // Variables that deals with knockback
+    private float knockBackForce = 3.0f;
+    private float knockBackTime;
+    public float knockBackCounter;
 
+    // Variable that deals with aiming
     public bool aiming = false;
 
 
@@ -44,15 +50,22 @@ public class MoverScript : MonoBehaviour
 
     void Update()
     {
-        if (!aiming)
+        if (knockBackCounter <= 0)
         {
-            Move();
-            ApplyGravity();
-            controller.Move(direction * playerSpeed * Time.deltaTime);
-        } else
+            if (!aiming)
+            {
+                Move();
+                ApplyGravity();
+                controller.Move(direction * playerSpeed * Time.deltaTime);
+            } else
+            {
+                MoveWhileAiming();
+                controller.Move(direction * playerSpeed * Time.deltaTime);
+            }
+        }
+        else 
         {
-            MoveWhileAiming();
-            controller.Move(direction * playerSpeed * Time.deltaTime);
+            knockBackCounter -= Time.deltaTime;
         }
     }
 
@@ -118,4 +131,13 @@ public class MoverScript : MonoBehaviour
     }
 
     private bool IsGrounded() => controller.isGrounded;
+
+    public void KnockBack(Vector3 moveDirection)
+    {
+        knockBackCounter = knockBackTime;
+
+        moveDirection = new Vector3(0f, 1f, -2f);
+
+        direction = moveDirection * knockBackForce;
+    }
 }
