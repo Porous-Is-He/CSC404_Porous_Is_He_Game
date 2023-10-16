@@ -14,9 +14,16 @@ public class LiquidTracker : MonoBehaviour
 
     public int maxLiquidAmount = 3;
 
+    public Rigidbody rb;
+
+    public float normalMass = 20f;
+    public float heavyMass = 40f;
+
     // Start is called before the first frame update
     void Start()
     {
+        rb = GetComponent<Rigidbody>();
+        rb.mass = normalMass;
         playerLiquids = new LiquidInfo[maxLiquidType];
         for (int i = 0; i < maxLiquidType; ++i)
         {
@@ -30,7 +37,11 @@ public class LiquidTracker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (CalcWeight().Equals(maxLiquidAmount))
+        {
+            rb.mass = heavyMass;
+        }
+        //Debug.Log(rb.mass.ToString());
     }
 
     public LiquidInfo GetSelectedLiquid()
