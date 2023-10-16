@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
+using UnityEngine.UI;
+using UnityEngine.AI;
 
 
 // This Switches the camera from 3rd person view to aiming mode
@@ -13,11 +15,16 @@ public class SwitchCamera : MonoBehaviour
     private Transform projectile;
     public GameObject crosshair;
 
+    public Slider sensitivitySlider;
+    public Toggle usingController;
+    private float Xsensitivity = 0.0264f;
+    private float Ysensitivity = 0.0004f;
+
     private bool aiming = false;
     [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask();
 
-    public float speedV = 0.3f;
-    public float speedH = 0.3f;
+    public float speedV = 0.1f;
+    public float speedH = 0.1f;
     private float rotationX = 0.0f;
     private float rotationY = 0.0f;
 
@@ -45,6 +52,18 @@ public class SwitchCamera : MonoBehaviour
         {
             AimCamera();
         }
+        // update sensitivity
+        if (usingController.isOn)
+        {
+            Xsensitivity = 0.0264f * 4f;
+            Ysensitivity = 0.0004f * 4f;
+        } else
+        {
+            Xsensitivity = 0.0264f;
+            Ysensitivity = 0.0004f;
+}
+        thirdPersonCamera.m_XAxis.m_MaxSpeed = Xsensitivity * sensitivitySlider.value;
+        thirdPersonCamera.m_YAxis.m_MaxSpeed = Ysensitivity * sensitivitySlider.value;
     }
 
     private void Aim(InputAction.CallbackContext context)
