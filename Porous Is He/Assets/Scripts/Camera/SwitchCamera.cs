@@ -48,6 +48,14 @@ public class SwitchCamera : MonoBehaviour
 
     void Update()
     {
+        // there is a better way to handle this. but it's not a priority
+        // should have a GameManager game object that handles the game control/pause
+        if (PauseMenu.isPaused) 
+        {
+            Camera.main.GetComponent<CinemachineBrain>().enabled = false;
+            return;
+        }
+        Camera.main.GetComponent<CinemachineBrain>().enabled = true;
         if (aiming)
         {
             AimCamera();
@@ -68,8 +76,9 @@ public class SwitchCamera : MonoBehaviour
 
     private void Aim(InputAction.CallbackContext context)
     {
-        // Get the center where the camera is pointing at
-        Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
+        if (PauseMenu.isPaused) return;
+            // Get the center where the camera is pointing at
+            Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
         Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
         Vector3 mouseWorldPosition = ray.GetPoint(50);
         if (Physics.Raycast(ray, out RaycastHit raycastHit, 999f, aimColliderLayerMask))
@@ -104,6 +113,7 @@ public class SwitchCamera : MonoBehaviour
 
     private void StopAim(InputAction.CallbackContext context)
     {
+        //if (PauseMenu.isPaused) return;
         // Reset player's x rotation
         transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, transform.eulerAngles.z);
 
