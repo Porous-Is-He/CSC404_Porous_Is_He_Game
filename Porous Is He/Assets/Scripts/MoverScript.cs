@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using static UnityEditor.Searcher.SearcherWindow.Alignment;
+//using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 [RequireComponent(typeof(CharacterController))]
 
@@ -106,8 +106,17 @@ public class MoverScript : MonoBehaviour
         if ((!IsGrounded() && numberOfJumps >= maxNumberOfJumps) || aiming) return;
         if (numberOfJumps == 0) StartCoroutine(WaitForLanding());
 
+
+        int playerWeight = GameObject.Find("Player").GetComponent<LiquidTracker>().CalcWeight();
+        if (playerWeight >= 3)
+        {
+            playerVelocity = jumpPower * (4.0f/ 5.0f);
+        } else
+        {
+            playerVelocity = jumpPower;
+        }
+
         numberOfJumps++;
-        playerVelocity = jumpPower;
     }
 
     private IEnumerator WaitForLanding()
