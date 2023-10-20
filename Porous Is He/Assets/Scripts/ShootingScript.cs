@@ -26,6 +26,7 @@ public class ShootingScript : MonoBehaviour
     
     private void Shoot(InputAction.CallbackContext context)
     {
+        if (PauseMenu.isPaused) return;
         if (!CanShoot())return;
         CreateBullet();
         DeductLiquid();

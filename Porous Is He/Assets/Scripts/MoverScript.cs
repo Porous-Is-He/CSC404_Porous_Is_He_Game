@@ -23,7 +23,7 @@ public class MoverScript : MonoBehaviour
     // Player Movement variables
     private Vector2 inputVector;
     private Vector3 direction;
-    private float playerSpeed = 6.0f;
+    private float playerSpeed = 6.5f;
     private float turnSmoothTime = 0.05f;
     private float turnSmoothVelocity;
 
