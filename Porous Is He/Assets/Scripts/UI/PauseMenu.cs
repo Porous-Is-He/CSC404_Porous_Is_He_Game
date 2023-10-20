@@ -11,8 +11,6 @@ public class PauseMenu : MonoBehaviour
     public GameObject pauseMenu;
     public static bool isPaused;
 
-    public Slider sensitivitySlider;
-
     private PlayerInputActions playerInputActions;
 
     // Start is called before the first frame update
@@ -57,6 +55,7 @@ public class PauseMenu : MonoBehaviour
 
     public void BackToMenu()
     {
-        SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+        Destroy(this);
+        SceneManager.LoadScene(0);
     }
 }
