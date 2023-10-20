@@ -28,9 +28,9 @@ public class MoverScript : MonoBehaviour
     private float turnSmoothVelocity;
     
     // Variables that deals with knockback
-    private float knockBackForce = 3.0f;
-    private float knockBackTime;
-    public float knockBackCounter;
+    public float knockBackForce;
+    public float knockBackTime;
+    private float knockBackCounter;
 
     // Variable that deals with aiming
     public bool aiming = false;
@@ -134,10 +134,10 @@ public class MoverScript : MonoBehaviour
 
     public void KnockBack(Vector3 moveDirection)
     {
+        Debug.Log("PUSHHH"); // Nice little debug statement to check stuff
+
         knockBackCounter = knockBackTime;
-
-        moveDirection = new Vector3(0f, 1f, -2f);
-
         direction = moveDirection * knockBackForce;
+        direction.y = knockBackForce;
     }
 }

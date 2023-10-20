@@ -15,7 +15,7 @@ public class FlameScript : MonoBehaviour, ReactantInterface
     private float elapsedTime = 0.0f;
     private float animTime = 0.5f;
 
-    private MoverScript thisPlayer;
+    public MoverScript thisPlayer;
 
     public void ApplyLiquid(LiquidInfo liquid)
     {
