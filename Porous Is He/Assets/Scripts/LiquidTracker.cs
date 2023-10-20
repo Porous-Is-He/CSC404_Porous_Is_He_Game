@@ -121,4 +121,10 @@ public class LiquidTracker : MonoBehaviour
 
         return Mathf.Min(weight, maxLiquidAmount);
     }
+
+    public bool FullLiquid()
+    {
+        if (playerLiquids[GetSelectionIndex()].liquidAmount == maxLiquidAmount) return true;
+        return false;
+    }
 }
