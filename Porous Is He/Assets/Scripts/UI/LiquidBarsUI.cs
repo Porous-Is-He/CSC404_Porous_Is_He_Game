@@ -38,7 +38,7 @@ public class LiquidBarsUI : MonoBehaviour
         {
             slider1.gameObject.SetActive(true);
         }
-        else if (liquidTracker.maxLiquidType >= 3)
+        if (liquidTracker.maxLiquidType >= 3)
         {
             slider2.gameObject.SetActive(true);
         }
@@ -65,6 +65,8 @@ public class LiquidBarsUI : MonoBehaviour
     // Swap currently selected liquid and change the scale of the UI
     private void SwapLiquid(InputAction.CallbackContext context)
     {
+        if (liquidTracker.maxLiquidType == 1) return;
+
         int currentSelection = liquidTracker.GetSelectionIndex();
         if (currentSelection == 0)
             StartCoroutine(SliderLerpFunction(1f, 0.6f, slider0));
