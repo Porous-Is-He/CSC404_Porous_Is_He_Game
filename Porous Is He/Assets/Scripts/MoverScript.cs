@@ -128,4 +128,9 @@ public class MoverScript : MonoBehaviour
     }
 
     private bool IsGrounded() => controller.isGrounded;
+
+    private void OnDestroy()
+    {
+        playerInputActions.Player.Disable();
+    }
 }

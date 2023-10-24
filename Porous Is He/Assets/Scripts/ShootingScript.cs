@@ -82,4 +82,9 @@ public class ShootingScript : MonoBehaviour
         playerSound.PlaySound("Shoot");
 
     }
+
+    private void OnDestroy()
+    {
+        playerInputActions.Player.Disable();
+    }
 }

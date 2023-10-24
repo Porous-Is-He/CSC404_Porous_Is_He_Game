@@ -59,4 +59,9 @@ public class PauseMenu : MonoBehaviour
         Destroy(this);
         SceneManager.LoadScene(0);
     }
+
+    private void OnDestroy()
+    {
+        playerInputActions.GameManager.Disable();
+    }
 }
