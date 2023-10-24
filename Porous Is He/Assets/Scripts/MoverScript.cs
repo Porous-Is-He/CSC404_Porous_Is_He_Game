@@ -66,9 +66,16 @@ public class MoverScript : MonoBehaviour
                 controller.Move(direction * playerSpeed * Time.deltaTime);
             }
         }
-        else 
+        else
         {
             knockBackCounter -= Time.deltaTime;
+            ApplyGravity();
+            controller.Move(direction * playerSpeed * Time.deltaTime);
+            if (IsGrounded())
+            {
+                direction.x = 0.0f;
+                direction.x = 0.0f;
+            }
         }
     }
 
@@ -119,6 +126,7 @@ public class MoverScript : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
+        if (!enableMovement) return;
         if ((!IsGrounded() && numberOfJumps >= maxNumberOfJumps) || aiming) return;
         if (numberOfJumps == 0) StartCoroutine(WaitForLanding());
 
@@ -140,14 +148,15 @@ public class MoverScript : MonoBehaviour
         Debug.Log("PUSHHH"); // Nice little debug statement to check stuff
 
         knockBackCounter = knockBackTime;
-        enableMovement = false;
-        WaitForLanding();
+        //enableMovement = false;
+        //WaitForLanding();
         direction = moveDirection * knockBackForce;
         direction.y = knockBackForce;
+        playerVelocity = knockBackForce;
 
-        if (knockBackCounter >= 0)
-        {
-            enableMovement = true;
-        }
+        /*        if (knockBackCounter >= 0)
+                {
+                    enableMovement = true;
+                }*/
     }
 }
