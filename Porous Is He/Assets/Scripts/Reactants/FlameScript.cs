@@ -129,8 +129,8 @@ public class FlameScript : MonoBehaviour, ReactantInterface
     private void OnTriggerEnter(Collider other)
     {   
         // Only want knockback to occur when the flame still exists
-        // TODO: get the name of the projectile. so if "other" is a projectile, knockback doesn't get called.
-        if (!isFlameOut && other.transform.gameObject.name != "WaterProjectile" && other.transform.gameObject.name != "OilProjectile") 
+        // And only want knockback on the player object
+        if (!isFlameOut && other.transform.gameObject.CompareTag("Player")) 
         {
             Vector3 moveDirection = other.transform.position - transform.position;
             moveDirection = moveDirection.normalized;
