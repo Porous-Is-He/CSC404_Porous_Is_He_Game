@@ -44,6 +44,7 @@ public class MoverScript : MonoBehaviour
 
     void Update()
     {
+        if (LevelComplete.LevelEnd) return;
         if (!aiming)
         {
             Move();
