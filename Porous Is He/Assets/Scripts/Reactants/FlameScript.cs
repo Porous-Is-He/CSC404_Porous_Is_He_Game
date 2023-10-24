@@ -126,7 +126,7 @@ public class FlameScript : MonoBehaviour, ReactantInterface
     {
         Debug.Log("Knockback the sponge");
         Vector3 moveDirection = other.transform.position - transform.position;
-        moveDirection = moveDirection.normalized;
+        // moveDirection = moveDirection.normalized;
         thisPlayer.KnockBack(moveDirection);
     }
 }

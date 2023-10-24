@@ -32,6 +32,9 @@ public class MoverScript : MonoBehaviour
     public float knockBackTime;
     private float knockBackCounter;
 
+    // Variable that toggles movement
+    private bool enableMovement = true;
+
     // Variable that deals with aiming
     public bool aiming = false;
 
@@ -52,7 +55,7 @@ public class MoverScript : MonoBehaviour
     {
         if (knockBackCounter <= 0)
         {
-            if (!aiming)
+            if (!aiming && enableMovement)
             {
                 Move();
                 ApplyGravity();
@@ -137,7 +140,14 @@ public class MoverScript : MonoBehaviour
         Debug.Log("PUSHHH"); // Nice little debug statement to check stuff
 
         knockBackCounter = knockBackTime;
+        enableMovement = false;
+        WaitForLanding();
         direction = moveDirection * knockBackForce;
         direction.y = knockBackForce;
+
+        if (knockBackCounter >= 0)
+        {
+            enableMovement = true;
+        }
     }
 }
