@@ -14,6 +14,9 @@ public class FlameScript : MonoBehaviour, ReactantInterface
 
     private float elapsedTime = 0.0f;
     private float animTime = 0.5f;
+    
+    // Variable to keep track of flames
+    private bool isFlameOut = false;
 
     public MoverScript thisPlayer;
 
@@ -86,6 +89,7 @@ public class FlameScript : MonoBehaviour, ReactantInterface
                     if (fireLevel == 0)
                     {
                         fireParticle.Stop();
+                        isFlameOut = true; // The flame has been put out
                         
                     }
                     else { 
@@ -124,9 +128,11 @@ public class FlameScript : MonoBehaviour, ReactantInterface
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Knockback the sponge");
-        Vector3 moveDirection = other.transform.position - transform.position;
-        moveDirection = moveDirection.normalized;
-        thisPlayer.KnockBack(moveDirection);
+        if (!isFlameOut)
+        {
+            Vector3 moveDirection = other.transform.position - transform.position;
+            moveDirection = moveDirection.normalized;
+            thisPlayer.KnockBack(moveDirection);
+        }
     }
 }
