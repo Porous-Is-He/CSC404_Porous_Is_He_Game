@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2581,11 +2581,11 @@ PrefabInstance:
       objectReference: {fileID: 1973017833}
     - target: {fileID: 6024000846915643651, guid: 073a277f6b63eb04dbd363f4b7f79515, type: 3}
       propertyPath: knockBackTime
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6024000846915643651, guid: 073a277f6b63eb04dbd363f4b7f79515, type: 3}
       propertyPath: knockBackForce
-      value: 2.5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6024000846915643651, guid: 073a277f6b63eb04dbd363f4b7f79515, type: 3}
       propertyPath: knockBackCounter
@@ -5152,7 +5152,7 @@ Transform:
   m_GameObject: {fileID: 1381177990}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.08, y: -1.9223001, z: -32.7}
+  m_LocalPosition: {x: 3.99, y: -1.9223001, z: -33.24}
   m_LocalScale: {x: 2.4739892, y: 3.3334053, z: 2.4739892}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -16992,7 +16992,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1, y: 1, z: 0.5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2180000604301549951
 GameObject:
