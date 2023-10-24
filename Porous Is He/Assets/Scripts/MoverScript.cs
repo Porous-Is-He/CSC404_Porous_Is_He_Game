@@ -9,7 +9,7 @@ using UnityEngine.InputSystem;
 
 public class MoverScript : MonoBehaviour
 {
-    private CharacterController controller;
+    public CharacterController controller;
     private PlayerInputActions playerInputActions;
     private Transform cameraMainTransform;
 
@@ -26,7 +26,16 @@ public class MoverScript : MonoBehaviour
     private float playerSpeed = 6.5f;
     private float turnSmoothTime = 0.05f;
     private float turnSmoothVelocity;
+    
+    // Variables that deals with knockback
+    public float knockBackForce;
+    public float knockBackTime;
+    private float knockBackCounter;
 
+    // Variable that toggles movement
+    private bool enableMovement = true;
+
+    // Variable that deals with aiming
     public bool aiming = false;
 
 
@@ -44,15 +53,29 @@ public class MoverScript : MonoBehaviour
 
     void Update()
     {
-        if (!aiming)
+        if (knockBackCounter <= 0)
         {
-            Move();
+            if (!aiming && enableMovement)
+            {
+                Move();
+                ApplyGravity();
+                controller.Move(direction * playerSpeed * Time.deltaTime);
+            } else
+            {
+                MoveWhileAiming();
+                controller.Move(direction * playerSpeed * Time.deltaTime);
+            }
+        }
+        else
+        {
+            knockBackCounter -= Time.deltaTime;
             ApplyGravity();
             controller.Move(direction * playerSpeed * Time.deltaTime);
-        } else
-        {
-            MoveWhileAiming();
-            controller.Move(direction * playerSpeed * Time.deltaTime);
+            if (IsGrounded())
+            {
+                direction.x = 0.0f;
+                direction.x = 0.0f;
+            }
         }
     }
 
@@ -103,6 +126,7 @@ public class MoverScript : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
+        if (!enableMovement) return;
         if ((!IsGrounded() && numberOfJumps >= maxNumberOfJumps) || aiming) return;
         if (numberOfJumps == 0) StartCoroutine(WaitForLanding());
 
@@ -127,4 +151,21 @@ public class MoverScript : MonoBehaviour
     }
 
     private bool IsGrounded() => controller.isGrounded;
+
+    public void KnockBack(Vector3 moveDirection)
+    {
+        Debug.Log("PUSHHH"); // Nice little debug statement to check stuff
+
+        knockBackCounter = knockBackTime;
+        //enableMovement = false;
+        //WaitForLanding();
+        direction = moveDirection * knockBackForce;
+        direction.y = knockBackForce;
+        playerVelocity = knockBackForce;
+
+        /*        if (knockBackCounter >= 0)
+                {
+                    enableMovement = true;
+                }*/
+    }
 }

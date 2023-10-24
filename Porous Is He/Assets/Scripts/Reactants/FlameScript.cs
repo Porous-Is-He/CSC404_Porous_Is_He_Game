@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static MoverScript;
 
 public class FlameScript : MonoBehaviour, ReactantInterface
 {
@@ -13,6 +14,8 @@ public class FlameScript : MonoBehaviour, ReactantInterface
 
     private float elapsedTime = 0.0f;
     private float animTime = 0.5f;
+
+    public MoverScript thisPlayer;
 
     public void ApplyLiquid(LiquidInfo liquid)
     {
@@ -46,7 +49,7 @@ public class FlameScript : MonoBehaviour, ReactantInterface
     // Start is called before the first frame update
     void Start()
     {
-        
+        thisPlayer = FindObjectOfType<MoverScript>();
     }
 
 
@@ -117,5 +120,13 @@ public class FlameScript : MonoBehaviour, ReactantInterface
                 lastFireLevel = fireLevel;
             }
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("Knockback the sponge");
+        Vector3 moveDirection = other.transform.position - transform.position;
+        moveDirection = moveDirection.normalized;
+        thisPlayer.KnockBack(moveDirection);
     }
 }
