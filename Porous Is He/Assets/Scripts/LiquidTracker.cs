@@ -29,8 +29,10 @@ public class LiquidTracker : MonoBehaviour
         {
             if (i == 0)
                 playerLiquids[i] = new LiquidInfo("Water", 0);
-            else
-                playerLiquids[i] = new LiquidInfo("None", 0);
+            else if (i == 1)
+                playerLiquids[i] = new LiquidInfo("Oil", 0);
+            else if (i == 2)
+                playerLiquids[i] = new LiquidInfo("Coffee", 0);
         }
     }
 
@@ -120,5 +122,11 @@ public class LiquidTracker : MonoBehaviour
         
 
         return Mathf.Min(weight, maxLiquidAmount);
+    }
+
+    public bool FullLiquid()
+    {
+        if (playerLiquids[GetSelectionIndex()].liquidAmount == maxLiquidAmount) return true;
+        return false;
     }
 }

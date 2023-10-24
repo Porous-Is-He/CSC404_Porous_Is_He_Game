@@ -10,6 +10,7 @@ public class AbsorbLiquid : MonoBehaviour
     private bool touchingLiquid = false;
     private PlayerInputActions playerInputActions;
     private LiquidSource liquidSource;
+    private LiquidTracker liquidTracker;
 
     public GameObject interactUI;
 
@@ -18,6 +19,8 @@ public class AbsorbLiquid : MonoBehaviour
         playerInputActions = new PlayerInputActions();
         playerInputActions.Player.Enable();
         playerInputActions.Player.Absorb.started += Absorb;
+
+        liquidTracker = GetComponent<LiquidTracker>();
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
@@ -29,6 +32,7 @@ public class AbsorbLiquid : MonoBehaviour
         if (hit.collider.gameObject.tag == "Water")
         {
             interactUI.SetActive(true);
+            if (liquidTracker.GetSelectedLiquid().liquidType != "Water") return;
             touchingLiquid = true;
             liquidSource = hit.collider.gameObject.GetComponent<LiquidSource>();
         }
@@ -36,11 +40,14 @@ public class AbsorbLiquid : MonoBehaviour
 
     private void Absorb(InputAction.CallbackContext context)
     {
-        if (touchingLiquid)
+        if (touchingLiquid && !liquidTracker.FullLiquid())
         {
             LiquidInfo liquid = liquidSource.AbsorbLiquid(amountAbsorbed);
-            gameObject.GetComponent<PoSoundManager>().PlaySound("Absorb");
-            gameObject.GetComponent<LiquidTracker>().AddSelectedLiquid(liquid);
+            if (liquid.liquidAmount != 0)
+            {
+                gameObject.GetComponent<PoSoundManager>().PlaySound("Absorb");
+                gameObject.GetComponent<LiquidTracker>().AddSelectedLiquid(liquid);
+            }
         }
     }
 }

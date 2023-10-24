@@ -80,6 +80,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Swap"",
+                    ""type"": ""Button"",
+                    ""id"": ""14dc9f4f-5363-426a-8b95-f8f903ce0ad4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -324,6 +333,67 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Absorb"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""80d4528b-031c-4462-824a-a889b16913cd"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Swap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bddc641f-5b83-445e-95d4-ae44ef22ed10"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Swap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""GameManager"",
+            ""id"": ""da4eff2a-74e1-4d7f-ae9d-e4b22aff89d6"",
+            ""actions"": [
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""ebc4357e-8fdf-4d4a-8bc2-a744cc50a2cc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""9d6a435d-d381-40b5-904c-85d38f420e29"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""70c94b8b-5804-41c7-81d6-15340dbe1301"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -338,6 +408,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         m_Player_MouseLook = m_Player.FindAction("MouseLook", throwIfNotFound: true);
         m_Player_Absorb = m_Player.FindAction("Absorb", throwIfNotFound: true);
+        m_Player_Swap = m_Player.FindAction("Swap", throwIfNotFound: true);
+        // GameManager
+        m_GameManager = asset.FindActionMap("GameManager", throwIfNotFound: true);
+        m_GameManager_Pause = m_GameManager.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -405,6 +479,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_MouseLook;
     private readonly InputAction m_Player_Absorb;
+    private readonly InputAction m_Player_Swap;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -415,6 +490,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
         public InputAction @MouseLook => m_Wrapper.m_Player_MouseLook;
         public InputAction @Absorb => m_Wrapper.m_Player_Absorb;
+        public InputAction @Swap => m_Wrapper.m_Player_Swap;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -442,6 +518,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Absorb.started += instance.OnAbsorb;
             @Absorb.performed += instance.OnAbsorb;
             @Absorb.canceled += instance.OnAbsorb;
+            @Swap.started += instance.OnSwap;
+            @Swap.performed += instance.OnSwap;
+            @Swap.canceled += instance.OnSwap;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -464,6 +543,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Absorb.started -= instance.OnAbsorb;
             @Absorb.performed -= instance.OnAbsorb;
             @Absorb.canceled -= instance.OnAbsorb;
+            @Swap.started -= instance.OnSwap;
+            @Swap.performed -= instance.OnSwap;
+            @Swap.canceled -= instance.OnSwap;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -481,6 +563,52 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
+
+    // GameManager
+    private readonly InputActionMap m_GameManager;
+    private List<IGameManagerActions> m_GameManagerActionsCallbackInterfaces = new List<IGameManagerActions>();
+    private readonly InputAction m_GameManager_Pause;
+    public struct GameManagerActions
+    {
+        private @PlayerInputActions m_Wrapper;
+        public GameManagerActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Pause => m_Wrapper.m_GameManager_Pause;
+        public InputActionMap Get() { return m_Wrapper.m_GameManager; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(GameManagerActions set) { return set.Get(); }
+        public void AddCallbacks(IGameManagerActions instance)
+        {
+            if (instance == null || m_Wrapper.m_GameManagerActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_GameManagerActionsCallbackInterfaces.Add(instance);
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
+        }
+
+        private void UnregisterCallbacks(IGameManagerActions instance)
+        {
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
+        }
+
+        public void RemoveCallbacks(IGameManagerActions instance)
+        {
+            if (m_Wrapper.m_GameManagerActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IGameManagerActions instance)
+        {
+            foreach (var item in m_Wrapper.m_GameManagerActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_GameManagerActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public GameManagerActions @GameManager => new GameManagerActions(this);
     public interface IPlayerActions
     {
         void OnJump(InputAction.CallbackContext context);
@@ -489,5 +617,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnMouseLook(InputAction.CallbackContext context);
         void OnAbsorb(InputAction.CallbackContext context);
+        void OnSwap(InputAction.CallbackContext context);
+    }
+    public interface IGameManagerActions
+    {
+        void OnPause(InputAction.CallbackContext context);
     }
 }

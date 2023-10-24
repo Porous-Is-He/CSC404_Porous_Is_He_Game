@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
+using UnityEngine.UI;
+using UnityEngine.AI;
 
 
 // This Switches the camera from 3rd person view to aiming mode
@@ -13,11 +15,16 @@ public class SwitchCamera : MonoBehaviour
     private Transform projectile;
     public GameObject crosshair;
 
+    public Slider sensitivitySlider;
+    public Toggle usingController;
+    private float Xsensitivity = 0.0264f;
+    private float Ysensitivity = 0.0004f;
+
     private bool aiming = false;
     [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask();
 
-    public float speedV = 0.3f;
-    public float speedH = 0.3f;
+    public float speedV = 0.1f;
+    public float speedH = 0.1f;
     private float rotationX = 0.0f;
     private float rotationY = 0.0f;
 
@@ -41,16 +48,37 @@ public class SwitchCamera : MonoBehaviour
 
     void Update()
     {
+        // there is a better way to handle this. but it's not a priority
+        // should have a GameManager game object that handles the game control/pause
+        if (PauseMenu.isPaused) 
+        {
+            Camera.main.GetComponent<CinemachineBrain>().enabled = false;
+            return;
+        }
+        Camera.main.GetComponent<CinemachineBrain>().enabled = true;
         if (aiming)
         {
             AimCamera();
         }
+        // update sensitivity
+        if (usingController.isOn)
+        {
+            Xsensitivity = 0.0264f * 4f;
+            Ysensitivity = 0.0004f * 4f;
+        } else
+        {
+            Xsensitivity = 0.0264f;
+            Ysensitivity = 0.0004f;
+}
+        thirdPersonCamera.m_XAxis.m_MaxSpeed = Xsensitivity * sensitivitySlider.value;
+        thirdPersonCamera.m_YAxis.m_MaxSpeed = Ysensitivity * sensitivitySlider.value;
     }
 
     private void Aim(InputAction.CallbackContext context)
     {
-        // Get the center where the camera is pointing at
-        Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
+        if (PauseMenu.isPaused) return;
+            // Get the center where the camera is pointing at
+            Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
         Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
         Vector3 mouseWorldPosition = ray.GetPoint(50);
         if (Physics.Raycast(ray, out RaycastHit raycastHit, 999f, aimColliderLayerMask))
@@ -85,6 +113,7 @@ public class SwitchCamera : MonoBehaviour
 
     private void StopAim(InputAction.CallbackContext context)
     {
+        //if (PauseMenu.isPaused) return;
         // Reset player's x rotation
         transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, transform.eulerAngles.z);
 
