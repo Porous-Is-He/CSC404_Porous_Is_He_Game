@@ -32,6 +32,7 @@ public class AbsorbLiquid : MonoBehaviour
         if (hit.collider.gameObject.tag == "Water")
         {
             interactUI.SetActive(true);
+            if (liquidTracker.GetSelectedLiquid().liquidType != "Water") return;
             touchingLiquid = true;
             liquidSource = hit.collider.gameObject.GetComponent<LiquidSource>();
         }
