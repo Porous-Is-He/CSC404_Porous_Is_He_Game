@@ -31,6 +31,7 @@ public class PauseMenu : MonoBehaviour
 
     public void PauseGame(InputAction.CallbackContext context)
     {
+        if (LevelComplete.LevelEnd) return;
         if (isPaused)
         {
             ResumeGame();
@@ -57,5 +58,10 @@ public class PauseMenu : MonoBehaviour
     {
         Destroy(this);
         SceneManager.LoadScene(0);
+    }
+
+    private void OnDestroy()
+    {
+        playerInputActions.GameManager.Disable();
     }
 }

@@ -26,7 +26,7 @@ public class MoverScript : MonoBehaviour
     private float playerSpeed = 6.5f;
     private float turnSmoothTime = 0.05f;
     private float turnSmoothVelocity;
-    
+
     // Variables that deals with knockback
     public float knockBackForce;
     public float knockBackTime;
@@ -53,6 +53,7 @@ public class MoverScript : MonoBehaviour
 
     void Update()
     {
+        if (LevelComplete.LevelEnd) return;
         if (knockBackCounter <= 0)
         {
             if (!aiming && enableMovement)
@@ -60,7 +61,8 @@ public class MoverScript : MonoBehaviour
                 Move();
                 ApplyGravity();
                 controller.Move(direction * playerSpeed * Time.deltaTime);
-            } else
+            }
+            else
             {
                 MoveWhileAiming();
                 controller.Move(direction * playerSpeed * Time.deltaTime);
@@ -115,11 +117,12 @@ public class MoverScript : MonoBehaviour
         if (IsGrounded() && playerVelocity < 0f)
         {
             playerVelocity = 0.0f;
-        } else
+        }
+        else
         {
             playerVelocity += gravityValue * Time.deltaTime;
         }
-        
+
         direction.y = playerVelocity;
     }
 
@@ -134,8 +137,9 @@ public class MoverScript : MonoBehaviour
         int playerWeight = GameObject.Find("Player").GetComponent<LiquidTracker>().CalcWeight();
         if (playerWeight >= 3)
         {
-            playerVelocity = jumpPower * (4.0f/ 5.0f);
-        } else
+            playerVelocity = jumpPower * (4.0f / 5.0f);
+        }
+        else
         {
             playerVelocity = jumpPower;
         }
@@ -167,5 +171,9 @@ public class MoverScript : MonoBehaviour
                 {
                     enableMovement = true;
                 }*/
+    }
+    private void OnDestroy()
+    {
+        playerInputActions.Player.Disable();
     }
 }

@@ -102,5 +102,9 @@ public class LiquidBarsUI : MonoBehaviour
         scaleModifier = endValue;
     }
 
+    private void OnDestroy()
+    {
+        playerInputActions.Player.Disable();
+    }
 }
 

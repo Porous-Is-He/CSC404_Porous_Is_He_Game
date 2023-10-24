@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,17 +31,18 @@ public class AudioManager : MonoBehaviour
     }
 
 
-    private void PlayMusic(AudioClip audio, string name)
+    private void PlayMusic(AudioClip audio, string sceneName)
     {
         musicSource.Stop();
         musicSource.clip = audio;
         musicSource.loop = true;
         musicSource.Play();
-        currentScene = name;
+        currentScene = sceneName;
     }
 
-    public void NoMusic()
+    public void NoMusic(string sceneName)
     {
         musicSource.Stop();
+        currentScene = sceneName;
     }
 }
