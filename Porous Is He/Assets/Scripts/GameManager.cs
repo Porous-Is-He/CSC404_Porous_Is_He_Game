@@ -13,8 +13,6 @@ public class GameManager : MonoBehaviour
     private AudioManager AudioManager;
     private bool audioInit = false;
 
-    public bool isPaused; 
-
     private void Awake()
     {
         if (Instance == null)
@@ -64,36 +62,7 @@ public class GameManager : MonoBehaviour
             AudioManager.PlayMainMenu();
         } else
         {
-            AudioManager.NoMusic();
+            AudioManager.NoMusic(scene.name);
         }
     }
-
-    public void Pause()
-    {
-        isPaused = true;
-    }
-
-    public void Resume()
-    {
-        isPaused = false;
-    }
-    /*    public void Pause()
-        {
-            pauseMenu.SetActive(true);
-            Time.timeScale = 0f;
-            isPaused = true;
-            Cursor.lockState = CursorLockMode.None;
-        }
-
-
-
-        public void ResumeGame()
-    {
-        pauseMenu.SetActive(false);
-        Time.timeScale = 1f;
-        isPaused = false;
-        Cursor.lockState = CursorLockMode.Locked;
-    }*/
-
-
 }
