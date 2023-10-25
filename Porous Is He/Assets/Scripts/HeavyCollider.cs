@@ -11,7 +11,7 @@ public class HeavyCollider : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
 
     }
 
@@ -22,25 +22,29 @@ public class HeavyCollider : MonoBehaviour
     }
 
 
-     void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
-        if (isBroken == true)
+        if (Input.GetKey(KeyCode.I))
         {
-            return;
-        }
 
-
-        if (other.gameObject.tag == "Player")
-        {
-            int playerWeight = GameObject.Find("Player").GetComponent<LiquidTracker>().CalcWeight();
-
-            if (playerWeight >= GameObject.Find("Player").GetComponent<LiquidTracker>().maxLiquidAmount)
+            if (isBroken == true)
             {
-                //GameObject broken = Instantiate(brokenObject, currentObject.transform.position, currentObject.transform.rotation, currentObject.transform.parent);
-                //broken.transform.localScale = currentObject.transform.localScale;
-                brokenObject.SetActive(true);
-                currentObject.SetActive(false);
-                isBroken = true;
+                return;
+            }
+
+
+            if (other.gameObject.tag == "Player")
+            {
+                int playerWeight = GameObject.Find("Player").GetComponent<LiquidTracker>().CalcWeight();
+
+                if (playerWeight >= GameObject.Find("Player").GetComponent<LiquidTracker>().maxLiquidAmount)
+                {
+                    //GameObject broken = Instantiate(brokenObject, currentObject.transform.position, currentObject.transform.rotation, currentObject.transform.parent);
+                    //broken.transform.localScale = currentObject.transform.localScale;
+                    brokenObject.SetActive(true);
+                    currentObject.SetActive(false);
+                    isBroken = true;
+                }
             }
         }
     }
