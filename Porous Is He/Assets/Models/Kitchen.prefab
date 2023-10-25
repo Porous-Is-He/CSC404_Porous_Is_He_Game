@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8672973933638010814}
   - component: {fileID: 8740864641005593475}
   - component: {fileID: 7536739780126294269}
-  - component: {fileID: 1833447032333364170}
+  - component: {fileID: 5397267843260130359}
   m_Layer: 0
   m_Name: Bowl
   m_TagString: Untagged
@@ -28,9 +28,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 458450350769995890}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 1.6583, y: 0.49914628, z: 0.32350007}
-  m_LocalScale: {x: 0.08110138, y: 0.05391854, z: 0.07978229}
+  m_LocalScale: {x: 0.08110138, y: 0.05391854, z: 0.0797823}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3584182228618796834}
@@ -106,7 +106,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &1833447032333364170
+--- !u!54 &5397267843260130359
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -458,10 +458,10 @@ PrefabInstance:
       addedObject: {fileID: 1713954240803904968}
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5ee6a3a905cd61646bc3dbda332c3cf1, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2508770958757779297}
+      addedObject: {fileID: 4000714556837838512}
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5ee6a3a905cd61646bc3dbda332c3cf1, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4000714556837838512}
+      addedObject: {fileID: 2508770958757779297}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7967904852303698671, guid: 5ee6a3a905cd61646bc3dbda332c3cf1, type: 3}
       insertIndex: -1

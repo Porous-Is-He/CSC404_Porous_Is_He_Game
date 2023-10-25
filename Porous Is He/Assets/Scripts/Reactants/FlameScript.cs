@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static MoverScript;
 
 public class FlameScript : MonoBehaviour, ReactantInterface
 {
@@ -10,6 +11,14 @@ public class FlameScript : MonoBehaviour, ReactantInterface
     public int maxFireLevel = 3;
 
     private int lastFireLevel = -1;
+
+    private float elapsedTime = 0.0f;
+    private float animTime = 0.5f;
+    
+    // Variable to keep track of flames
+    private bool isFlameOut = false;
+
+    public MoverScript thisPlayer;
 
     public void ApplyLiquid(LiquidInfo liquid)
     {
@@ -43,8 +52,9 @@ public class FlameScript : MonoBehaviour, ReactantInterface
     // Start is called before the first frame update
     void Start()
     {
-        
+        thisPlayer = FindObjectOfType<MoverScript>();
     }
+
 
     // Update is called once per frame
     void Update()
@@ -61,27 +71,44 @@ public class FlameScript : MonoBehaviour, ReactantInterface
             //fireSprite.transform.localScale = newScale;
             //fireSprite.transform.localPosition = new Vector3(0f, newScale.y * 0.5f, 0f);
 
-            if (lastFireLevel <= 0 || fireLevel == 0)
+
+
+            float fireMultiplier = 1.8f;
+            float flameSize = transform.lossyScale.y * fireMultiplier * ( ((float)fireLevel + 2) / ((float)maxFireLevel + 2) );
+
+            elapsedTime += Time.deltaTime;
+            float interpolationRatio = Mathf.Max(elapsedTime / animTime, 1.0f);
+
+            for (int i = 0; i < transform.childCount; ++i)
             {
-                Transform[] fireEffects = gameObject.GetComponentsInChildren<Transform>(transform);
-
-                for (int i = 0; i < transform.childCount; ++i)
+                ParticleSystem fireParticle = transform.GetChild(i).GetComponent<ParticleSystem>();
+                if (fireParticle)
                 {
-                    ParticleSystem fireParticle = transform.GetChild(i).GetComponent<ParticleSystem>();
-                    if (fireParticle)
+                    float lastFlameSize = fireParticle.startSize;
+
+                    if (fireLevel == 0)
                     {
-                        if (fireLevel == 0)
-                        {
-                            fireParticle.Stop();
-
-                            // Temporary. Remove later.
-                            Destroy(gameObject);
-                        } else
-                            fireParticle.Play();
+                        fireParticle.Stop();
+                        isFlameOut = true; // The flame has been put out
+                        
                     }
-
+                    else { 
+                        if (transform.GetChild(i).name == "OrangeFire")
+                        {
+                            flameSize = flameSize * 0.7f;
+                        } else if (transform.GetChild(i).name == "YellowFire")
+                        {
+                            flameSize = flameSize * 0.5f;
+                        }
+                        fireParticle.startSize = (float)lastFlameSize + (float)(flameSize - lastFlameSize) * interpolationRatio;
+                        fireParticle.Play();
+                    }
                 }
 
+            }
+
+            if (lastFireLevel <= 0 || fireLevel == 0)
+            {
                 AudioSource audioSrc = transform.GetComponent<AudioSource>();
                 AudioClip audioClip = Resources.Load<AudioClip>("Sounds/FireBurning");
                 audioSrc.loop = true;
@@ -93,7 +120,21 @@ public class FlameScript : MonoBehaviour, ReactantInterface
                     audioSrc.Play();
             }
 
-            lastFireLevel = fireLevel;
+            if (interpolationRatio >= 1) {
+                lastFireLevel = fireLevel;
+            }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {   
+        // Only want knockback to occur when the flame still exists
+        // And only want knockback on the player object
+        if (!isFlameOut && other.transform.gameObject.CompareTag("Player")) 
+        {
+            Vector3 moveDirection = other.transform.position - transform.position;
+            moveDirection = moveDirection.normalized;
+            thisPlayer.KnockBack(moveDirection);
         }
     }
 }

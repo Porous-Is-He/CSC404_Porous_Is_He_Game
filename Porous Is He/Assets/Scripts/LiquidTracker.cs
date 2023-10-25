@@ -14,23 +14,36 @@ public class LiquidTracker : MonoBehaviour
 
     public int maxLiquidAmount = 3;
 
+    public Rigidbody rb;
+
+    public float normalMass = 20f;
+    public float heavyMass = 40f;
+
     // Start is called before the first frame update
     void Start()
     {
+        rb = GetComponent<Rigidbody>();
+        rb.mass = normalMass;
         playerLiquids = new LiquidInfo[maxLiquidType];
         for (int i = 0; i < maxLiquidType; ++i)
         {
             if (i == 0)
                 playerLiquids[i] = new LiquidInfo("Water", 0);
-            else
-                playerLiquids[i] = new LiquidInfo("None", 0);
+            else if (i == 1)
+                playerLiquids[i] = new LiquidInfo("Oil", 0);
+            else if (i == 2)
+                playerLiquids[i] = new LiquidInfo("Coffee", 0);
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (CalcWeight().Equals(maxLiquidAmount))
+        {
+            rb.mass = heavyMass;
+        }
+        //Debug.Log(rb.mass.ToString());
     }
 
     public LiquidInfo GetSelectedLiquid()
@@ -95,4 +108,25 @@ public class LiquidTracker : MonoBehaviour
         liquidSelectionIndex = index;
     }
 
+    public int CalcWeight()
+    {
+        int weight = 0;
+        for(int i = 0; i < maxLiquidType; i++)
+        {
+            if(playerLiquids[i] != null)
+            {
+                weight += playerLiquids[i].liquidAmount;
+            }
+        }
+
+        
+
+        return Mathf.Min(weight, maxLiquidAmount);
+    }
+
+    public bool FullLiquid()
+    {
+        if (playerLiquids[GetSelectionIndex()].liquidAmount == maxLiquidAmount) return true;
+        return false;
+    }
 }

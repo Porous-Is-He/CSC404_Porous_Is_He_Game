@@ -1,46 +1,58 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class AbsorbLiquid : MonoBehaviour
 {
-    // this script is attached to Player
+    // this script is attached to Player. It provides the absorb mechanic
     public int amountAbsorbed;
+    private bool touchingLiquid = false;
+    private PlayerInputActions playerInputActions;
+    private LiquidSource liquidSource;
+    private LiquidTracker liquidTracker;
 
     public GameObject interactUI;
 
     void Start()
     {
-    }
+        playerInputActions = new PlayerInputActions();
+        playerInputActions.Player.Enable();
+        playerInputActions.Player.Absorb.started += Absorb;
 
-    void Update()
-    {
-        
+        liquidTracker = GetComponent<LiquidTracker>();
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
 
-
-        // if player is touching water and presses E, then absorb the liquid
-        /*        if (hit.collider.gameObject.tag == "Water" && Input.GetKeyDown(KeyCode.E))
-                {
-                    LiquidInfo liquid = hit.collider.gameObject.GetComponent<LiquidSource>().AbsorbLiquid(amountAbsorbed);
-
-                    gameObject.GetComponent<LiquidTracker>().AddSelectedLiquid(liquid);
-                }*/
         interactUI.SetActive(false);
+        touchingLiquid = false;
 
         if (hit.collider.gameObject.tag == "Water")
         {
-
             interactUI.SetActive(true);
-            if (Input.GetKeyDown(KeyCode.E))
+            if (liquidTracker.GetSelectedLiquid().liquidType != "Water") return;
+            touchingLiquid = true;
+            liquidSource = hit.collider.gameObject.GetComponent<LiquidSource>();
+        }
+    }
+
+    private void Absorb(InputAction.CallbackContext context)
+    {
+        if (touchingLiquid && !liquidTracker.FullLiquid())
+        {
+            LiquidInfo liquid = liquidSource.AbsorbLiquid(amountAbsorbed);
+            if (liquid.liquidAmount != 0)
             {
-                LiquidInfo liquid = hit.collider.gameObject.GetComponent<LiquidSource>().AbsorbLiquid(amountAbsorbed);
                 gameObject.GetComponent<PoSoundManager>().PlaySound("Absorb");
                 gameObject.GetComponent<LiquidTracker>().AddSelectedLiquid(liquid);
             }
         }
+    }
+
+    private void OnDestroy()
+    {
+        playerInputActions.Player.Disable();
     }
 }

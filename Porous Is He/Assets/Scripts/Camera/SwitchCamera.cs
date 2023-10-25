@@ -1,83 +1,156 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using Cinemachine;
+using UnityEngine.UI;
+using UnityEngine.AI;
 
+
+// This Switches the camera from 3rd person view to aiming mode
 public class SwitchCamera : MonoBehaviour
 {
-    public GameObject moveCamera;
-    public GameObject aimCamera;
-    public Transform projectile;
-    public Canvas crosshair;
+    public CinemachineFreeLook thirdPersonCamera;
+    public CinemachineVirtualCamera aimCamera;
+    private Transform projectile;
+    public GameObject crosshair;
 
-    private bool switched;
+    public Slider sensitivitySlider;
+    public Toggle usingController;
+    private float Xsensitivity = 0.0264f;
+    private float Ysensitivity = 0.0004f;
 
-    public float speedV = 2.0f;
-    public float speedH = 2.0f;
+    private bool aiming = false;
+    [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask();
+
+    public float speedV = 0.1f;
+    public float speedH = 0.1f;
     private float rotationX = 0.0f;
     private float rotationY = 0.0f;
 
+    private PlayerInputActions playerInputActions;
+
     void Start()
     {
-        switched = false;
+        playerInputActions = new PlayerInputActions();
+        playerInputActions.Player.Enable();
+        playerInputActions.Player.Aim.started += Aim;
+        playerInputActions.Player.Aim.canceled += StopAim;
+
+        // initial setup
+        thirdPersonCamera.Priority = 20;
+        aimCamera.Priority = 10;
+        crosshair.SetActive(false);
+        thirdPersonCamera.m_RecenterToTargetHeading.m_enabled = false;
+
+        projectile = transform.Find("ProjectileSpawn");
     }
 
-    // Update is called once per frame
     void Update()
     {
-        //rotation = transform.rotation;
-        if (Input.GetKey(KeyCode.Mouse1))
+        // there is a better way to handle this. but it's not a priority
+        // should have a GameManager game object that handles the game control/pause
+        if (PauseMenu.isPaused) 
         {
-            if (switched)
-            {
-                rotationX = transform.eulerAngles.x;
-                rotationY = transform.eulerAngles.y;
-                aimCamera.transform.eulerAngles = new Vector3(rotationX, rotationY, 0.0f);
-
-                moveCamera.SetActive(false);
-                aimCamera.SetActive(true);
-                crosshair.enabled = true;
-                gameObject.GetComponent<MoverScript>().enabled = false;
-                
-                projectile = transform.Find("ProjectileSpawn");
-
-                projectile.GetComponent<ShootingScript>().enabled = true;
-
-                switched = false;
-
-            }
+            Camera.main.GetComponent<CinemachineBrain>().enabled = false;
+            return;
+        }
+        Camera.main.GetComponent<CinemachineBrain>().enabled = true;
+        if (aiming)
+        {
             AimCamera();
-
         }
-        else if (!switched)
+        // update sensitivity
+        if (usingController.isOn)
         {
-            moveCamera.SetActive(true);
-            aimCamera.SetActive(false);
-            crosshair.enabled = false;
-            gameObject.GetComponent<MoverScript>().enabled = true;
+            Xsensitivity = 0.0264f * 4f;
+            Ysensitivity = 0.0004f * 4f;
+        } else
+        {
+            Xsensitivity = 0.0264f;
+            Ysensitivity = 0.0004f;
+}
+        thirdPersonCamera.m_XAxis.m_MaxSpeed = Xsensitivity * sensitivitySlider.value;
+        thirdPersonCamera.m_YAxis.m_MaxSpeed = Ysensitivity * sensitivitySlider.value;
+    }
 
-            projectile = transform.Find("ProjectileSpawn");
-
-            projectile.GetComponent<ShootingScript>().enabled = true;
-
-            switched = true;
-
+    private void Aim(InputAction.CallbackContext context)
+    {
+        if (PauseMenu.isPaused) return;
+            // Get the center where the camera is pointing at
+            Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
+        Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
+        Vector3 mouseWorldPosition = ray.GetPoint(50);
+        if (Physics.Raycast(ray, out RaycastHit raycastHit, 999f, aimColliderLayerMask))
+        {
+            mouseWorldPosition = raycastHit.point;
         }
+
+        // Rotate the player to face the camera's aim
+        Vector3 worldAimTarget = mouseWorldPosition;
+        worldAimTarget.y = transform.position.y;
+        Vector3 aimDirection = (worldAimTarget - transform.position).normalized;
+        transform.forward = aimDirection;
+
+        // Set player's curent rotation so that we can adjust this in AimCamera()
+        rotationX = transform.eulerAngles.x;
+        rotationY = transform.eulerAngles.y;
+
+        // Enable third person camera recenter so that when we switch back to default camera,
+        // the camera will be behind the player.
+        thirdPersonCamera.m_RecenterToTargetHeading.m_enabled = true;
+
+        // Switch to aiming mode
+        aiming = true;
+        thirdPersonCamera.Priority = 10;
+        aimCamera.Priority = 20;
+        crosshair.SetActive(true);
+
+        // Disable movement, enable shooting
+        gameObject.GetComponent<MoverScript>().aiming = true;
+        projectile.GetComponent<ShootingScript>().aiming = true;
+    }
+
+    private void StopAim(InputAction.CallbackContext context)
+    {
+        //if (PauseMenu.isPaused) return;
+        // Reset player's x rotation
+        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, transform.eulerAngles.z);
+
+        // Switch to default camera mode
+        aiming = false;
+        thirdPersonCamera.Priority = 20;
+        aimCamera.Priority = 10;
+        crosshair.SetActive(false);
+
+        // Enable movement, disable shooting
+        gameObject.GetComponent<MoverScript>().aiming = false;
+        projectile.GetComponent<ShootingScript>().aiming = false;
+
+        // Disable automatic recenter
+        thirdPersonCamera.m_RecenterToTargetHeading.m_enabled = false;
     }
 
     private void AimCamera()
     {
-        rotationX -= speedV * Input.GetAxis("Mouse Y");
-        rotationY += speedH * Input.GetAxis("Mouse X");
 
-        if (rotationX > 20.0f)
+        Vector2 inputVector = playerInputActions.Player.MouseLook.ReadValue<Vector2>();
+        rotationX -= speedV * inputVector.y;
+        rotationY += speedH * inputVector.x;
+
+        if (rotationX > 31.0f)
         {
-            rotationX = 20.0f;
+            rotationX = 31.0f;
         }
-        else if (rotationX < -60.0f)
+        else if (rotationX < -16.0f)
         {
-            rotationX = -60.0f;
+            rotationX = -16.0f;
         }
 
         transform.eulerAngles = new Vector3(rotationX, rotationY, 0);
+    }
+    private void OnDestroy()
+    {
+        playerInputActions.Player.Disable();
     }
 }
