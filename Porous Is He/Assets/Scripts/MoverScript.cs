@@ -176,4 +176,14 @@ public class MoverScript : MonoBehaviour
     {
         playerInputActions.Player.Disable();
     }
+
+
+    void OnTriggerStay(Collider other)
+    {
+        //Debug.Log("collide");
+        if (Input.GetKey(KeyCode.I))
+        {
+            other.GetComponent<HeavyCollider>().breakObject();
+        }
+    }
 }

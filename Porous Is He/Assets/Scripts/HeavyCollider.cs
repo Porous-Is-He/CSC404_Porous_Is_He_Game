@@ -22,30 +22,25 @@ public class HeavyCollider : MonoBehaviour
     }
 
 
-    void OnTriggerStay(Collider other)
+    public void breakObject()
     {
-        if (Input.GetKey(KeyCode.I))
+
+        if (isBroken == true)
         {
-
-            if (isBroken == true)
-            {
-                return;
-            }
-
-
-            if (other.gameObject.tag == "Player")
-            {
-                int playerWeight = GameObject.Find("Player").GetComponent<LiquidTracker>().CalcWeight();
-
-                if (playerWeight >= GameObject.Find("Player").GetComponent<LiquidTracker>().maxLiquidAmount)
-                {
-                    //GameObject broken = Instantiate(brokenObject, currentObject.transform.position, currentObject.transform.rotation, currentObject.transform.parent);
-                    //broken.transform.localScale = currentObject.transform.localScale;
-                    brokenObject.SetActive(true);
-                    currentObject.SetActive(false);
-                    isBroken = true;
-                }
-            }
+            return;
         }
+
+        int playerWeight = GameObject.Find("Player").GetComponent<LiquidTracker>().CalcWeight();
+
+        if (playerWeight >= GameObject.Find("Player").GetComponent<LiquidTracker>().maxLiquidAmount)
+        {
+            //GameObject broken = Instantiate(brokenObject, currentObject.transform.position, currentObject.transform.rotation, currentObject.transform.parent);
+            //broken.transform.localScale = currentObject.transform.localScale;
+            brokenObject.SetActive(true);
+            currentObject.SetActive(false);
+            isBroken = true;
+        }
+
     }
+
 }
