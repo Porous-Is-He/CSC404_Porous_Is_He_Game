@@ -46,6 +46,11 @@ public class LiquidTracker : MonoBehaviour
         //Debug.Log(rb.mass.ToString());
     }
 
+    public int GetLiquidAmountFromIndex(int index)
+    {
+        return playerLiquids[index].liquidAmount;
+    }
+
     public LiquidInfo GetSelectedLiquid()
     {
         return playerLiquids[liquidSelectionIndex];
@@ -96,6 +101,11 @@ public class LiquidTracker : MonoBehaviour
     public void RemoveSelectedLiquid(int amount)
     {
         playerLiquids[liquidSelectionIndex].liquidAmount -= amount;
+    }
+
+    public void RemoveLiquidFromIndex(int index, int amount)
+    {
+        playerLiquids[index].liquidAmount -= amount;
     }
 
     public int GetSelectionIndex()

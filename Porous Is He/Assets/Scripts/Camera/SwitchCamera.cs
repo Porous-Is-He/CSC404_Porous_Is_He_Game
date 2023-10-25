@@ -77,6 +77,7 @@ public class SwitchCamera : MonoBehaviour
     private void Aim(InputAction.CallbackContext context)
     {
         if (PauseMenu.isPaused) return;
+        if (PoCombust.isOnFire) return;
             // Get the center where the camera is pointing at
             Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
         Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
