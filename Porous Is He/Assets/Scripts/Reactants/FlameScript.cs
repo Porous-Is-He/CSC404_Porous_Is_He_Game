@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static MoverScript;
 
 public class FlameScript : MonoBehaviour, ReactantInterface
 {
@@ -13,6 +14,11 @@ public class FlameScript : MonoBehaviour, ReactantInterface
 
     private float elapsedTime = 0.0f;
     private float animTime = 0.5f;
+    
+    // Variable to keep track of flames
+    private bool isFlameOut = false;
+
+    public MoverScript thisPlayer;
 
     public void ApplyLiquid(LiquidInfo liquid)
     {
@@ -46,7 +52,7 @@ public class FlameScript : MonoBehaviour, ReactantInterface
     // Start is called before the first frame update
     void Start()
     {
-        
+        thisPlayer = FindObjectOfType<MoverScript>();
     }
 
 
@@ -83,6 +89,7 @@ public class FlameScript : MonoBehaviour, ReactantInterface
                     if (fireLevel == 0)
                     {
                         fireParticle.Stop();
+                        isFlameOut = true; // The flame has been put out
                         
                     }
                     else { 
@@ -116,6 +123,18 @@ public class FlameScript : MonoBehaviour, ReactantInterface
             if (interpolationRatio >= 1) {
                 lastFireLevel = fireLevel;
             }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {   
+        // Only want knockback to occur when the flame still exists
+        // And only want knockback on the player object
+        if (!isFlameOut && other.transform.gameObject.CompareTag("Player")) 
+        {
+            Vector3 moveDirection = other.transform.position - transform.position;
+            moveDirection = moveDirection.normalized;
+            thisPlayer.KnockBack(moveDirection);
         }
     }
 }

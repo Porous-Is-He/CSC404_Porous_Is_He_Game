@@ -50,4 +50,9 @@ public class AbsorbLiquid : MonoBehaviour
             }
         }
     }
+
+    private void OnDestroy()
+    {
+        playerInputActions.Player.Disable();
+    }
 }

@@ -149,4 +149,8 @@ public class SwitchCamera : MonoBehaviour
 
         transform.eulerAngles = new Vector3(rotationX, rotationY, 0);
     }
+    private void OnDestroy()
+    {
+        playerInputActions.Player.Disable();
+    }
 }
