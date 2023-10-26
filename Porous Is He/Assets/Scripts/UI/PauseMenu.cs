@@ -54,12 +54,6 @@ public class PauseMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    public void BackToMenu()
-    {
-        Destroy(this);
-        SceneManager.LoadScene(0);
-    }
-
     private void OnDestroy()
     {
         playerInputActions.GameManager.Disable();
