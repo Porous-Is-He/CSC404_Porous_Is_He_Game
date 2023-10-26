@@ -17,6 +17,8 @@ public class FlameScript : MonoBehaviour, ReactantInterface
     
     // Variable to keep track of flames
     private bool isFlameOut = false;
+    private bool isBurning = true;
+    public bool isAlwaysBurning = false;
 
     public MoverScript thisPlayer;
     private PoCombust poCombust;
@@ -26,6 +28,7 @@ public class FlameScript : MonoBehaviour, ReactantInterface
         if (liquid.liquidType == "Water")
         {
             fireLevel--;
+            if (fireLevel == 0 && isAlwaysBurning) fireLevel = 1;
         } else if (liquid.liquidType == "Oil")
         {
             fireLevel++;
@@ -52,77 +55,98 @@ public class FlameScript : MonoBehaviour, ReactantInterface
     {
         thisPlayer = FindObjectOfType<MoverScript>();
         poCombust = GameObject.Find("Player").GetComponent<PoCombust>();
+        if (fireLevel == 0) isFlameOut = true;
+        ChangeFlameSize();
     }
 
 
     // Update is called once per frame
     void Update()
     {
-        if (lastFireLevel != fireLevel)
+        if (lastFireLevel != fireLevel && isBurning)
         {
-            //var fireSprite = this.transform.parent.Find("FireSprite");
-            //var newScale = new Vector3(1.2f, 1.2f * fireLevel, 1.2f);
-            //fireSprite.transform.localScale = newScale;
-            //fireSprite.transform.localPosition = new Vector3(0f, newScale.y * 0.5f, 0f);
+            ChangeFlameSize();
+        }
+    }
 
-            //var fireSprite = gameObject;
-            //var newScale = new Vector3(1.0f, 1.0f * (float)fireLevel / 3.0f + 0.1f, 1.0f);
-            //fireSprite.transform.localScale = newScale;
-            //fireSprite.transform.localPosition = new Vector3(0f, newScale.y * 0.5f, 0f);
+    private void ChangeFlameSize()
+    {
+        //var fireSprite = this.transform.parent.Find("FireSprite");
+        //var newScale = new Vector3(1.2f, 1.2f * fireLevel, 1.2f);
+        //fireSprite.transform.localScale = newScale;
+        //fireSprite.transform.localPosition = new Vector3(0f, newScale.y * 0.5f, 0f);
+
+        //var fireSprite = gameObject;
+        //var newScale = new Vector3(1.0f, 1.0f * (float)fireLevel / 3.0f + 0.1f, 1.0f);
+        //fireSprite.transform.localScale = newScale;
+        //fireSprite.transform.localPosition = new Vector3(0f, newScale.y * 0.5f, 0f);
 
 
 
-            float fireMultiplier = 1.8f;
-            float flameSize = transform.lossyScale.y * fireMultiplier * ( ((float)fireLevel + 2) / ((float)maxFireLevel + 2) );
+        float fireMultiplier = 1.8f;
+        float flameSize = transform.lossyScale.y * fireMultiplier * (((float)fireLevel + 2) / ((float)maxFireLevel + 2));
 
-            elapsedTime += Time.deltaTime;
-            float interpolationRatio = Mathf.Max(elapsedTime / animTime, 1.0f);
+        elapsedTime += Time.deltaTime;
+        float interpolationRatio = Mathf.Max(elapsedTime / animTime, 1.0f);
 
-            for (int i = 0; i < transform.childCount; ++i)
+        for (int i = 0; i < transform.childCount; ++i)
+        {
+            ParticleSystem fireParticle = transform.GetChild(i).GetComponent<ParticleSystem>();
+            if (fireParticle)
             {
-                ParticleSystem fireParticle = transform.GetChild(i).GetComponent<ParticleSystem>();
-                if (fireParticle)
-                {
-                    float lastFlameSize = fireParticle.startSize;
-
-                    if (fireLevel == 0)
-                    {
-                        fireParticle.Stop();
-                        isFlameOut = true; // The flame has been put out
-                        
-                    }
-                    else { 
-                        if (transform.GetChild(i).name == "OrangeFire")
-                        {
-                            flameSize = flameSize * 0.7f;
-                        } else if (transform.GetChild(i).name == "YellowFire")
-                        {
-                            flameSize = flameSize * 0.5f;
-                        }
-                        fireParticle.startSize = (float)lastFlameSize + (float)(flameSize - lastFlameSize) * interpolationRatio;
-                        fireParticle.Play();
-                    }
-                }
-
-            }
-
-            if (lastFireLevel <= 0 || fireLevel == 0)
-            {
-                AudioSource audioSrc = transform.GetComponent<AudioSource>();
-                AudioClip audioClip = Resources.Load<AudioClip>("Sounds/FireBurning");
-                audioSrc.loop = true;
-                audioSrc.clip = audioClip;
+                float lastFlameSize = fireParticle.startSize;
 
                 if (fireLevel == 0)
-                    audioSrc.Stop();
+                {
+                    fireParticle.Stop();
+                    isFlameOut = true; // The flame has been put out
+
+                }
                 else
-                    audioSrc.Play();
+                {
+                    if (transform.GetChild(i).name == "OrangeFire")
+                    {
+                        flameSize = flameSize * 0.7f;
+                    }
+                    else if (transform.GetChild(i).name == "YellowFire")
+                    {
+                        flameSize = flameSize * 0.5f;
+                    }
+                    fireParticle.startSize = (float)lastFlameSize + (float)(flameSize - lastFlameSize) * interpolationRatio;
+                    fireParticle.Play();
+                    isFlameOut = false;
+                }
             }
 
-            if (interpolationRatio >= 1) {
-                lastFireLevel = fireLevel;
-            }
         }
+
+        if (lastFireLevel <= 0 || fireLevel == 0)
+        {
+            AudioSource audioSrc = transform.GetComponent<AudioSource>();
+            AudioClip audioClip = Resources.Load<AudioClip>("Sounds/FireBurning");
+            audioSrc.loop = true;
+            audioSrc.clip = audioClip;
+
+            if (fireLevel == 0)
+                audioSrc.Stop();
+            else
+                audioSrc.Play();
+        }
+
+        if (interpolationRatio >= 1)
+        {
+            lastFireLevel = fireLevel;
+        }
+    }
+
+    public void SetIsBurning(bool isBurn)
+    {
+        isBurning = isBurn;
+    }
+
+    public bool GetIsBurning()
+    {
+        return isBurning;
     }
 
     private void OnTriggerEnter(Collider other)
