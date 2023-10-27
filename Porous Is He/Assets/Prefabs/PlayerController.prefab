@@ -61,7 +61,7 @@ Transform:
   m_GameObject: {fileID: 531326846760226937}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -62.310364, y: 67.47482, z: 29.69843}
+  m_LocalPosition: {x: -37, y: 67.3, z: 59}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -285,7 +285,7 @@ Transform:
   m_GameObject: {fileID: 1240490273814038455}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -63.310364, y: 66.17482, z: 30.69843}
+  m_LocalPosition: {x: -38, y: 66, z: 60}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -336,7 +336,7 @@ MonoBehaviour:
   m_YAxis:
     Value: 0
     m_SpeedMode: 1
-    m_MaxSpeed: 0.005
+    m_MaxSpeed: 0.023616
     m_AccelTime: 0.2
     m_DecelTime: 0.1
     m_InputAxisName: Mouse Y
@@ -360,7 +360,7 @@ MonoBehaviour:
   m_XAxis:
     Value: 0
     m_SpeedMode: 1
-    m_MaxSpeed: 0.1
+    m_MaxSpeed: 1.558656
     m_AccelTime: 0.1
     m_DecelTime: 0.1
     m_InputAxisName: Mouse X
@@ -545,7 +545,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2104767397470787153}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.17899986, y: 0.000000016928482, z: 0.0000000030799396, w: 0.9838491}
+  m_LocalRotation: {x: -0.1817517, y: 0.0016713864, z: 0.00030892307, w: 0.983343}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1199,7 +1199,7 @@ Transform:
   m_GameObject: {fileID: 4205789195636449064}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -63.310364, y: 66.17482, z: 36.69843}
+  m_LocalPosition: {x: -38, y: 66, z: 66}
   m_LocalScale: {x: 0.8389904, y: 0.5970365, z: 0.77459}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1285,7 +1285,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69e2d038d3deb8c4ba4529d87214aa59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controller: {fileID: 1347758897289469425}
+  knockBackForce: 3
+  knockBackTime: 0.5
   aiming: 0
+  isGrounded_Custom: 0
+  slideSpeed: 1
 --- !u!114 &3618396350336822367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1313,11 +1318,12 @@ MonoBehaviour:
   thirdPersonCamera: {fileID: 5920926245140926465}
   aimCamera: {fileID: 418182252726296595}
   crosshair: {fileID: 2683969838744451534}
+  sensitivitySlider: {fileID: 0}
+  aimSensitivitySlider: {fileID: 0}
+  usingController: {fileID: 0}
   aimColliderLayerMask:
     serializedVersion: 2
     m_Bits: 0
-  speedV: 0.3
-  speedH: 0.3
 --- !u!114 &6668368587236332988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1344,11 +1350,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b509d8c09865457aa5ead0bbbacee25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxLiquidType: 2
+  maxLiquidType: 1
   maxLiquidAmount: 3
   rb: {fileID: 0}
   normalMass: 20
-  heavyMass: 40
+  heavyMass: 100
 --- !u!114 &4515713181940027114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1394,7 +1400,7 @@ CharacterController:
   serializedVersion: 3
   m_Height: 1.9999999
   m_Radius: 0.49999997
-  m_SlopeLimit: 45
+  m_SlopeLimit: 60
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0
@@ -1422,7 +1428,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
@@ -1438,6 +1444,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5668d753f22404945a6a99f274685a0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogue: {fileID: 0}
 --- !u!1 &4404137931860652479
 GameObject:
   m_ObjectHideFlags: 3
@@ -1463,7 +1470,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4404137931860652479}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.15846588, y: -0, z: -0, w: 0.9873645}
+  m_LocalRotation: {x: -0.16133626, y: 0.0016775125, z: 0.0002742366, w: 0.98689806}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1528,7 +1535,6 @@ GameObject:
   - component: {fileID: 4557041101631422409}
   - component: {fileID: 1263110068011115686}
   - component: {fileID: 8470220480810327017}
-  - component: {fileID: 5035598166549574996}
   m_Layer: 3
   m_Name: Sponge_body_geo
   m_TagString: Untagged
@@ -1601,28 +1607,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &5035598166549574996
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4895805131759007258}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 2985142011370246248, guid: 3bcdf7cbe4c01db4faa244fb83fab1a7, type: 3}
 --- !u!1 &4911948309713776912
 GameObject:
   m_ObjectHideFlags: 0
@@ -2135,8 +2119,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6621278007299373635}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.17899987, y: 0.000000033856967, z: 0.0000000061598793, w: 0.98384917}
-  m_LocalPosition: {x: -63.310364, y: 66.17482, z: 30.69843}
+  m_LocalRotation: {x: -0.1817517, y: 0.0016714034, z: 0.00030892616, w: 0.983343}
+  m_LocalPosition: {x: -38.019417, y: 66.03789, z: 60.28763}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2488,7 +2472,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8933293459980694514}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.22975291, y: -1e-45, z: -0, w: 0.973249}
+  m_LocalRotation: {x: -0.23371838, y: 0.0016539998, z: 0.00039758204, w: 0.97230285}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
