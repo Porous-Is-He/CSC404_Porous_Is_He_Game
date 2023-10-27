@@ -42,7 +42,7 @@ public class MoverScript : MonoBehaviour
     private Vector3 hitNormal;
     public bool isGrounded_Custom;
     private float slopeLimit;
-    public float slideSpeed = 0.1f;
+    public float slideSpeed = 1.0f;
 
     private void Awake()
     {
@@ -64,10 +64,10 @@ public class MoverScript : MonoBehaviour
         //grounded detection
         if (!isGrounded_Custom)
         {
-            slidingMovement.x += (1f - hitNormal.y) * hitNormal.x * (slideSpeed * 1.2f);
-            slidingMovement.z += (1f - hitNormal.y) * hitNormal.z * (slideSpeed * 1.2f);
+            slidingMovement.x += (1f - hitNormal.y) * hitNormal.x * slideSpeed;
+            slidingMovement.z += (1f - hitNormal.y) * hitNormal.z * slideSpeed;
         }
-        if (!(Vector3.Angle(Vector3.up, hitNormal) <= slopeLimit))
+        if ( !(Vector3.Angle(Vector3.up, hitNormal) <= slopeLimit) )
         {
             isGrounded_Custom = false;
         }
