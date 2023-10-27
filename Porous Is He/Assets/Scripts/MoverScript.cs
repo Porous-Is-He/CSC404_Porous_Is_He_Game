@@ -158,7 +158,7 @@ public class MoverScript : MonoBehaviour
 
     public void KnockBack(Vector3 moveDirection)
     {
-        Debug.Log("PUSHHH"); // Nice little debug statement to check stuff
+        //Debug.Log("PUSHHH"); // Nice little debug statement to check stuff
 
         knockBackCounter = knockBackTime;
         //enableMovement = false;

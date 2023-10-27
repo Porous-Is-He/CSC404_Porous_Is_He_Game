@@ -37,7 +37,7 @@ public class ShootingScript : MonoBehaviour
         GameObject Player = GameObject.Find("Player");
         LiquidTracker LiqTrack = Player.GetComponent<LiquidTracker>();
         LiquidInfo Liquid = LiqTrack.GetSelectedLiquid();
-
+        if (PoCombust.isOnFire) return false;
         if (Liquid.liquidAmount == 0)
             return false;
         if (!aiming) return false;
