@@ -10,7 +10,6 @@ public class BurnableObject : MonoBehaviour
 
     void Start()
     {
-        flameScript.SetIsBurning(false);
     }
 
     void Update()
