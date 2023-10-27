@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class LevelComplete : MonoBehaviour
 {
     [SerializeField] private GameObject LevelCompletePanel;
     [SerializeField] private GameObject LevelCompletePopup;
+    [SerializeField] private GameObject selectFirst;
     private Animator animator;
     public string NextLevelScene;
 
@@ -24,6 +26,7 @@ public class LevelComplete : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         PauseMenu.isPaused = true;
         LevelCompletePanel.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(selectFirst);
 
         if (animator != null )
         {
