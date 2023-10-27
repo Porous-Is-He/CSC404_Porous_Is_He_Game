@@ -28,19 +28,14 @@ public class SeesawScript : MonoBehaviour
 
         if (other.gameObject.tag == "Player")
         {
-            Debug.Log("Hello");
             int playerWeight = GameObject.Find("Player").GetComponent<LiquidTracker>().CalcWeight();
 
             if (playerWeight >= GameObject.Find("Player").GetComponent<LiquidTracker>().maxLiquidAmount)
             {
-                Debug.Log("Hey");
-                Debug.Log(Platform.transform.localRotation.eulerAngles);
 
                 float maxDist = (NegativeZone.transform.position - PositiveZone.transform.position).magnitude / 2;
                 float negativeDist = (NegativeZone.transform.position - other.transform.position).magnitude;
                 float positiveDist = (PositiveZone.transform.position - other.transform.position).magnitude;
-                Debug.Log(negativeDist);
-                Debug.Log(positiveDist);
 
                 float rotationSpdRatio = 0.0f;
 
@@ -52,11 +47,7 @@ public class SeesawScript : MonoBehaviour
                 {
                     rotationSpdRatio = maxDist / positiveDist;
                 }
-                Debug.Log(rotationSpdRatio);
                 float rotationSpd = rotSpdFactor * rotationSpdRatio;
-                Debug.Log(Platform.transform.localRotation.eulerAngles.x);
-                Debug.Log(rotationSpd);
-                Debug.Log(Platform.transform.localRotation.eulerAngles.x + rotationSpd);
 
                 float rot = Platform.transform.localRotation.eulerAngles.x + rotationSpd;
                 if ( rot > 180 ){
@@ -65,13 +56,11 @@ public class SeesawScript : MonoBehaviour
 
                 if (rot > maxRotation)
                 {
-                    Debug.Log("X");
                     Quaternion newRotation = Quaternion.Euler(maxRotation, Platform.transform.localRotation.eulerAngles.y, Platform.transform.localRotation.eulerAngles.z);
                     Platform.transform.localRotation = newRotation;
                 }
                 else if (rot < -maxRotation)
                 {
-                    Debug.Log("Y");
                     Quaternion newRotation = Quaternion.Euler(-maxRotation, Platform.transform.localRotation.eulerAngles.y, Platform.transform.localRotation.eulerAngles.z);
                     Platform.transform.localRotation = newRotation;
                 }

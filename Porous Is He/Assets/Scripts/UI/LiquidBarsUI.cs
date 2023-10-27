@@ -16,7 +16,7 @@ public class LiquidBarsUI : MonoBehaviour
     [SerializeField] private Slider slider2;
 
     float scaleModifier;
-
+    private float targetAmount;
 
 
     void Start()
@@ -47,19 +47,21 @@ public class LiquidBarsUI : MonoBehaviour
 
     void Update()
     {
-        // Adjust the liquid amount in the liquid meter bar
-        LiquidInfo Liquid = liquidTracker.GetSelectedLiquid();
-        float targetAmount = (float)Liquid.liquidAmount / (float)liquidTracker.maxLiquidAmount;
-
-        int currentSelection = liquidTracker.GetSelectionIndex();
-        if (currentSelection == 0)
+        if (liquidTracker.maxLiquidType >= 1)
+        {
+            targetAmount = (float)liquidTracker.GetLiquidAmountFromIndex(0) / (float)liquidTracker.maxLiquidAmount;
             slider0.value = Mathf.Lerp(slider0.value, targetAmount, 2.5f * Time.deltaTime);
-        else if (currentSelection == 1)
+        }
+        if (liquidTracker.maxLiquidType >= 2)
+        {
+            targetAmount = (float)liquidTracker.GetLiquidAmountFromIndex(1) / (float)liquidTracker.maxLiquidAmount;
             slider1.value = Mathf.Lerp(slider1.value, targetAmount, 2.5f * Time.deltaTime);
-        else if (currentSelection == 2)
+        }
+        if (liquidTracker.maxLiquidType >= 3)
+        {
+            targetAmount = (float)liquidTracker.GetLiquidAmountFromIndex(2) / (float)liquidTracker.maxLiquidAmount;
             slider2.value = Mathf.Lerp(slider2.value, targetAmount, 2.5f * Time.deltaTime);
-
-
+        }
     }
 
     // Swap currently selected liquid and change the scale of the UI
