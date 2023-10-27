@@ -22,6 +22,7 @@ public class BurnableObject : MonoBehaviour
 
     public void BurnObject()
     {
+        flameScript.isAlwaysBurning = false;
         Destroy(gameObject);
     }
 

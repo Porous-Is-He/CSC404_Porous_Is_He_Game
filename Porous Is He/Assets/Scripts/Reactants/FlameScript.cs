@@ -166,7 +166,7 @@ public class FlameScript : MonoBehaviour, ReactantInterface
 
             // This handles when Po has oil and touches fire
             // it will call Combust to make Po light on fire
-            poCombust.Combust();
+            if (poCombust != null) poCombust.Combust();
         }
     }
 }

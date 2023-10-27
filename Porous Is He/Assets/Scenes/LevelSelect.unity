@@ -631,7 +631,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 74, y: -132}
+  m_AnchoredPosition: {x: 33.5, y: -132}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &511253784
@@ -654,7 +654,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ???
+  m_text: Counter
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d32005fbcfc3dd543b9f42129fc68c61, type: 2}
   m_sharedMaterial: {fileID: 7126979230451495734, guid: d32005fbcfc3dd543b9f42129fc68c61, type: 2}
@@ -717,7 +717,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 60.74854, w: 21.784546}
+  m_margin: {x: 0, y: 0, z: 2.129059, w: 21.784546}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -2708,9 +2708,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1583514283}
         m_TargetAssemblyTypeName: LevelSelectMenu, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: ChangeScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
