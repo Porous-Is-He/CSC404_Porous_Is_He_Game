@@ -16,6 +16,7 @@ public class SwitchCamera : MonoBehaviour
     public GameObject crosshair;
 
     public Slider sensitivitySlider;
+    public Slider aimSensitivitySlider;
     public Toggle usingController;
     private float Xsensitivity = 0.0264f;
     private float Ysensitivity = 0.0004f;
@@ -23,8 +24,8 @@ public class SwitchCamera : MonoBehaviour
     private bool aiming = false;
     [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask();
 
-    public float speedV = 0.1f;
-    public float speedH = 0.1f;
+    private float speedV = 0.011f;
+    private float speedH = 0.011f;
     private float rotationX = 0.0f;
     private float rotationY = 0.0f;
 
@@ -63,8 +64,8 @@ public class SwitchCamera : MonoBehaviour
         // update sensitivity
         if (usingController.isOn)
         {
-            Xsensitivity = 0.0264f * 4f;
-            Ysensitivity = 0.0004f * 4f;
+            Xsensitivity = 0.0264f * 8f;
+            Ysensitivity = 0.0004f * 8f;
         } else
         {
             Xsensitivity = 0.0264f;
@@ -135,8 +136,16 @@ public class SwitchCamera : MonoBehaviour
     {
 
         Vector2 inputVector = playerInputActions.Player.MouseLook.ReadValue<Vector2>();
-        rotationX -= speedV * inputVector.y;
-        rotationY += speedH * inputVector.x;
+        if (usingController.isOn)
+        {
+            rotationX -= speedV * inputVector.y * 10 * aimSensitivitySlider.value;
+            rotationY += speedH * inputVector.x * 10 * aimSensitivitySlider.value;
+        }
+        else
+        {
+            rotationX -= speedV * inputVector.y * aimSensitivitySlider.value;
+            rotationY += speedH * inputVector.x * aimSensitivitySlider.value;
+        }
 
         if (rotationX > 31.0f)
         {
