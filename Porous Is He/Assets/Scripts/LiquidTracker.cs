@@ -60,42 +60,51 @@ public class LiquidTracker : MonoBehaviour
     public int AddSelectedLiquid(LiquidInfo liquid)
     {
         // if liquid is the same as player's current liquid
-        if (liquid.liquidType.Equals(playerLiquids[liquidSelectionIndex].liquidType))
-        {
-            int beforeAmount = playerLiquids[liquidSelectionIndex].liquidAmount;
-            int tempAmount = playerLiquids[liquidSelectionIndex].liquidAmount + liquid.liquidAmount;
-            playerLiquids[liquidSelectionIndex].liquidAmount = (tempAmount > maxLiquidAmount) ? maxLiquidAmount : tempAmount;
 
-            return playerLiquids[liquidSelectionIndex].liquidAmount - beforeAmount;
-        }
-        else
-        {
-            bool liquidAdded = false;
-            int amountLiquidAdded = 0;
-            for(int i = 0; i < maxLiquidType; i++)
-            {
-                
-                if(playerLiquids[i] == null && !liquidAdded)
-                {
-                    playerLiquids[i] = liquid;
+        int liquidIndex = GetLiquidIndex(liquid.liquidType);
 
-                    amountLiquidAdded = liquid.liquidAmount;
+        int beforeAmount = playerLiquids[liquidIndex].liquidAmount;
+        int tempAmount = playerLiquids[liquidIndex].liquidAmount + liquid.liquidAmount;
+        playerLiquids[liquidIndex].liquidAmount = (tempAmount > maxLiquidAmount) ? maxLiquidAmount : tempAmount;
 
-                    liquidAdded = true;
+        return playerLiquids[liquidIndex].liquidAmount - beforeAmount;
 
-                    liquidSelectionIndex = i;
-                }
-                else if(playerLiquids[i] != null)
-                {
-                    // clear non-current liquid
-                    playerLiquids[i].liquidAmount = 0;
+        //if (liquid.liquidType.Equals(playerLiquids[liquidSelectionIndex].liquidType))
+        //{
+        //    int beforeAmount = playerLiquids[liquidSelectionIndex].liquidAmount;
+        //    int tempAmount = playerLiquids[liquidSelectionIndex].liquidAmount + liquid.liquidAmount;
+        //    playerLiquids[liquidSelectionIndex].liquidAmount = (tempAmount > maxLiquidAmount) ? maxLiquidAmount : tempAmount;
 
-                }
-            }
+        //    return playerLiquids[liquidSelectionIndex].liquidAmount - beforeAmount;
+        //}
+        //else
+        //{
+        //    bool liquidAdded = false;
+        //    int amountLiquidAdded = 0;
+        //    for(int i = 0; i < maxLiquidType; i++)
+        //    {
 
-            return amountLiquidAdded;
-        }
-        
+        //        if(playerLiquids[i] == null && !liquidAdded)
+        //        {
+        //            playerLiquids[i] = liquid;
+
+        //            amountLiquidAdded = liquid.liquidAmount;
+
+        //            liquidAdded = true;
+
+        //            liquidSelectionIndex = i;
+        //        }
+        //        else if(playerLiquids[i] != null)
+        //        {
+        //            // clear non-current liquid
+        //            playerLiquids[i].liquidAmount = 0;
+
+        //        }
+        //    }
+
+        //    return amountLiquidAdded;
+        //}
+
     }
 
     public void RemoveSelectedLiquid(int amount)
@@ -134,9 +143,23 @@ public class LiquidTracker : MonoBehaviour
         return Mathf.Min(weight, maxLiquidAmount);
     }
 
-    public bool FullLiquid()
+    public int GetLiquidIndex(string liquidType)
     {
-        if (playerLiquids[GetSelectionIndex()].liquidAmount == maxLiquidAmount) return true;
+        for (int i = 0; i < maxLiquidType; i++)
+        {
+            if (liquidType == playerLiquids[i].liquidType)
+            {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+        public bool FullLiquid(string liquidType)
+    {
+        int liquidIndex = GetLiquidIndex(liquidType);
+        if (playerLiquids[liquidIndex].liquidAmount == maxLiquidAmount) return true;
         return false;
     }
 }

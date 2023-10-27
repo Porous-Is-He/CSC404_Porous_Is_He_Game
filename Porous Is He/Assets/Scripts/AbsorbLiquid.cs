@@ -29,16 +29,10 @@ public class AbsorbLiquid : MonoBehaviour
         interactUI.SetActive(false);
         touchingLiquid = false;
 
-        if (hit.collider.gameObject.tag == "Water")
+        if (hit.collider.gameObject.tag == "Water" || hit.collider.gameObject.tag == "Oil")
         {
             interactUI.SetActive(true);
-            if (liquidTracker.GetSelectedLiquid().liquidType != "Water") return;
-            touchingLiquid = true;
-            liquidSource = hit.collider.gameObject.GetComponent<LiquidSource>();
-        } else if (hit.collider.gameObject.tag == "Oil")
-        {
-            interactUI.SetActive(true);
-            if (liquidTracker.GetSelectedLiquid().liquidType != "Oil") return;
+            //if (liquidTracker.GetSelectedLiquid().liquidType != "Water") return;
             touchingLiquid = true;
             liquidSource = hit.collider.gameObject.GetComponent<LiquidSource>();
         }
@@ -46,7 +40,9 @@ public class AbsorbLiquid : MonoBehaviour
 
     private void Absorb(InputAction.CallbackContext context)
     {
-        if (touchingLiquid && !liquidTracker.FullLiquid())
+        Debug.Log(!liquidTracker.FullLiquid(liquidSource.liquidType));
+        Debug.Log(touchingLiquid);
+        if (touchingLiquid && !liquidTracker.FullLiquid(liquidSource.liquidType))
         {
             LiquidInfo liquid = liquidSource.AbsorbLiquid(amountAbsorbed);
             if (liquid.liquidAmount != 0)
