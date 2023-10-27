@@ -40,8 +40,6 @@ public class AbsorbLiquid : MonoBehaviour
 
     private void Absorb(InputAction.CallbackContext context)
     {
-        Debug.Log(!liquidTracker.FullLiquid(liquidSource.liquidType));
-        Debug.Log(touchingLiquid);
         if (touchingLiquid && !liquidTracker.FullLiquid(liquidSource.liquidType))
         {
             LiquidInfo liquid = liquidSource.AbsorbLiquid(amountAbsorbed);
