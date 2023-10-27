@@ -152,9 +152,9 @@ public class SwitchCamera : MonoBehaviour
         {
             rotationX = 31.0f;
         }
-        else if (rotationX < -18.0f)
+        else if (rotationX < -17.0f)
         {
-            rotationX = -18.0f;
+            rotationX = -17.0f;
         }
 
         transform.eulerAngles = new Vector3(rotationX, rotationY, 0);
