@@ -20,7 +20,7 @@ public class FlameScript : MonoBehaviour, ReactantInterface
     private bool isBurning = true;
     public bool isAlwaysBurning = false;
 
-    public MoverScript thisPlayer;
+    private MoverScript thisPlayer;
     private PoCombust poCombust;
 
     public void ApplyLiquid(LiquidInfo liquid)
@@ -53,10 +53,14 @@ public class FlameScript : MonoBehaviour, ReactantInterface
     // Start is called before the first frame update
     void Start()
     {
-        thisPlayer = FindObjectOfType<MoverScript>();
+        thisPlayer = GameObject.Find("Player").GetComponent<MoverScript>();
         poCombust = GameObject.Find("Player").GetComponent<PoCombust>();
-        if (fireLevel == 0) isFlameOut = true;
-        ChangeFlameSize();
+        if (fireLevel == 0)
+        {
+            isFlameOut = true;
+            isBurning = false;
+        }
+            ChangeFlameSize();
     }
 
 
@@ -66,6 +70,7 @@ public class FlameScript : MonoBehaviour, ReactantInterface
         if (lastFireLevel != fireLevel && isBurning)
         {
             ChangeFlameSize();
+            //Debug.Log("Flame size " + fireLevel);
         }
     }
 
@@ -156,12 +161,13 @@ public class FlameScript : MonoBehaviour, ReactantInterface
         if (!isFlameOut && other.transform.gameObject.CompareTag("Player")) 
         {
             Vector3 moveDirection = other.transform.position - transform.position;
+            moveDirection.y = 0;
             moveDirection = moveDirection.normalized;
             thisPlayer.KnockBack(moveDirection);
 
             // This handles when Po has oil and touches fire
             // it will call Combust to make Po light on fire
-            poCombust.Combust();
+            if (poCombust != null) poCombust.Combust();
         }
     }
 }

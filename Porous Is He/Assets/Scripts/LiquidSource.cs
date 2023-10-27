@@ -8,6 +8,7 @@ public class LiquidSource : MonoBehaviour
     //this script is attached to a liquid source
     public string liquidType;
     public int maxLiquid;
+    public bool regenerates;
 
     private int remainingLiquid;
     private LiquidInfo liquid;
@@ -15,6 +16,9 @@ public class LiquidSource : MonoBehaviour
 
     private Vector3 originalScale;
     private Vector3 newScale;
+
+    private float? lastChanged = null;
+    private float regenCooldown = 3.0f;
 
 
     void Start()
@@ -26,6 +30,12 @@ public class LiquidSource : MonoBehaviour
 
     void Update()
     {
+        if (lastChanged != null && remainingLiquid < maxLiquid && Time.time - lastChanged > regenCooldown)
+        {
+            ++remainingLiquid;
+            lastChanged = Time.time;
+        }
+
         // rescale the liquid puddle if it is not infinite
         if (maxLiquid != INFINITE)
         {
@@ -45,6 +55,7 @@ public class LiquidSource : MonoBehaviour
     public LiquidInfo AbsorbLiquid(int amount)
     {
         liquid = new LiquidInfo(liquidType, amount);
+        lastChanged = Time.time;
 
         if (maxLiquid == INFINITE) return liquid;
 

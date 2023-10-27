@@ -10,7 +10,6 @@ public class BurnableObject : MonoBehaviour
 
     void Start()
     {
-        flameScript.SetIsBurning(false);
     }
 
     void Update()
@@ -23,6 +22,7 @@ public class BurnableObject : MonoBehaviour
 
     public void BurnObject()
     {
+        flameScript.isAlwaysBurning = false;
         Destroy(gameObject);
     }
 

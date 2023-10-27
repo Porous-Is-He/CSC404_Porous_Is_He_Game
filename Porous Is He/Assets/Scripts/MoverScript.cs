@@ -23,12 +23,13 @@ public class MoverScript : MonoBehaviour
     // Player Movement variables
     private Vector2 inputVector;
     private Vector3 direction;
-    private float playerSpeed = 6.5f;
+    private float playerSpeed = 7f;
     private float turnSmoothTime = 0.05f;
     private float turnSmoothVelocity;
 
     // Variables that deals with knockback
     public float knockBackForce;
+    public float knockBackForceHorizontal;
     public float knockBackTime;
     private float knockBackCounter;
 
@@ -194,7 +195,7 @@ public class MoverScript : MonoBehaviour
         knockBackCounter = knockBackTime;
         //enableMovement = false;
         //WaitForLanding();
-        direction = moveDirection * knockBackForce;
+        direction = moveDirection * knockBackForceHorizontal;
         direction.y = knockBackForce;
         playerVelocity = knockBackForce;
 
