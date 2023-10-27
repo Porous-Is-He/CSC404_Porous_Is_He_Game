@@ -26,7 +26,6 @@ public class Checkpoint : MonoBehaviour
     {
         if (!triggered)
         {
-            Debug.Log(message);
             PoMessage msg = new PoMessage(message, time);
             PoMessage[] messages = { msg };
             StartCoroutine(poMessenger.SendMessage(messages));
