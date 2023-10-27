@@ -38,6 +38,10 @@ public class MoverScript : MonoBehaviour
     // Variable that deals with aiming
     public bool aiming = false;
 
+    private Vector3 hitNormal;
+    public bool isGrounded_Custom;
+    private float slopeLimit;
+    public float slideSpeed = 0.1f;
 
     private void Awake()
     {
@@ -49,10 +53,30 @@ public class MoverScript : MonoBehaviour
     private void Start()
     {
         cameraMainTransform = Camera.main.transform;
+        slopeLimit = controller.slopeLimit;
     }
 
     void Update()
     {
+        Vector3 slidingMovement = new Vector3();
+
+        //grounded detection
+        if (!isGrounded_Custom)
+        {
+            slidingMovement.x += (1f - hitNormal.y) * hitNormal.x * (slideSpeed * 1.2f);
+            slidingMovement.z += (1f - hitNormal.y) * hitNormal.z * (slideSpeed * 1.2f);
+        }
+        if (!(Vector3.Angle(Vector3.up, hitNormal) <= slopeLimit))
+        {
+            isGrounded_Custom = false;
+        }
+        else
+        {
+            isGrounded_Custom = controller.isGrounded;
+        }
+
+
+
         if (LevelComplete.LevelEnd) return;
         if (knockBackCounter <= 0)
         {
@@ -60,12 +84,12 @@ public class MoverScript : MonoBehaviour
             {
                 Move();
                 ApplyGravity();
-                controller.Move(direction * playerSpeed * Time.deltaTime);
+                controller.Move((direction * playerSpeed + slidingMovement) * Time.deltaTime);
             }
             else
             {
                 MoveWhileAiming();
-                controller.Move(direction * playerSpeed * Time.deltaTime);
+                controller.Move((direction * playerSpeed + slidingMovement) * Time.deltaTime);
             }
         }
         else
@@ -80,6 +104,12 @@ public class MoverScript : MonoBehaviour
             }
         }
     }
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        hitNormal = hit.normal;
+    }
+
+
 
     private void MoveWhileAiming()
     {
@@ -154,7 +184,8 @@ public class MoverScript : MonoBehaviour
         numberOfJumps = 0;
     }
 
-    private bool IsGrounded() => controller.isGrounded;
+    //private bool IsGrounded() => controller.isGrounded;
+    private bool IsGrounded() => isGrounded_Custom;
 
     public void KnockBack(Vector3 moveDirection)
     {
