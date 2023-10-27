@@ -70,7 +70,7 @@ public class FlameScript : MonoBehaviour, ReactantInterface
         if (lastFireLevel != fireLevel && isBurning)
         {
             ChangeFlameSize();
-            Debug.Log("Flame size " + fireLevel);
+            //Debug.Log("Flame size " + fireLevel);
         }
     }
 
@@ -161,6 +161,7 @@ public class FlameScript : MonoBehaviour, ReactantInterface
         if (!isFlameOut && other.transform.gameObject.CompareTag("Player")) 
         {
             Vector3 moveDirection = other.transform.position - transform.position;
+            moveDirection.y = 0;
             moveDirection = moveDirection.normalized;
             thisPlayer.KnockBack(moveDirection);
 
