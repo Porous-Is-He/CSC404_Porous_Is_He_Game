@@ -13,17 +13,19 @@ public class MoverScript : MonoBehaviour
     private PlayerInputActions playerInputActions;
     private Transform cameraMainTransform;
 
+    private static float verticalMod = 0.75f;
+
     // Jump variables
     private float playerVelocity;
-    private float gravityValue = -9.81f;
-    private float jumpPower = 2.5f;
+    private float gravityValue = -9.81f * verticalMod;
+    private float jumpPower = 2.5f * verticalMod;
     private int numberOfJumps = 0;
     private int maxNumberOfJumps = 2;
 
     // Player Movement variables
     private Vector2 inputVector;
     private Vector3 direction;
-    private float playerSpeed = 7f;
+    private float playerSpeed = 8f;
     private float turnSmoothTime = 0.05f;
     private float turnSmoothVelocity;
 
@@ -165,10 +167,10 @@ public class MoverScript : MonoBehaviour
         if (numberOfJumps == 0) StartCoroutine(WaitForLanding());
 
 
-        int playerWeight = GameObject.Find("Player").GetComponent<LiquidTracker>().CalcWeight();
-        if (playerWeight >= 3)
+        float playerWeight = GameObject.Find("Player").GetComponent<LiquidTracker>().CalcWeight();
+        if (playerWeight > 0)
         {
-            playerVelocity = jumpPower * (4.0f / 5.0f);
+            playerVelocity = jumpPower * (8.2f / 10.0f);
         }
         else
         {

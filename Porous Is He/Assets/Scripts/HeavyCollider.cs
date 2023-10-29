@@ -32,9 +32,8 @@ public class HeavyCollider : MonoBehaviour
 
         if (other.gameObject.tag == "Player")
         {
-            int playerWeight = GameObject.Find("Player").GetComponent<LiquidTracker>().CalcWeight();
 
-            if (playerWeight >= GameObject.Find("Player").GetComponent<LiquidTracker>().maxLiquidAmount)
+            if (GameObject.Find("Player").GetComponent<LiquidTracker>().IsHeavy())
             {
                 //GameObject broken = Instantiate(brokenObject, currentObject.transform.position, currentObject.transform.rotation, currentObject.transform.parent);
                 //broken.transform.localScale = currentObject.transform.localScale;
