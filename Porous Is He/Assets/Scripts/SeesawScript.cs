@@ -28,9 +28,8 @@ public class SeesawScript : MonoBehaviour
 
         if (other.gameObject.tag == "Player")
         {
-            int playerWeight = GameObject.Find("Player").GetComponent<LiquidTracker>().CalcWeight();
 
-            if (playerWeight >= GameObject.Find("Player").GetComponent<LiquidTracker>().maxLiquidAmount)
+            if (GameObject.Find("Player").GetComponent<LiquidTracker>().IsHeavy())
             {
 
                 float maxDist = (NegativeZone.transform.position - PositiveZone.transform.position).magnitude / 2;

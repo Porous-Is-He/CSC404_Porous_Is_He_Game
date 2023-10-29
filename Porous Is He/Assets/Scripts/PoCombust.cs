@@ -16,7 +16,7 @@ public class PoCombust : MonoBehaviour
     [SerializeField] private float secondsOnFirePerUnit;
 
     private LiquidTracker liquidTracker;
-    private int amount;
+    private float amount;
     private float timeCounter;
     private int oilIndex = 1;
     public static bool isOnFire;
@@ -85,15 +85,15 @@ public class PoCombust : MonoBehaviour
         StartCoroutine(LerpFireScale(0, YellowFire, true));
     }
 
-    private float FireSizeModifier(int size)
+    private float FireSizeModifier(float size)
     {
-        if (size == 3)  return 3f;
-        if (size == 2) return 2.5f;
-        if (size == 1) return 2f;
+        if (size <= 3)  return 3f;
+        if (size <= 2) return 2.5f;
+        if (size <= 1) return 2f;
         return 0f;
     }
 
-    IEnumerator LerpFireScale(int size, GameObject fire, bool endFire)
+    IEnumerator LerpFireScale(float size, GameObject fire, bool endFire)
     {
         float time = 0;
         float duration = secondsOnFirePerUnit;

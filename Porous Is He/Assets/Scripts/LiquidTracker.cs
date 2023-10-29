@@ -12,18 +12,11 @@ public class LiquidTracker : MonoBehaviour
     // max number of liquid types player is allowed to have
     public int maxLiquidType = 2;
 
-    public int maxLiquidAmount = 3;
-
-    public Rigidbody rb;
-
-    public float normalMass = 20f;
-    public float heavyMass = 40f;
+    public float maxLiquidAmount = 3;
 
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        rb.mass = normalMass;
         playerLiquids = new LiquidInfo[maxLiquidType];
         for (int i = 0; i < maxLiquidType; ++i)
         {
@@ -39,14 +32,10 @@ public class LiquidTracker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (CalcWeight().Equals(maxLiquidAmount))
-        {
-            rb.mass = heavyMass;
-        }
-        //Debug.Log(rb.mass.ToString());
+
     }
 
-    public int GetLiquidAmountFromIndex(int index)
+    public float GetLiquidAmountFromIndex(int index)
     {
         return playerLiquids[index].liquidAmount;
     }
@@ -57,14 +46,14 @@ public class LiquidTracker : MonoBehaviour
         
     }
 
-    public int AddSelectedLiquid(LiquidInfo liquid)
+    public float AddSelectedLiquid(LiquidInfo liquid)
     {
         // if liquid is the same as player's current liquid
 
         int liquidIndex = GetLiquidIndex(liquid.liquidType);
 
-        int beforeAmount = playerLiquids[liquidIndex].liquidAmount;
-        int tempAmount = playerLiquids[liquidIndex].liquidAmount + liquid.liquidAmount;
+        float beforeAmount = playerLiquids[liquidIndex].liquidAmount;
+        float tempAmount = playerLiquids[liquidIndex].liquidAmount + liquid.liquidAmount;
         playerLiquids[liquidIndex].liquidAmount = (tempAmount > maxLiquidAmount) ? maxLiquidAmount : tempAmount;
 
         return playerLiquids[liquidIndex].liquidAmount - beforeAmount;
@@ -127,20 +116,27 @@ public class LiquidTracker : MonoBehaviour
         liquidSelectionIndex = index;
     }
 
-    public int CalcWeight()
+    public float CalcWeight()
     {
-        int weight = 0;
+        float weight = 0;
         for(int i = 0; i < maxLiquidType; i++)
         {
             if(playerLiquids[i] != null)
             {
-                weight += playerLiquids[i].liquidAmount;
+                weight += playerLiquids[i].liquidAmount * (1f/3f);
             }
         }
 
         
 
-        return Mathf.Min(weight, maxLiquidAmount);
+        return Mathf.Min(weight, 1);
+    }
+    public bool IsHeavy()
+    {
+        if (CalcWeight() > 0) {
+            return true;
+        }
+        return false;
     }
 
     public int GetLiquidIndex(string liquidType)

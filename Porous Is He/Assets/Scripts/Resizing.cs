@@ -26,18 +26,18 @@ public class Resizing : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        int amount = _liquidTracker.GetSelectedLiquid().liquidAmount;
+        float amount = _liquidTracker.GetSelectedLiquid().liquidAmount;
 
         if (amount == 0)
         {
             transform.localScale = Vector3.Lerp(transform.localScale, originalScale, 2 * Time.deltaTime);
-        } else if (amount == 1)
+        } else if (amount <= 1)
         {
             transform.localScale = Vector3.Lerp(transform.localScale, smallScale, 2 * Time.deltaTime);
-        } else if (amount == 2)
+        } else if (amount <= 2)
         {
             transform.localScale = Vector3.Lerp(transform.localScale, mediumScale, 2 * Time.deltaTime);
-        } else if (amount == 3)
+        } else if (amount <= 3)
         {
             transform.localScale = Vector3.Lerp(transform.localScale, largeScale, 2 * Time.deltaTime);
         }
