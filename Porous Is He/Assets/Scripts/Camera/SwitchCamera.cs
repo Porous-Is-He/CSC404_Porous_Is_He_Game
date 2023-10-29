@@ -13,7 +13,7 @@ public class SwitchCamera : MonoBehaviour
     public CinemachineFreeLook thirdPersonCamera;
     public CinemachineVirtualCamera aimCamera;
     private Transform projectile;
-    public GameObject crosshair;
+    public GameObject projectionLine;
 
     public Slider sensitivitySlider;
     public Slider aimSensitivitySlider;
@@ -41,8 +41,8 @@ public class SwitchCamera : MonoBehaviour
         // initial setup
         thirdPersonCamera.Priority = 20;
         aimCamera.Priority = 10;
-        crosshair.SetActive(false);
         thirdPersonCamera.m_RecenterToTargetHeading.m_enabled = false;
+        projectionLine.SetActive(false);
 
         projectile = transform.Find("ProjectileSpawn");
     }
@@ -106,7 +106,7 @@ public class SwitchCamera : MonoBehaviour
         aiming = true;
         thirdPersonCamera.Priority = 10;
         aimCamera.Priority = 20;
-        crosshair.SetActive(true);
+        projectionLine.SetActive(true);
 
         // Disable movement, enable shooting
         gameObject.GetComponent<MoverScript>().aiming = true;
@@ -123,7 +123,7 @@ public class SwitchCamera : MonoBehaviour
         aiming = false;
         thirdPersonCamera.Priority = 20;
         aimCamera.Priority = 10;
-        crosshair.SetActive(false);
+        projectionLine.SetActive(false);
 
         // Enable movement, disable shooting
         gameObject.GetComponent<MoverScript>().aiming = false;

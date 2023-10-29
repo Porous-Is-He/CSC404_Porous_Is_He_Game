@@ -1,14 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class LiquidProjectileScript : MonoBehaviour
 {
 
+    [SerializeField] private GameObject liquidSplashEffect;
+
     // Start is called before the first frame update
     void Start()
     {
-        Destroy(gameObject, 5);
+        Destroy(gameObject, 6);
     }
 
     // Update is called once per frame
@@ -39,6 +42,9 @@ public class LiquidProjectileScript : MonoBehaviour
         {
             AudioClip audioClip = Resources.Load<AudioClip>("Sounds/WaterHitFloor");
             AudioSource.PlayClipAtPoint(audioClip, transform.position, 0.5f);
+            // create splash effect
+            GameObject splash = Instantiate(liquidSplashEffect, transform.position, Quaternion.identity);
+            Destroy(splash, 2);
         }
         Destroy(gameObject);
     }
