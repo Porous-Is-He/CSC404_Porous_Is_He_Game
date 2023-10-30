@@ -81,6 +81,7 @@ public class MoverScript : MonoBehaviour
 
 
         if (LevelComplete.LevelEnd) return;
+
         if (knockBackCounter <= 0)
         {
             if (!aiming && enableMovement)
@@ -103,7 +104,7 @@ public class MoverScript : MonoBehaviour
             if (IsGrounded())
             {
                 direction.x = 0.0f;
-                direction.x = 0.0f;
+                direction.z = 0.0f;
             }
         }
     }

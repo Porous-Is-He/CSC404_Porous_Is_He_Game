@@ -34,7 +34,7 @@ public class DrawProjection : MonoBehaviour
             newPoint.y = startPosition.y + startVelocity.y * t + Physics.gravity.y / 2f * t * t;
             points.Add(newPoint);
 
-            if(Physics.OverlapSphere(newPoint, 2, CollidableLayers).Length > 0)
+            if(Physics.OverlapSphere(newPoint, 0.01f, CollidableLayers).Length > 0)
             {
                 lineRenderer.positionCount = points.Count;
                 break;

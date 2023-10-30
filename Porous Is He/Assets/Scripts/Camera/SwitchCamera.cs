@@ -109,7 +109,7 @@ public class SwitchCamera : MonoBehaviour
         projectionLine.SetActive(true);
 
         // Disable movement, enable shooting
-        //gameObject.GetComponent<MoverScript>().aiming = true;
+        gameObject.GetComponent<MoverScript>().aiming = true;
         projectile.GetComponent<ShootingScript>().aiming = true;
     }
 
@@ -125,12 +125,17 @@ public class SwitchCamera : MonoBehaviour
         aimCamera.Priority = 10;
         projectionLine.SetActive(false);
 
-        // Enable movement, disable shooting
-        //gameObject.GetComponent<MoverScript>().aiming = false;
-        projectile.GetComponent<ShootingScript>().aiming = false;
-
         // Disable automatic recenter
         thirdPersonCamera.m_RecenterToTargetHeading.m_enabled = false;
+
+        // Enable movement, disable shooting
+        Invoke("Switch", 0.2f);
+    }
+
+    private void Switch()
+    {
+        gameObject.GetComponent<MoverScript>().aiming = false;
+        projectile.GetComponent<ShootingScript>().aiming = false;
     }
 
     private void AimCamera()
