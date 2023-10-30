@@ -13,7 +13,7 @@ public class SwitchCamera : MonoBehaviour
     public CinemachineFreeLook thirdPersonCamera;
     public CinemachineVirtualCamera aimCamera;
     private Transform projectile;
-    public GameObject crosshair;
+    public GameObject projectionLine;
 
     public Slider sensitivitySlider;
     public Slider aimSensitivitySlider;
@@ -41,8 +41,8 @@ public class SwitchCamera : MonoBehaviour
         // initial setup
         thirdPersonCamera.Priority = 20;
         aimCamera.Priority = 10;
-        crosshair.SetActive(false);
         thirdPersonCamera.m_RecenterToTargetHeading.m_enabled = false;
+        projectionLine.SetActive(false);
 
         projectile = transform.Find("ProjectileSpawn");
     }
@@ -106,7 +106,7 @@ public class SwitchCamera : MonoBehaviour
         aiming = true;
         thirdPersonCamera.Priority = 10;
         aimCamera.Priority = 20;
-        crosshair.SetActive(true);
+        projectionLine.SetActive(true);
 
         // Disable movement, enable shooting
         gameObject.GetComponent<MoverScript>().aiming = true;
@@ -123,14 +123,19 @@ public class SwitchCamera : MonoBehaviour
         aiming = false;
         thirdPersonCamera.Priority = 20;
         aimCamera.Priority = 10;
-        crosshair.SetActive(false);
-
-        // Enable movement, disable shooting
-        gameObject.GetComponent<MoverScript>().aiming = false;
-        projectile.GetComponent<ShootingScript>().aiming = false;
+        projectionLine.SetActive(false);
 
         // Disable automatic recenter
         thirdPersonCamera.m_RecenterToTargetHeading.m_enabled = false;
+
+        // Enable movement, disable shooting
+        Invoke("Switch", 0.2f);
+    }
+
+    private void Switch()
+    {
+        gameObject.GetComponent<MoverScript>().aiming = false;
+        projectile.GetComponent<ShootingScript>().aiming = false;
     }
 
     private void AimCamera()
@@ -148,13 +153,13 @@ public class SwitchCamera : MonoBehaviour
             rotationY += speedH * inputVector.x * aimSensitivitySlider.value;
         }
 
-        if (rotationX > 31.0f)
+        if (rotationX > 33.0f)
         {
-            rotationX = 31.0f;
+            rotationX = 33.0f;
         }
-        else if (rotationX < -17.0f)
+        else if (rotationX < -30.0f)
         {
-            rotationX = -17.0f;
+            rotationX = -30.0f;
         }
 
         transform.eulerAngles = new Vector3(rotationX, rotationY, 0);

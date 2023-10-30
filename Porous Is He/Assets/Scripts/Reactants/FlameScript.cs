@@ -7,10 +7,10 @@ public class FlameScript : MonoBehaviour, ReactantInterface
 {
 
     //fireLevel must be between [0, maxFireLevel]
-    public int fireLevel = 0;
-    public int maxFireLevel = 3;
+    public float fireLevel = 0;
+    public float maxFireLevel = 3;
 
-    private int lastFireLevel = -1;
+    private float lastFireLevel = -1;
 
     private float elapsedTime = 0.0f;
     private float animTime = 0.5f;
@@ -27,11 +27,11 @@ public class FlameScript : MonoBehaviour, ReactantInterface
     {
         if (liquid.liquidType == "Water")
         {
-            fireLevel--;
-            if (fireLevel == 0 && isAlwaysBurning) fireLevel = 1;
+            fireLevel -= 0.1f;
+            if (fireLevel <= 0 && isAlwaysBurning) fireLevel = 1;
         } else if (liquid.liquidType == "Oil")
         {
-            fireLevel++;
+            fireLevel += 0.1f;
         }
 
         if (fireLevel < 0) {
@@ -70,26 +70,15 @@ public class FlameScript : MonoBehaviour, ReactantInterface
         if (lastFireLevel != fireLevel && isBurning)
         {
             ChangeFlameSize();
-            //Debug.Log("Flame size " + fireLevel);
         }
     }
 
     private void ChangeFlameSize()
     {
-        //var fireSprite = this.transform.parent.Find("FireSprite");
-        //var newScale = new Vector3(1.2f, 1.2f * fireLevel, 1.2f);
-        //fireSprite.transform.localScale = newScale;
-        //fireSprite.transform.localPosition = new Vector3(0f, newScale.y * 0.5f, 0f);
-
-        //var fireSprite = gameObject;
-        //var newScale = new Vector3(1.0f, 1.0f * (float)fireLevel / 3.0f + 0.1f, 1.0f);
-        //fireSprite.transform.localScale = newScale;
-        //fireSprite.transform.localPosition = new Vector3(0f, newScale.y * 0.5f, 0f);
-
-
 
         float fireMultiplier = 1.8f;
-        float flameSize = transform.lossyScale.y * fireMultiplier * (((float)fireLevel + 2) / ((float)maxFireLevel + 2));
+        float flameSize = transform.lossyScale.y * fireMultiplier * ((fireLevel + 2) / (maxFireLevel + 2));
+        
 
         elapsedTime += Time.deltaTime;
         float interpolationRatio = Mathf.Max(elapsedTime / animTime, 1.0f);
@@ -99,7 +88,8 @@ public class FlameScript : MonoBehaviour, ReactantInterface
             ParticleSystem fireParticle = transform.GetChild(i).GetComponent<ParticleSystem>();
             if (fireParticle)
             {
-                float lastFlameSize = fireParticle.startSize;
+                var main = fireParticle.main;
+                //float lastFlameSize = fireParticle.startSize;
 
                 if (fireLevel == 0)
                 {
@@ -109,6 +99,10 @@ public class FlameScript : MonoBehaviour, ReactantInterface
                 }
                 else
                 {
+                    if (transform.GetChild(i).name == "RedFire")
+                    {
+                        flameSize = flameSize * 0.9f;
+                    }
                     if (transform.GetChild(i).name == "OrangeFire")
                     {
                         flameSize = flameSize * 0.7f;
@@ -117,11 +111,15 @@ public class FlameScript : MonoBehaviour, ReactantInterface
                     {
                         flameSize = flameSize * 0.5f;
                     }
-                    fireParticle.startSize = (float)lastFlameSize + (float)(flameSize - lastFlameSize) * interpolationRatio;
+                    //float t = lastFlameSize + (flameSize - lastFlameSize) * interpolationRatio;
+                    //fireParticle.startSize = lastFlameSize + (flameSize - lastFlameSize) * interpolationRatio;
+                    main.startSize = flameSize;
                     fireParticle.Play();
                     isFlameOut = false;
                 }
+                
             }
+            
 
         }
 

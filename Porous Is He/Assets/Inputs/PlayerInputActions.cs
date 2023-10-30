@@ -89,6 +89,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Release"",
+                    ""type"": ""Button"",
+                    ""id"": ""5824c973-29d7-4837-b322-c0bee0179bf6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -355,6 +364,28 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Swap"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""06c6f931-432e-400b-8a2e-d871ba0a38dd"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Release"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e59f0d5c-0a0b-4199-8999-979fb2b87f86"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Release"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -420,6 +451,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_MouseLook = m_Player.FindAction("MouseLook", throwIfNotFound: true);
         m_Player_Absorb = m_Player.FindAction("Absorb", throwIfNotFound: true);
         m_Player_Swap = m_Player.FindAction("Swap", throwIfNotFound: true);
+        m_Player_Release = m_Player.FindAction("Release", throwIfNotFound: true);
         // GameManager
         m_GameManager = asset.FindActionMap("GameManager", throwIfNotFound: true);
         m_GameManager_Pause = m_GameManager.FindAction("Pause", throwIfNotFound: true);
@@ -491,6 +523,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_MouseLook;
     private readonly InputAction m_Player_Absorb;
     private readonly InputAction m_Player_Swap;
+    private readonly InputAction m_Player_Release;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -502,6 +535,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @MouseLook => m_Wrapper.m_Player_MouseLook;
         public InputAction @Absorb => m_Wrapper.m_Player_Absorb;
         public InputAction @Swap => m_Wrapper.m_Player_Swap;
+        public InputAction @Release => m_Wrapper.m_Player_Release;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -532,6 +566,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Swap.started += instance.OnSwap;
             @Swap.performed += instance.OnSwap;
             @Swap.canceled += instance.OnSwap;
+            @Release.started += instance.OnRelease;
+            @Release.performed += instance.OnRelease;
+            @Release.canceled += instance.OnRelease;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -557,6 +594,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Swap.started -= instance.OnSwap;
             @Swap.performed -= instance.OnSwap;
             @Swap.canceled -= instance.OnSwap;
+            @Release.started -= instance.OnRelease;
+            @Release.performed -= instance.OnRelease;
+            @Release.canceled -= instance.OnRelease;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -629,6 +669,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnMouseLook(InputAction.CallbackContext context);
         void OnAbsorb(InputAction.CallbackContext context);
         void OnSwap(InputAction.CallbackContext context);
+        void OnRelease(InputAction.CallbackContext context);
     }
     public interface IGameManagerActions
     {

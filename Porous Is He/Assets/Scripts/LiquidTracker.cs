@@ -96,12 +96,12 @@ public class LiquidTracker : MonoBehaviour
 
     }
 
-    public void RemoveSelectedLiquid(int amount)
+    public void RemoveSelectedLiquid(float amount)
     {
         playerLiquids[liquidSelectionIndex].liquidAmount -= amount;
     }
 
-    public void RemoveLiquidFromIndex(int index, int amount)
+    public void RemoveLiquidFromIndex(int index, float amount)
     {
         playerLiquids[index].liquidAmount -= amount;
     }
@@ -152,7 +152,7 @@ public class LiquidTracker : MonoBehaviour
         return -1;
     }
 
-        public bool FullLiquid(string liquidType)
+    public bool FullLiquid(string liquidType)
     {
         int liquidIndex = GetLiquidIndex(liquidType);
         if (playerLiquids[liquidIndex].liquidAmount == maxLiquidAmount) return true;

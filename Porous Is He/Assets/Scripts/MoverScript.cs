@@ -17,7 +17,7 @@ public class MoverScript : MonoBehaviour
 
     // Jump variables
     private float playerVelocity;
-    private float gravityValue = -9.81f * verticalMod;
+    private float gravityValue = -8.8f * verticalMod;
     private float jumpPower = 2.5f * verticalMod;
     private int numberOfJumps = 0;
     private int maxNumberOfJumps = 2;
@@ -81,6 +81,7 @@ public class MoverScript : MonoBehaviour
 
 
         if (LevelComplete.LevelEnd) return;
+
         if (knockBackCounter <= 0)
         {
             if (!aiming && enableMovement)
@@ -103,7 +104,7 @@ public class MoverScript : MonoBehaviour
             if (IsGrounded())
             {
                 direction.x = 0.0f;
-                direction.x = 0.0f;
+                direction.z = 0.0f;
             }
         }
     }

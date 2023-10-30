@@ -6,11 +6,13 @@ using UnityEngine.InputSystem;
 public class AbsorbLiquid : MonoBehaviour
 {
     // this script is attached to Player. It provides the absorb mechanic
-    public int amountAbsorbed;
+    [SerializeField] private float amountAbsorbed = 0.025f;
     private bool touchingLiquid = false;
     private PlayerInputActions playerInputActions;
     private LiquidSource liquidSource;
     private LiquidTracker liquidTracker;
+
+    private bool absorbing = false;
 
     public GameObject interactUI;
 
@@ -18,9 +20,26 @@ public class AbsorbLiquid : MonoBehaviour
     {
         playerInputActions = new PlayerInputActions();
         playerInputActions.Player.Enable();
-        playerInputActions.Player.Absorb.started += Absorb;
-
+        playerInputActions.Player.Absorb.started += StartAbsorb;
+        playerInputActions.Player.Absorb.canceled += StopAbsorb;
+        playerInputActions.Player.Release.started += ReleaseAllLiquid;
         liquidTracker = GetComponent<LiquidTracker>();
+    }
+
+    private void Update()
+    {
+        if (absorbing)
+        {
+            if (touchingLiquid && !liquidTracker.FullLiquid(liquidSource.liquidType))
+            {
+                LiquidInfo liquid = liquidSource.AbsorbLiquid(amountAbsorbed);
+                if (liquid.liquidAmount != 0)
+                {
+                    //gameObject.GetComponent<PoSoundManager>().PlaySound("Absorb");
+                    gameObject.GetComponent<LiquidTracker>().AddSelectedLiquid(liquid);
+                }
+            }
+        }
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
@@ -38,17 +57,24 @@ public class AbsorbLiquid : MonoBehaviour
         }
     }
 
-    private void Absorb(InputAction.CallbackContext context)
+    private void StartAbsorb(InputAction.CallbackContext context)
     {
+        if (PauseMenu.isPaused) return;
+        absorbing = true;
         if (touchingLiquid && !liquidTracker.FullLiquid(liquidSource.liquidType))
         {
-            LiquidInfo liquid = liquidSource.AbsorbLiquid(amountAbsorbed);
-            if (liquid.liquidAmount != 0)
-            {
-                gameObject.GetComponent<PoSoundManager>().PlaySound("Absorb");
-                gameObject.GetComponent<LiquidTracker>().AddSelectedLiquid(liquid);
-            }
+            gameObject.GetComponent<PoSoundManager>().PlaySound("Absorb");
         }
+    }
+
+    private void StopAbsorb(InputAction.CallbackContext context)
+    {
+        absorbing = false;
+    }
+
+    private void ReleaseAllLiquid(InputAction.CallbackContext context)
+    {
+        liquidTracker.RemoveSelectedLiquid(liquidTracker.GetSelectedLiquid().liquidAmount);
     }
 
     private void OnDestroy()
