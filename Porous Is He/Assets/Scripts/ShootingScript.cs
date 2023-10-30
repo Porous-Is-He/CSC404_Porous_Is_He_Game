@@ -20,6 +20,8 @@ public class ShootingScript : MonoBehaviour
     [SerializeField] private float shootDistance = 60;
     [SerializeField] private float shootAmount = 0.025f;
     private bool shooting = false;
+    [SerializeField] private float timeBetweenShoot = 0.15f;
+    private float time = 1f;
 
     private PlayerInputActions playerInputActions;
 
@@ -49,9 +51,14 @@ public class ShootingScript : MonoBehaviour
     {
         if (shooting && CanShoot())
         {
-            CreateBullet();
-            DeductLiquid();
+            if (time >= timeBetweenShoot)
+            {
+                CreateBullet();
+                DeductLiquid();
+                time = 0;
+            }
         }
+        if (time < timeBetweenShoot) time += Time.deltaTime;
     }
 
     private bool CanShoot()

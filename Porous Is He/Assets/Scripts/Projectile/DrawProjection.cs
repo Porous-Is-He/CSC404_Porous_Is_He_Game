@@ -15,14 +15,12 @@ public class DrawProjection : MonoBehaviour
 
     private ShootingScript shootingScript;
 
-    // Start is called before the first frame update
     void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
         shootingScript = ProjectileSpawn.GetComponent<ShootingScript>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         lineRenderer.positionCount = numPoints;

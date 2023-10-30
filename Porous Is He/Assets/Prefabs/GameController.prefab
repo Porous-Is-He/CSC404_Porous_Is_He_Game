@@ -43,11 +43,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 75544151459501710, guid: 073a277f6b63eb04dbd363f4b7f79515, type: 3}
       propertyPath: shootForce
-      value: 40
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 75544151459501710, guid: 073a277f6b63eb04dbd363f4b7f79515, type: 3}
       propertyPath: shootAmount
-      value: 0.01
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 75544151459501710, guid: 073a277f6b63eb04dbd363f4b7f79515, type: 3}
       propertyPath: shootingRate
@@ -56,6 +56,10 @@ PrefabInstance:
     - target: {fileID: 75544151459501710, guid: 073a277f6b63eb04dbd363f4b7f79515, type: 3}
       propertyPath: shootDistance
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 75544151459501710, guid: 073a277f6b63eb04dbd363f4b7f79515, type: 3}
+      propertyPath: timeBetweenShoot
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 935556885505570556, guid: 073a277f6b63eb04dbd363f4b7f79515, type: 3}
       propertyPath: m_Name
@@ -243,11 +247,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7769750659954097512, guid: 073a277f6b63eb04dbd363f4b7f79515, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0016856348
+      value: 0.0016856826
       objectReference: {fileID: 0}
     - target: {fileID: 7769750659954097512, guid: 073a277f6b63eb04dbd363f4b7f79515, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.00031159818
+      value: 0.000311607
       objectReference: {fileID: 0}
     - target: {fileID: 7976295205773179629, guid: 073a277f6b63eb04dbd363f4b7f79515, type: 3}
       propertyPath: FireBorder

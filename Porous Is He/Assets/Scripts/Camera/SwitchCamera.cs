@@ -109,7 +109,7 @@ public class SwitchCamera : MonoBehaviour
         projectionLine.SetActive(true);
 
         // Disable movement, enable shooting
-        gameObject.GetComponent<MoverScript>().aiming = true;
+        //gameObject.GetComponent<MoverScript>().aiming = true;
         projectile.GetComponent<ShootingScript>().aiming = true;
     }
 
@@ -126,7 +126,7 @@ public class SwitchCamera : MonoBehaviour
         projectionLine.SetActive(false);
 
         // Enable movement, disable shooting
-        gameObject.GetComponent<MoverScript>().aiming = false;
+        //gameObject.GetComponent<MoverScript>().aiming = false;
         projectile.GetComponent<ShootingScript>().aiming = false;
 
         // Disable automatic recenter
@@ -148,13 +148,13 @@ public class SwitchCamera : MonoBehaviour
             rotationY += speedH * inputVector.x * aimSensitivitySlider.value;
         }
 
-        if (rotationX > 31.0f)
+        if (rotationX > 33.0f)
         {
-            rotationX = 31.0f;
+            rotationX = 33.0f;
         }
-        else if (rotationX < -17.0f)
+        else if (rotationX < -30.0f)
         {
-            rotationX = -17.0f;
+            rotationX = -30.0f;
         }
 
         transform.eulerAngles = new Vector3(rotationX, rotationY, 0);

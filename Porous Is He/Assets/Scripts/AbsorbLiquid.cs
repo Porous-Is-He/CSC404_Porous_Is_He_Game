@@ -22,7 +22,7 @@ public class AbsorbLiquid : MonoBehaviour
         playerInputActions.Player.Enable();
         playerInputActions.Player.Absorb.started += StartAbsorb;
         playerInputActions.Player.Absorb.canceled += StopAbsorb;
-
+        playerInputActions.Player.Release.started += ReleaseAllLiquid;
         liquidTracker = GetComponent<LiquidTracker>();
     }
 
@@ -70,6 +70,11 @@ public class AbsorbLiquid : MonoBehaviour
     private void StopAbsorb(InputAction.CallbackContext context)
     {
         absorbing = false;
+    }
+
+    private void ReleaseAllLiquid(InputAction.CallbackContext context)
+    {
+        liquidTracker.RemoveSelectedLiquid(liquidTracker.GetSelectedLiquid().liquidAmount);
     }
 
     private void OnDestroy()

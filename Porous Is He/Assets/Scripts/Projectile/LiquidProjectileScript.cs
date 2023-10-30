@@ -17,7 +17,7 @@ public class LiquidProjectileScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public LiquidInfo liquid;
@@ -41,7 +41,8 @@ public class LiquidProjectileScript : MonoBehaviour
         else
         {
             AudioClip audioClip = Resources.Load<AudioClip>("Sounds/WaterHitFloor");
-            AudioSource.PlayClipAtPoint(audioClip, transform.position, 0.5f);
+            AudioSource.PlayClipAtPoint(audioClip, transform.position, 0.4f);
+            
             // create splash effect
             GameObject splash = Instantiate(liquidSplashEffect, transform.position, Quaternion.identity);
             Destroy(splash, 2);

@@ -27,11 +27,11 @@ public class FlameScript : MonoBehaviour, ReactantInterface
     {
         if (liquid.liquidType == "Water")
         {
-            fireLevel -= 0.04f;
+            fireLevel -= 0.1f;
             if (fireLevel <= 0 && isAlwaysBurning) fireLevel = 1;
         } else if (liquid.liquidType == "Oil")
         {
-            fireLevel += 0.04f;
+            fireLevel += 0.1f;
         }
 
         if (fireLevel < 0) {
