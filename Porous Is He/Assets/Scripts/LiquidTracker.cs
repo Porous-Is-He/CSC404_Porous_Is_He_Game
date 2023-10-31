@@ -12,7 +12,7 @@ public class LiquidTracker : MonoBehaviour
     // max number of liquid types player is allowed to have
     public int maxLiquidType = 2;
 
-    public float maxLiquidAmount = 3;
+    public float maxLiquidAmount = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -99,11 +99,19 @@ public class LiquidTracker : MonoBehaviour
     public void RemoveSelectedLiquid(float amount)
     {
         playerLiquids[liquidSelectionIndex].liquidAmount -= amount;
+        if (playerLiquids[liquidSelectionIndex].liquidAmount < 0)
+        {
+            playerLiquids[liquidSelectionIndex].liquidAmount = 0;
+        }
     }
 
     public void RemoveLiquidFromIndex(int index, float amount)
     {
         playerLiquids[index].liquidAmount -= amount;
+        if (playerLiquids[index].liquidAmount < 0)
+        {
+            playerLiquids[index].liquidAmount = 0;
+        }
     }
 
     public int GetSelectionIndex()

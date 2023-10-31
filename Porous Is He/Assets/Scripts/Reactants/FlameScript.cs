@@ -14,24 +14,30 @@ public class FlameScript : MonoBehaviour, ReactantInterface
 
     private float elapsedTime = 0.0f;
     private float animTime = 0.5f;
-    
+
     // Variable to keep track of flames
-    private bool isFlameOut = false;
-    private bool isBurning = true;
+    public bool isBurning = false;
+    public bool canDamage = false;
     public bool isAlwaysBurning = false;
 
-    private MoverScript thisPlayer;
-    private PoCombust poCombust;
+    public GameObject SmokeEmitter;
+
+    private Transform parent;
 
     public void ApplyLiquid(LiquidInfo liquid)
     {
         if (liquid.liquidType == "Water")
         {
-            fireLevel -= 0.1f;
-            if (fireLevel <= 0 && isAlwaysBurning) fireLevel = 1;
+            fireLevel -= liquid.liquidAmount * 2;
+            //if (fireLevel <= 0 && isAlwaysBurning) fireLevel = 1;
+
+            if (fireLevel > 0)
+            {
+                SmokeEmitter.GetComponent<ParticleSystem>().Emit(5);
+            }
         } else if (liquid.liquidType == "Oil")
         {
-            fireLevel += 0.1f;
+            fireLevel += liquid.liquidAmount * 2;
         }
 
         if (fireLevel < 0) {
@@ -53,14 +59,9 @@ public class FlameScript : MonoBehaviour, ReactantInterface
     // Start is called before the first frame update
     void Start()
     {
-        thisPlayer = GameObject.Find("Player").GetComponent<MoverScript>();
-        poCombust = GameObject.Find("Player").GetComponent<PoCombust>();
-        if (fireLevel == 0)
-        {
-            isFlameOut = true;
-            isBurning = false;
-        }
-            ChangeFlameSize();
+        parent = transform.parent.transform;
+
+        ChangeFlameSize();
     }
 
 
@@ -69,53 +70,88 @@ public class FlameScript : MonoBehaviour, ReactantInterface
     {
         if (lastFireLevel != fireLevel && isBurning)
         {
+            Debug.Log("helloz");
             ChangeFlameSize();
         }
     }
 
+    private float minSpd = 6;
+    private float maxSpd = 10;
+    private float minLife = 5;
+    private float maxLife = 7;
+
     private void ChangeFlameSize()
     {
+        if (fireLevel == 0)
+        {
+            canDamage = false;
+            if (isAlwaysBurning == false) 
+            {
+                isBurning = false;
+            }
+        }
 
-        float fireMultiplier = 1.8f;
-        float flameSize = transform.lossyScale.y * fireMultiplier * ((fireLevel + 2) / (maxFireLevel + 2));
-        
+        float fireMultiplier = 2.0f;
+        float flameSize = transform.lossyScale.x * fireMultiplier * ((fireLevel + 6) / (maxFireLevel + 6));
+
+        float fireSpeed = (fireLevel / maxFireLevel) * (maxSpd - minSpd) + minSpd;
+        float fireLife = maxLife - ( (fireLevel / maxFireLevel) * (maxLife - minLife) );
+
+
+        if (fireLevel == 0)
+        {
+            flameSize = transform.lossyScale.x * fireMultiplier * 0.15f;
+            fireSpeed = fireSpeed / 4;
+        }
 
         elapsedTime += Time.deltaTime;
         float interpolationRatio = Mathf.Max(elapsedTime / animTime, 1.0f);
 
-        for (int i = 0; i < transform.childCount; ++i)
+        for (int i = 0; i < parent.childCount; ++i)
         {
-            ParticleSystem fireParticle = transform.GetChild(i).GetComponent<ParticleSystem>();
+            if (parent.GetChild(i).name == "Smoke")
+            {
+                continue;
+            }
+
+                ParticleSystem fireParticle = parent.GetChild(i).GetComponent<ParticleSystem>();
             if (fireParticle)
             {
                 var main = fireParticle.main;
                 //float lastFlameSize = fireParticle.startSize;
 
-                if (fireLevel == 0)
+                if (fireLevel == 0 && isAlwaysBurning == false)
                 {
                     fireParticle.Stop();
-                    isFlameOut = true; // The flame has been put out
 
                 }
                 else
                 {
-                    if (transform.GetChild(i).name == "RedFire")
+
+                    if (parent.GetChild(i).name == "RedFire")
                     {
                         flameSize = flameSize * 0.9f;
                     }
-                    if (transform.GetChild(i).name == "OrangeFire")
+                    if (parent.GetChild(i).name == "OrangeFire")
                     {
                         flameSize = flameSize * 0.7f;
                     }
-                    else if (transform.GetChild(i).name == "YellowFire")
+                    else if (parent.GetChild(i).name == "YellowFire")
                     {
                         flameSize = flameSize * 0.5f;
                     }
                     //float t = lastFlameSize + (flameSize - lastFlameSize) * interpolationRatio;
                     //fireParticle.startSize = lastFlameSize + (flameSize - lastFlameSize) * interpolationRatio;
                     main.startSize = flameSize;
+                    ParticleSystem.VelocityOverLifetimeModule velocityModule = fireParticle.velocityOverLifetime;
+                    velocityModule.yMultiplier = fireSpeed;
                     fireParticle.Play();
-                    isFlameOut = false;
+
+                    isBurning = true;
+                    if (fireLevel > 0)
+                    {
+                        canDamage = true;
+                    }
                 }
                 
             }
@@ -152,20 +188,4 @@ public class FlameScript : MonoBehaviour, ReactantInterface
         return isBurning;
     }
 
-    private void OnTriggerEnter(Collider other)
-    {   
-        // Only want knockback to occur when the flame still exists
-        // And only want knockback on the player object
-        if (!isFlameOut && other.transform.gameObject.CompareTag("Player")) 
-        {
-            Vector3 moveDirection = other.transform.position - transform.position;
-            moveDirection.y = 0;
-            moveDirection = moveDirection.normalized;
-            thisPlayer.KnockBack(moveDirection);
-
-            // This handles when Po has oil and touches fire
-            // it will call Combust to make Po light on fire
-            if (poCombust != null) poCombust.Combust();
-        }
-    }
 }

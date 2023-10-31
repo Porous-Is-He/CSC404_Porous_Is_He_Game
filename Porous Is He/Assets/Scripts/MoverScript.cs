@@ -171,7 +171,7 @@ public class MoverScript : MonoBehaviour
         float playerWeight = GameObject.Find("Player").GetComponent<LiquidTracker>().CalcWeight();
         if (playerWeight > 0)
         {
-            playerVelocity = jumpPower * (8.2f / 10.0f);
+            playerVelocity = jumpPower * (8.0f / 10.0f);
         }
         else
         {
