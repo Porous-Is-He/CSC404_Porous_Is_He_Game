@@ -91,7 +91,7 @@ public class FlameScript : MonoBehaviour, ReactantInterface
             }
         }
 
-        float fireMultiplier = 2.0f;
+        float fireMultiplier = 1.7f;
         float flameSize = transform.lossyScale.x * fireMultiplier * ((fireLevel + 6) / (maxFireLevel + 6));
 
         float fireSpeed = (fireLevel / maxFireLevel) * (maxSpd - minSpd) + minSpd;
