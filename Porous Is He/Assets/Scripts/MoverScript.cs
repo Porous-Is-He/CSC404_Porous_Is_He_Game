@@ -13,7 +13,7 @@ public class MoverScript : MonoBehaviour
     private PlayerInputActions playerInputActions;
     private Transform cameraMainTransform;
 
-    private static float verticalMod = 0.75f;
+    private static float verticalMod = 0.9f;
 
     // Jump variables
     private float playerVelocity;
@@ -25,7 +25,7 @@ public class MoverScript : MonoBehaviour
     // Player Movement variables
     private Vector2 inputVector;
     private Vector3 direction;
-    private float playerSpeed = 8f;
+    private float playerSpeed = 7.5f;
     private float turnSmoothTime = 0.05f;
     private float turnSmoothVelocity;
 
@@ -171,7 +171,7 @@ public class MoverScript : MonoBehaviour
         float playerWeight = GameObject.Find("Player").GetComponent<LiquidTracker>().CalcWeight();
         if (playerWeight > 0)
         {
-            playerVelocity = jumpPower * (8.2f / 10.0f);
+            playerVelocity = jumpPower * (8.0f / 10.0f);
         }
         else
         {

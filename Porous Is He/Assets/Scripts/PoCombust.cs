@@ -64,7 +64,7 @@ public class PoCombust : MonoBehaviour
     {
         if (isOnFire) return;
         if (liquidTracker.GetSelectedLiquid().liquidType != "Oil") return;
-        if (liquidTracker.GetSelectedLiquid().liquidAmount == 0) return;
+        if (liquidTracker.GetSelectedLiquid().liquidAmount <= 0) return;
 
         isOnFire = true;
         FireBorder.SetActive(true);

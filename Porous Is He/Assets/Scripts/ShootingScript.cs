@@ -18,7 +18,7 @@ public class ShootingScript : MonoBehaviour
     [SerializeField] private float shootForce = 15;
     [SerializeField] private float shootUpwardForce = 10;
     [SerializeField] private float shootDistance = 60;
-    [SerializeField] private float shootAmount = 0.025f;
+    [SerializeField] private float shootAmount = 0.1f;
     private bool shooting = false;
     [SerializeField] private float timeBetweenShoot = 0.15f;
     private float time = 1f;
@@ -78,6 +78,7 @@ public class ShootingScript : MonoBehaviour
     private void CreateBullet()
     {
         LiquidInfo Liquid = liquidTracker.GetSelectedLiquid();
+        Liquid = new LiquidInfo(Liquid.liquidType, shootAmount);
 
         Vector3 attackPointPos = transform.position;
 
