@@ -30,9 +30,9 @@ public class MoverScript : MonoBehaviour
     private float turnSmoothVelocity;
 
     // Variables that deals with knockback
-    public float knockBackForce;
-    public float knockBackForceHorizontal;
-    public float knockBackTime;
+    public float knockBackForce = 4f;
+    public float knockBackForceHorizontal = 2f;
+    public float knockBackTime = 0.1f;
     private float knockBackCounter;
 
     // Variable that toggles movement
