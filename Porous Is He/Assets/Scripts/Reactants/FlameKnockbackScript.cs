@@ -36,16 +36,25 @@ public class FlameKnockbackScript : MonoBehaviour
     {
         // Only want knockback to occur when the flame still exists
         // And only want knockback on the player object
-        if (flame.canDamage && other.transform.gameObject.CompareTag("Player"))
+        if (other.transform.gameObject.CompareTag("Player"))
         {
-            Vector3 moveDirection = other.transform.position - transform.position;
-            moveDirection.y = 0;
-            moveDirection = moveDirection.normalized;
-            thisPlayer.KnockBack(moveDirection);
 
-            // This handles when Po has oil and touches fire
-            // it will call Combust to make Po light on fire
-            if (poCombust != null) poCombust.Combust();
+            if (flame.canDamage)
+            {
+                Vector3 moveDirection = other.transform.position - transform.position;
+                moveDirection.y = 0;
+                moveDirection = moveDirection.normalized;
+                thisPlayer.KnockBack(moveDirection);
+
+                // This handles when Po has oil and touches fire
+                // it will call Combust to make Po light on fire
+                if (poCombust != null) poCombust.Combust();
+            }
+
+            if (poCombust != null && PoCombust.isOnFire)
+            {
+                flame.isBurning = true;
+            }
         }
     }
 }

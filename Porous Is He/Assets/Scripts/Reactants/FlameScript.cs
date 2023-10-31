@@ -16,9 +16,11 @@ public class FlameScript : MonoBehaviour, ReactantInterface
     private float animTime = 0.5f;
 
     // Variable to keep track of flames
+    private bool wasBurning = false;
     public bool isBurning = false;
     public bool canDamage = false;
     public bool isAlwaysBurning = false;
+    public bool startOff = false;
 
     public GameObject SmokeEmitter;
 
@@ -59,9 +61,21 @@ public class FlameScript : MonoBehaviour, ReactantInterface
     // Start is called before the first frame update
     void Start()
     {
+        wasBurning = isBurning;
         parent = transform.parent.transform;
 
+        float oldFireLevel = fireLevel;
+        if (startOff)
+        {
+            fireLevel = 0;
+        }
+
         ChangeFlameSize();
+
+        if (startOff)
+        {
+            fireLevel = oldFireLevel;
+        }
     }
 
 
@@ -72,6 +86,12 @@ public class FlameScript : MonoBehaviour, ReactantInterface
         {
             ChangeFlameSize();
         }
+
+        if (wasBurning != isBurning)
+        {
+            ChangeFlameSize();
+        }
+        wasBurning = isBurning;
     }
 
     private float minSpd = 6;
