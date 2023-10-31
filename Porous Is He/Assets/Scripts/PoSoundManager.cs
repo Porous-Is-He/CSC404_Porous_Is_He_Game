@@ -18,12 +18,12 @@ public class PoSoundManager : MonoBehaviour
 
     public void PlaySound(string soundType)
     {
-        string soundDir = "Sounds/SFX/";
+        string soundDir = "Sounds/SFX/Character Sounds/";
 
         if (soundType == "Shoot")
-            soundDir += "sfx_posht_nl_1";
+            soundDir += "sfx_shoot_nl_01";
         else if (soundType == "Absorb")
-            soundDir += "sfx_poslrp_nl_1";
+            soundDir += "sfx_slurp_nl_01";
         else
             Debug.Log("No such sound: " + soundType);
 
