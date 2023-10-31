@@ -12,26 +12,28 @@ public class SeesawScript : MonoBehaviour
     private float rotSpdFactor = 0.2f;
     private float maxRotation = 30.0f;
 
-    // Start is called before the first frame update
+    private GameObject Player;
+
     void Start()
     {
-        
+        Player = GameObject.Find("Player");
     }
 
-    // Update is called once per frame
     void Update()
     {
 
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Player.GetComponent<MoverScript>().onMovingPlatform = true;
+    }
     void OnTriggerStay(Collider other)
     {
-
         if (other.gameObject.tag == "Player")
         {
-
-            if (GameObject.Find("Player").GetComponent<LiquidTracker>().IsHeavy())
+            if (Player.GetComponent<LiquidTracker>().IsHeavy())
             {
-
                 float maxDist = (NegativeZone.transform.position - PositiveZone.transform.position).magnitude / 2;
                 float negativeDist = (NegativeZone.transform.position - other.transform.position).magnitude;
                 float positiveDist = (PositiveZone.transform.position - other.transform.position).magnitude;
@@ -69,5 +71,9 @@ public class SeesawScript : MonoBehaviour
                 }
             }
         }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        Player.GetComponent<MoverScript>().onMovingPlatform = false;
     }
 }

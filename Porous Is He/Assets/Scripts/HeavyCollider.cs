@@ -8,6 +8,8 @@ public class HeavyCollider : MonoBehaviour
     public GameObject brokenObject;
     public GameObject currentObject;
     public bool isBroken = false;
+
+    private bool hintGiven = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,11 +26,7 @@ public class HeavyCollider : MonoBehaviour
 
      void OnTriggerEnter(Collider other)
     {
-        if (isBroken == true)
-        {
-            return;
-        }
-
+        if (isBroken == true) return;
 
         if (other.gameObject.tag == "Player")
         {
@@ -42,5 +40,20 @@ public class HeavyCollider : MonoBehaviour
                 isBroken = true;
             }
         }
+
+        if (!hintGiven && other.gameObject.name.StartsWith("WaterProjectile"))
+        {
+            Invoke("GiveHint", 2);
+            hintGiven = true;
+        }
+    }
+
+    private void GiveHint()
+    {
+        PoMessenger messenger = GameObject.Find("Player").GetComponent<PoMessenger>();
+        PoMessage[] msg = { 
+            new PoMessage("Hmmm, shooting water isn't going to break it.", 5),
+            new PoMessage("Maybe if I absorb enough water, I'll be heavy enough to break through it.", 8)};
+        StartCoroutine(messenger.SendMessage(msg));
     }
 }

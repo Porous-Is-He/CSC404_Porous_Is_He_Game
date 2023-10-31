@@ -12,8 +12,8 @@ public class LiquidBarsUI : MonoBehaviour
     [SerializeField] private Slider slider1;
     [SerializeField] private Slider slider2;
 
-    float scaleModifier;
-    float valueModifier;
+    private float scaleModifier;
+    private float valueIncrement = 0.05f;
     private float targetAmount;
 
 
@@ -48,20 +48,37 @@ public class LiquidBarsUI : MonoBehaviour
         if (liquidTracker.maxLiquidType >= 1)
         {
             targetAmount = liquidTracker.GetLiquidAmountFromIndex(0) / liquidTracker.maxLiquidAmount;
-            slider0.value = Mathf.Lerp(slider0.value, targetAmount, 2.5f * Time.deltaTime);
-            //slider0.value = liquidTracker.GetLiquidAmountFromIndex(0) / liquidTracker.maxLiquidAmount;
+            if (Mathf.Abs(targetAmount - slider0.value) > valueIncrement)
+            {
+                slider0.value += (targetAmount > slider0.value) ? valueIncrement : -valueIncrement;
+            } else
+            {
+                slider0.value = targetAmount;
+            }
         }
         if (liquidTracker.maxLiquidType >= 2)
         {
             targetAmount = liquidTracker.GetLiquidAmountFromIndex(1) / liquidTracker.maxLiquidAmount;
-            slider1.value = Mathf.Lerp(slider1.value, targetAmount, 2.5f * Time.deltaTime);
-            //slider1.value = liquidTracker.GetLiquidAmountFromIndex(1) / liquidTracker.maxLiquidAmount;
+            if (Mathf.Abs(targetAmount - slider1.value) > valueIncrement)
+            {
+                slider1.value += (targetAmount > slider1.value) ? valueIncrement : -valueIncrement;
+            }
+            else
+            {
+                slider1.value = targetAmount;
+            }
         }
         if (liquidTracker.maxLiquidType >= 3)
         {
             targetAmount = liquidTracker.GetLiquidAmountFromIndex(2) / liquidTracker.maxLiquidAmount;
-            slider2.value = Mathf.Lerp(slider2.value, targetAmount, 2.5f * Time.deltaTime);
-            //slider2.value = liquidTracker.GetLiquidAmountFromIndex(2) / liquidTracker.maxLiquidAmount;
+            if (Mathf.Abs(targetAmount - slider2.value) > valueIncrement)
+            {
+                slider2.value += (targetAmount > slider2.value) ? valueIncrement : -valueIncrement;
+            }
+            else
+            {
+                slider2.value = targetAmount;
+            }
         }
     }
 
