@@ -70,7 +70,6 @@ public class FlameScript : MonoBehaviour, ReactantInterface
     {
         if (lastFireLevel != fireLevel && isBurning)
         {
-            Debug.Log("helloz");
             ChangeFlameSize();
         }
     }

@@ -46,6 +46,10 @@ public class MoverScript : MonoBehaviour
     private float slopeLimit;
     public float slideSpeed = 1.0f;
 
+    // used in seesaw script
+    public bool onMovingPlatform;
+    private bool isJumping = false;
+
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -148,14 +152,12 @@ public class MoverScript : MonoBehaviour
 
     private void ApplyGravity()
     {
-        if (IsGrounded() && playerVelocity < 0f)
-        {
+        if (onMovingPlatform && !isJumping)
+            playerVelocity = gravityValue;
+        else if (IsGrounded() && playerVelocity < 0f)
             playerVelocity = 0.0f;
-        }
-        else
-        {
+        else 
             playerVelocity += gravityValue * Time.deltaTime;
-        }
 
         direction.y = playerVelocity;
     }
@@ -165,6 +167,7 @@ public class MoverScript : MonoBehaviour
     {
         if (!enableMovement) return;
         if ((!IsGrounded() && numberOfJumps >= maxNumberOfJumps) || aiming) return;
+        isJumping = true;
         if (numberOfJumps == 0) StartCoroutine(WaitForLanding());
 
 
@@ -186,6 +189,7 @@ public class MoverScript : MonoBehaviour
         yield return new WaitUntil(() => !IsGrounded());
         yield return new WaitUntil(IsGrounded);
         numberOfJumps = 0;
+        isJumping = false;
     }
 
     //private bool IsGrounded() => controller.isGrounded;

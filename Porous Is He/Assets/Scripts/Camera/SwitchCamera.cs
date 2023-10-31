@@ -111,7 +111,7 @@ public class SwitchCamera : MonoBehaviour
         // Disable movement, enable shooting
         gameObject.GetComponent<MoverScript>().aiming = true;
         projectile.GetComponent<ShootingScript>().aiming = true;
-        //gameObject.GetComponent<Transparency>().aiming = true;
+        gameObject.GetComponent<Transparency>().aiming = true;
     }
 
     private void StopAim(InputAction.CallbackContext context)
@@ -137,7 +137,7 @@ public class SwitchCamera : MonoBehaviour
     {
         gameObject.GetComponent<MoverScript>().aiming = false;
         projectile.GetComponent<ShootingScript>().aiming = false;
-        //gameObject.GetComponent<Transparency>().aiming = false;
+        gameObject.GetComponent<Transparency>().aiming = false;
     }
 
     private void AimCamera()
