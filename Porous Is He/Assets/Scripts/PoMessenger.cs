@@ -5,6 +5,8 @@ using UnityEngine;
 public class PoMessenger : MonoBehaviour
 {
     public DialogueUI dialogue;
+    private static PoMessage message = new PoMessage("I'm trapped under a bowl. I need to break my way out.", 5);
+    private PoMessage[] messages = { message };
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +20,12 @@ public class PoMessenger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKey(KeyCode.Question))
+        {
+            Debug.Log("clicked");
+            PoMessage[] lastMessage = GetLastMessage();
+            StartCoroutine(SendMessage(lastMessage));
+        }
     }
 
 
@@ -41,5 +48,11 @@ public class PoMessenger : MonoBehaviour
         // reset message text field after the last message is shown
         dialogue.SetMessage("");
 
+    }
+
+    public PoMessage[] GetLastMessage()
+    {
+        PoMessage[] lastone = { messages[(int)messages.Length - 1] };
+        return lastone;
     }
 }

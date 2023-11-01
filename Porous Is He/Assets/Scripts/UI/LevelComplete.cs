@@ -28,7 +28,7 @@ public class LevelComplete : MonoBehaviour
         LevelCompletePanel.SetActive(true);
         EventSystem.current.SetSelectedGameObject(selectFirst);
 
-        if (animator != null )
+        if (animator != null && animator.isActiveAndEnabled)
         {
             animator.SetBool("open", true);
             StartCoroutine(WaitAnimationEnd());
@@ -52,7 +52,10 @@ public class LevelComplete : MonoBehaviour
 
     public void NextLevel()
     {
-        SceneManager.LoadScene(NextLevelScene);
+        if (NextLevelScene == "MainMenu")
+            SceneManager.LoadScene(0);
+        else
+            SceneManager.LoadScene(NextLevelScene);
     }
 
 }
