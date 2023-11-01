@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Checkpoint : MonoBehaviour
+public class WaterCheckpoint : MonoBehaviour
 {
 
     [SerializeField] private string message = "";
@@ -24,11 +24,16 @@ public class Checkpoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!triggered)
+        if (other.transform.gameObject.CompareTag("Player"))
         {
-            PoMessage msg = new PoMessage(message, time);
-            StartCoroutine(poMessenger.SendMessage(msg));
-            triggered=true;
+
+            if (other.gameObject.GetComponent<LiquidTracker>().CalcWeight() > 0 && !triggered)
+            {
+                PoMessage msg = new PoMessage(message, time);
+                PoMessage[] messages = { msg };
+                StartCoroutine(poMessenger.SendMessage(messages));
+                triggered = true;
+            }
         }
     }
 }

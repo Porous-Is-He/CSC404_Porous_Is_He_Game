@@ -14,6 +14,9 @@ public class FlameKnockbackScript : MonoBehaviour
 
     private Vector3 maxScale = new Vector3(1f, 0.6f, 1f);
 
+    private int timesTouchedFire = 0;
+    private float lastTimeTouchedFire = -1;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +28,11 @@ public class FlameKnockbackScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Time.time - lastTimeTouchedFire > 3.0f)
+        {
+            timesTouchedFire = 0;
+        }
+
         if (lastFireLevel != flame.fireLevel)
         {
             lastFireLevel = flame.fireLevel;
@@ -45,6 +53,16 @@ public class FlameKnockbackScript : MonoBehaviour
                 moveDirection.y = 0;
                 moveDirection = moveDirection.normalized;
                 thisPlayer.KnockBack(moveDirection);
+
+                lastTimeTouchedFire = Time.time;
+                if (timesTouchedFire == 3)
+                {
+                    PoMessage msg = new PoMessage("Ow! Ow! Why am I jumping into the fire?", 5);
+                    PoMessenger poMessenger = GameObject.Find("Player").GetComponent<PoMessenger>();
+                    StartCoroutine(poMessenger.SendMessage(msg));
+                }
+                timesTouchedFire++;
+
 
                 // This handles when Po has oil and touches fire
                 // it will call Combust to make Po light on fire

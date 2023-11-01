@@ -8,10 +8,10 @@ public class PoMessenger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PoMessage message = new PoMessage("I'm trapped under a bowl. I need to break my way out.", 5);
-        PoMessage[] messages = { message };
+        // PoMessage message = new PoMessage("I'm trapped under a bowl. I need to break my way out.", 5);
+        // PoMessage[] messages = { message };
 
-        StartCoroutine(SendMessage(messages));
+        // StartCoroutine(SendMessage(messages));
 
     }
 
@@ -21,6 +21,14 @@ public class PoMessenger : MonoBehaviour
         
     }
 
+
+
+    public IEnumerator SendMessage(PoMessage message)
+    {
+        PoMessage[] messages = { message };
+        return SendMessage(messages);
+
+    }
 
     public IEnumerator SendMessage(PoMessage[] messages)
     {

@@ -13,7 +13,7 @@ public class LiquidBarsUI : MonoBehaviour
     [SerializeField] private Slider slider2;
 
     private float scaleModifier;
-    private float valueIncrement = 0.05f;
+    private float valueIncrement = 0.01f;
     private float targetAmount;
 
 
