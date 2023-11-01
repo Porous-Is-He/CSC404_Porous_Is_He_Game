@@ -24,11 +24,14 @@ public class Checkpoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!triggered)
+        if (other.gameObject.CompareTag("Player"))
         {
-            PoMessage msg = new PoMessage(message, time);
-            StartCoroutine(poMessenger.SendMessage(msg));
-            triggered=true;
+            if (!triggered)
+            {
+                PoMessage msg = new PoMessage(message, time);
+                StartCoroutine(poMessenger.SendMessage(msg));
+                triggered = true;
+            }
         }
     }
 }
