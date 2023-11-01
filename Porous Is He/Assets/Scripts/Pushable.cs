@@ -24,17 +24,18 @@ public class Pushable : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+    }
+
+    public void push()
+    {
         if (isPushed == true) return;
 
-        if (other.gameObject.tag == "Player")
+        if (Player.GetComponent<LiquidTracker>().IsHeavy())
         {
-            if (Player.GetComponent<LiquidTracker>().IsHeavy())
+            if (animator != null)
             {
-                if (animator != null)
-                {
-                    animator.SetBool("isPushed", true);
-                    isPushed = true;
-                }
+                animator.SetBool("isPushed", true);
+                isPushed = true;
             }
         }
     }

@@ -26,25 +26,30 @@ public class HeavyCollider : MonoBehaviour
 
      void OnTriggerEnter(Collider other)
     {
-        if (isBroken == true) return;
-
-        if (other.gameObject.tag == "Player")
-        {
-
-            if (GameObject.Find("Player").GetComponent<LiquidTracker>().IsHeavy())
-            {
-                //GameObject broken = Instantiate(brokenObject, currentObject.transform.position, currentObject.transform.rotation, currentObject.transform.parent);
-                //broken.transform.localScale = currentObject.transform.localScale;
-                brokenObject.SetActive(true);
-                currentObject.SetActive(false);
-                isBroken = true;
-            }
-        }
 
         if (!hintGiven && other.gameObject.name.StartsWith("WaterProjectile"))
         {
             Invoke("GiveHint", 2);
             hintGiven = true;
+        }
+    }
+
+    public void push()
+    {
+        if (isBroken == true) return;
+
+        if (GameObject.Find("Player").GetComponent<LiquidTracker>().IsHeavy())
+        {
+            //GameObject broken = Instantiate(brokenObject, currentObject.transform.position, currentObject.transform.rotation, currentObject.transform.parent);
+            //broken.transform.localScale = currentObject.transform.localScale;
+            brokenObject.SetActive(true);
+            currentObject.SetActive(false);
+            isBroken = true;
+
+            if (gameObject.GetComponent<AudioSource>())
+            {
+                gameObject.GetComponent<AudioSource>().Play();
+            }
         }
     }
 

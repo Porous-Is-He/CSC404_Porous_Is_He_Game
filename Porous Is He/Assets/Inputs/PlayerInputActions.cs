@@ -98,20 +98,27 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RepeatMsg"",
+                    ""type"": ""Button"",
+                    ""id"": ""3ffac2a8-e440-424c-9cc6-2dd90f6f6c35"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Headbutt"",
+                    ""type"": ""Button"",
+                    ""id"": ""5df9037f-b0d6-46c2-bbfe-015d1288937f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""1902a7fa-e427-458e-a95c-61d570e14771"",
-                    ""path"": ""<Gamepad>/dpad/up"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Jump"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
                 {
                     ""name"": """",
                     ""id"": ""c6203213-07fd-4576-8e1c-280acada90b2"",
@@ -386,6 +393,50 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Release"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""57892b95-7600-4481-9fc6-d673e8944992"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Headbutt"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e044411c-75e8-4cd7-a1b1-219fc87f9d34"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Headbutt"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f16631b1-d1a1-4ca9-b882-2271a82a65e3"",
+                    ""path"": ""<Keyboard>/m"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RepeatMsg"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4e6c6d79-2449-4fd9-a8ff-c5451bd3947f"",
+                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RepeatMsg"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -452,6 +503,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Absorb = m_Player.FindAction("Absorb", throwIfNotFound: true);
         m_Player_Swap = m_Player.FindAction("Swap", throwIfNotFound: true);
         m_Player_Release = m_Player.FindAction("Release", throwIfNotFound: true);
+        m_Player_RepeatMsg = m_Player.FindAction("RepeatMsg", throwIfNotFound: true);
+        m_Player_Headbutt = m_Player.FindAction("Headbutt", throwIfNotFound: true);
         // GameManager
         m_GameManager = asset.FindActionMap("GameManager", throwIfNotFound: true);
         m_GameManager_Pause = m_GameManager.FindAction("Pause", throwIfNotFound: true);
@@ -524,6 +577,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Absorb;
     private readonly InputAction m_Player_Swap;
     private readonly InputAction m_Player_Release;
+    private readonly InputAction m_Player_RepeatMsg;
+    private readonly InputAction m_Player_Headbutt;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -536,6 +591,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Absorb => m_Wrapper.m_Player_Absorb;
         public InputAction @Swap => m_Wrapper.m_Player_Swap;
         public InputAction @Release => m_Wrapper.m_Player_Release;
+        public InputAction @RepeatMsg => m_Wrapper.m_Player_RepeatMsg;
+        public InputAction @Headbutt => m_Wrapper.m_Player_Headbutt;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -569,6 +626,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Release.started += instance.OnRelease;
             @Release.performed += instance.OnRelease;
             @Release.canceled += instance.OnRelease;
+            @RepeatMsg.started += instance.OnRepeatMsg;
+            @RepeatMsg.performed += instance.OnRepeatMsg;
+            @RepeatMsg.canceled += instance.OnRepeatMsg;
+            @Headbutt.started += instance.OnHeadbutt;
+            @Headbutt.performed += instance.OnHeadbutt;
+            @Headbutt.canceled += instance.OnHeadbutt;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -597,6 +660,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Release.started -= instance.OnRelease;
             @Release.performed -= instance.OnRelease;
             @Release.canceled -= instance.OnRelease;
+            @RepeatMsg.started -= instance.OnRepeatMsg;
+            @RepeatMsg.performed -= instance.OnRepeatMsg;
+            @RepeatMsg.canceled -= instance.OnRepeatMsg;
+            @Headbutt.started -= instance.OnHeadbutt;
+            @Headbutt.performed -= instance.OnHeadbutt;
+            @Headbutt.canceled -= instance.OnHeadbutt;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -670,6 +739,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnAbsorb(InputAction.CallbackContext context);
         void OnSwap(InputAction.CallbackContext context);
         void OnRelease(InputAction.CallbackContext context);
+        void OnRepeatMsg(InputAction.CallbackContext context);
+        void OnHeadbutt(InputAction.CallbackContext context);
     }
     public interface IGameManagerActions
     {
