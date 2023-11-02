@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PoSoundManager : MonoBehaviour
 {
+
+    private int headbuttMissCounter = 2;
+    private int headbuttCounter = 1;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,14 +22,38 @@ public class PoSoundManager : MonoBehaviour
 
     public void PlaySound(string soundType)
     {
-        string soundDir = "Sounds/";
+        string soundDir = "Sounds/SFX/Character Sounds/";
 
         if (soundType == "Shoot")
-            soundDir += "PoShoot";
+        { 
+            soundDir += "sfx_shoot_nl_01";
+        }
         else if (soundType == "Absorb")
-            soundDir += "PoSlurp";
+        {
+            soundDir += "sfx_slurp_nl_01";
+        }
+        else if (soundType == "Headbutt_Miss")
+        {
+            soundDir += "sfx_HdbtMiss_nl_" + headbuttMissCounter.ToString();
+            headbuttMissCounter += 2;
+            if (headbuttMissCounter > 4)
+            {
+                headbuttMissCounter = 2;
+            }
+        }
+        else if (soundType == "Headbutt_Hit")
+        {
+            soundDir += "sfx_HdbtHit_nl_" + headbuttCounter.ToString();
+            headbuttCounter++;
+            if (headbuttCounter > 6)
+            {
+                headbuttCounter = 1;
+            }
+        }
         else
+        {
             Debug.Log("No such sound: " + soundType);
+        }
 
 
         AudioSource audioSrc = transform.Find("Audio Source").GetComponent<AudioSource>();

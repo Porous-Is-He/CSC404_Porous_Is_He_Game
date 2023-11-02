@@ -1,20 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class LiquidProjectileScript : MonoBehaviour
 {
 
+    [SerializeField] private GameObject liquidSplashEffect;
+
+    private bool isActive = true;
+
     // Start is called before the first frame update
     void Start()
     {
-        Destroy(gameObject, 5);
+        Destroy(gameObject, 6);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public LiquidInfo liquid;
@@ -24,8 +29,32 @@ public class LiquidProjectileScript : MonoBehaviour
         this.liquid = liquid;
     }
 
-    private void actOnHitObject(GameObject hitObject)
+    private void destroyProjectile(bool hitSurface)
     {
+        if (hitSurface == true)
+        {
+            AudioClip audioClip = Resources.Load<AudioClip>("Sounds/WaterHitFloor");
+            AudioSource.PlayClipAtPoint(audioClip, transform.position, 0.4f);
+
+            // create splash effect
+            GameObject splash = Instantiate(liquidSplashEffect, transform.position, Quaternion.identity);
+            Destroy(splash, 2);
+        }
+
+        isActive = false;
+        transform.Find("Particle System").GetComponent<ParticleSystem>().Stop();
+        transform.gameObject.GetComponent<Collider>().enabled = false;
+        transform.gameObject.GetComponent<Renderer>().enabled = false;
+        Destroy(gameObject, 2);
+    }
+
+    private void actOnHitObject(GameObject hitObject, bool doDestroy)
+    {
+        if (!isActive)
+        {
+            return;
+        }
+
         if (hitObject.CompareTag("Reactant"))
         {
             ReactantInterface reactant = hitObject.GetComponent<ReactantInterface>();
@@ -37,19 +66,27 @@ public class LiquidProjectileScript : MonoBehaviour
         }
         else
         {
-            AudioClip audioClip = Resources.Load<AudioClip>("Sounds/WaterHitFloor");
-            AudioSource.PlayClipAtPoint(audioClip, transform.position, 0.5f);
+            if (doDestroy)
+            {
+                destroyProjectile(true);
+                return;
+            }
         }
-        Destroy(gameObject);
+
+        if (doDestroy)
+        {
+            destroyProjectile(false);
+            return;
+        }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        actOnHitObject(other.gameObject);
+        actOnHitObject(other.gameObject, false);
     }
 
     private void OnCollisionEnter(Collision other)
     {
-        actOnHitObject(other.gameObject);
+        actOnHitObject(other.gameObject, true);
     }
 }

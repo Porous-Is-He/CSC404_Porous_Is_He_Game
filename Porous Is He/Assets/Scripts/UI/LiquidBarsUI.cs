@@ -1,9 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SocialPlatforms;
 using UnityEngine.UI;
 
 public class LiquidBarsUI : MonoBehaviour
@@ -15,8 +12,9 @@ public class LiquidBarsUI : MonoBehaviour
     [SerializeField] private Slider slider1;
     [SerializeField] private Slider slider2;
 
-    float scaleModifier;
-
+    private float scaleModifier;
+    private float valueIncrement = 0.01f;
+    private float targetAmount;
 
 
     void Start()
@@ -47,19 +45,41 @@ public class LiquidBarsUI : MonoBehaviour
 
     void Update()
     {
-        // Adjust the liquid amount in the liquid meter bar
-        LiquidInfo Liquid = liquidTracker.GetSelectedLiquid();
-        float targetAmount = (float)Liquid.liquidAmount / (float)liquidTracker.maxLiquidAmount;
-
-        int currentSelection = liquidTracker.GetSelectionIndex();
-        if (currentSelection == 0)
-            slider0.value = Mathf.Lerp(slider0.value, targetAmount, 2.5f * Time.deltaTime);
-        else if (currentSelection == 1)
-            slider1.value = Mathf.Lerp(slider1.value, targetAmount, 2.5f * Time.deltaTime);
-        else if (currentSelection == 2)
-            slider2.value = Mathf.Lerp(slider2.value, targetAmount, 2.5f * Time.deltaTime);
-
-
+        if (liquidTracker.maxLiquidType >= 1)
+        {
+            targetAmount = liquidTracker.GetLiquidAmountFromIndex(0) / liquidTracker.maxLiquidAmount;
+            if (Mathf.Abs(targetAmount - slider0.value) > valueIncrement)
+            {
+                slider0.value += (targetAmount > slider0.value) ? valueIncrement : -valueIncrement;
+            } else
+            {
+                slider0.value = targetAmount;
+            }
+        }
+        if (liquidTracker.maxLiquidType >= 2)
+        {
+            targetAmount = liquidTracker.GetLiquidAmountFromIndex(1) / liquidTracker.maxLiquidAmount;
+            if (Mathf.Abs(targetAmount - slider1.value) > valueIncrement)
+            {
+                slider1.value += (targetAmount > slider1.value) ? valueIncrement : -valueIncrement;
+            }
+            else
+            {
+                slider1.value = targetAmount;
+            }
+        }
+        if (liquidTracker.maxLiquidType >= 3)
+        {
+            targetAmount = liquidTracker.GetLiquidAmountFromIndex(2) / liquidTracker.maxLiquidAmount;
+            if (Mathf.Abs(targetAmount - slider2.value) > valueIncrement)
+            {
+                slider2.value += (targetAmount > slider2.value) ? valueIncrement : -valueIncrement;
+            }
+            else
+            {
+                slider2.value = targetAmount;
+            }
+        }
     }
 
     // Swap currently selected liquid and change the scale of the UI

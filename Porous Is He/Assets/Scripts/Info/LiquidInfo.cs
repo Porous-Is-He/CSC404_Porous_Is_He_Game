@@ -3,9 +3,9 @@ public class LiquidInfo
 {
     public string liquidType;
 
-    public int liquidAmount;
+    public float liquidAmount;
 
-    public LiquidInfo(string liquidType, int liquidAmount)
+    public LiquidInfo(string liquidType, float liquidAmount)
     {
         this.liquidType = liquidType;
         this.liquidAmount = liquidAmount;

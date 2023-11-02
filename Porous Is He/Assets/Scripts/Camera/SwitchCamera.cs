@@ -13,9 +13,10 @@ public class SwitchCamera : MonoBehaviour
     public CinemachineFreeLook thirdPersonCamera;
     public CinemachineVirtualCamera aimCamera;
     private Transform projectile;
-    public GameObject crosshair;
+    public GameObject projectionLine;
 
     public Slider sensitivitySlider;
+    public Slider aimSensitivitySlider;
     public Toggle usingController;
     private float Xsensitivity = 0.0264f;
     private float Ysensitivity = 0.0004f;
@@ -23,8 +24,8 @@ public class SwitchCamera : MonoBehaviour
     private bool aiming = false;
     [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask();
 
-    public float speedV = 0.1f;
-    public float speedH = 0.1f;
+    private float speedV = 0.011f;
+    private float speedH = 0.011f;
     private float rotationX = 0.0f;
     private float rotationY = 0.0f;
 
@@ -40,8 +41,8 @@ public class SwitchCamera : MonoBehaviour
         // initial setup
         thirdPersonCamera.Priority = 20;
         aimCamera.Priority = 10;
-        crosshair.SetActive(false);
         thirdPersonCamera.m_RecenterToTargetHeading.m_enabled = false;
+        projectionLine.SetActive(false);
 
         projectile = transform.Find("ProjectileSpawn");
     }
@@ -63,8 +64,8 @@ public class SwitchCamera : MonoBehaviour
         // update sensitivity
         if (usingController.isOn)
         {
-            Xsensitivity = 0.0264f * 4f;
-            Ysensitivity = 0.0004f * 4f;
+            Xsensitivity = 0.0264f * 8f;
+            Ysensitivity = 0.0004f * 8f;
         } else
         {
             Xsensitivity = 0.0264f;
@@ -77,6 +78,7 @@ public class SwitchCamera : MonoBehaviour
     private void Aim(InputAction.CallbackContext context)
     {
         if (PauseMenu.isPaused) return;
+        if (PoCombust.isOnFire) return;
             // Get the center where the camera is pointing at
             Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
         Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
@@ -104,11 +106,12 @@ public class SwitchCamera : MonoBehaviour
         aiming = true;
         thirdPersonCamera.Priority = 10;
         aimCamera.Priority = 20;
-        crosshair.SetActive(true);
+        projectionLine.SetActive(true);
 
         // Disable movement, enable shooting
         gameObject.GetComponent<MoverScript>().aiming = true;
         projectile.GetComponent<ShootingScript>().aiming = true;
+        gameObject.GetComponent<Transparency>().aiming = true;
     }
 
     private void StopAim(InputAction.CallbackContext context)
@@ -121,30 +124,44 @@ public class SwitchCamera : MonoBehaviour
         aiming = false;
         thirdPersonCamera.Priority = 20;
         aimCamera.Priority = 10;
-        crosshair.SetActive(false);
-
-        // Enable movement, disable shooting
-        gameObject.GetComponent<MoverScript>().aiming = false;
-        projectile.GetComponent<ShootingScript>().aiming = false;
+        projectionLine.SetActive(false);
 
         // Disable automatic recenter
         thirdPersonCamera.m_RecenterToTargetHeading.m_enabled = false;
+
+        // Enable movement, disable shooting
+        Invoke("Switch", 0.2f);
+    }
+
+    private void Switch()
+    {
+        gameObject.GetComponent<MoverScript>().aiming = false;
+        projectile.GetComponent<ShootingScript>().aiming = false;
+        gameObject.GetComponent<Transparency>().aiming = false;
     }
 
     private void AimCamera()
     {
 
         Vector2 inputVector = playerInputActions.Player.MouseLook.ReadValue<Vector2>();
-        rotationX -= speedV * inputVector.y;
-        rotationY += speedH * inputVector.x;
-
-        if (rotationX > 31.0f)
+        if (usingController.isOn)
         {
-            rotationX = 31.0f;
+            rotationX -= speedV * inputVector.y * 10 * aimSensitivitySlider.value;
+            rotationY += speedH * inputVector.x * 10 * aimSensitivitySlider.value;
         }
-        else if (rotationX < -16.0f)
+        else
         {
-            rotationX = -16.0f;
+            rotationX -= speedV * inputVector.y * aimSensitivitySlider.value;
+            rotationY += speedH * inputVector.x * aimSensitivitySlider.value;
+        }
+
+        if (rotationX > 33.0f)
+        {
+            rotationX = 33.0f;
+        }
+        else if (rotationX < -30.0f)
+        {
+            rotationX = -30.0f;
         }
 
         transform.eulerAngles = new Vector3(rotationX, rotationY, 0);

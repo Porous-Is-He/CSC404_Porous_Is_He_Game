@@ -12,18 +12,11 @@ public class LiquidTracker : MonoBehaviour
     // max number of liquid types player is allowed to have
     public int maxLiquidType = 2;
 
-    public int maxLiquidAmount = 3;
-
-    public Rigidbody rb;
-
-    public float normalMass = 20f;
-    public float heavyMass = 40f;
+    public float maxLiquidAmount = 1;
 
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        rb.mass = normalMass;
         playerLiquids = new LiquidInfo[maxLiquidType];
         for (int i = 0; i < maxLiquidType; ++i)
         {
@@ -39,11 +32,12 @@ public class LiquidTracker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (CalcWeight().Equals(maxLiquidAmount))
-        {
-            rb.mass = heavyMass;
-        }
-        //Debug.Log(rb.mass.ToString());
+
+    }
+
+    public float GetLiquidAmountFromIndex(int index)
+    {
+        return playerLiquids[index].liquidAmount;
     }
 
     public LiquidInfo GetSelectedLiquid()
@@ -52,50 +46,72 @@ public class LiquidTracker : MonoBehaviour
         
     }
 
-    public int AddSelectedLiquid(LiquidInfo liquid)
+    public float AddSelectedLiquid(LiquidInfo liquid)
     {
         // if liquid is the same as player's current liquid
-        if (liquid.liquidType.Equals(playerLiquids[liquidSelectionIndex].liquidType))
-        {
-            int beforeAmount = playerLiquids[liquidSelectionIndex].liquidAmount;
-            int tempAmount = playerLiquids[liquidSelectionIndex].liquidAmount + liquid.liquidAmount;
-            playerLiquids[liquidSelectionIndex].liquidAmount = (tempAmount > maxLiquidAmount) ? maxLiquidAmount : tempAmount;
 
-            return playerLiquids[liquidSelectionIndex].liquidAmount - beforeAmount;
-        }
-        else
-        {
-            bool liquidAdded = false;
-            int amountLiquidAdded = 0;
-            for(int i = 0; i < maxLiquidType; i++)
-            {
-                
-                if(playerLiquids[i] == null && !liquidAdded)
-                {
-                    playerLiquids[i] = liquid;
+        int liquidIndex = GetLiquidIndex(liquid.liquidType);
 
-                    amountLiquidAdded = liquid.liquidAmount;
+        float beforeAmount = playerLiquids[liquidIndex].liquidAmount;
+        float tempAmount = playerLiquids[liquidIndex].liquidAmount + liquid.liquidAmount;
+        playerLiquids[liquidIndex].liquidAmount = (tempAmount > maxLiquidAmount) ? maxLiquidAmount : tempAmount;
 
-                    liquidAdded = true;
+        return playerLiquids[liquidIndex].liquidAmount - beforeAmount;
 
-                    liquidSelectionIndex = i;
-                }
-                else if(playerLiquids[i] != null)
-                {
-                    // clear non-current liquid
-                    playerLiquids[i].liquidAmount = 0;
+        //if (liquid.liquidType.Equals(playerLiquids[liquidSelectionIndex].liquidType))
+        //{
+        //    int beforeAmount = playerLiquids[liquidSelectionIndex].liquidAmount;
+        //    int tempAmount = playerLiquids[liquidSelectionIndex].liquidAmount + liquid.liquidAmount;
+        //    playerLiquids[liquidSelectionIndex].liquidAmount = (tempAmount > maxLiquidAmount) ? maxLiquidAmount : tempAmount;
 
-                }
-            }
+        //    return playerLiquids[liquidSelectionIndex].liquidAmount - beforeAmount;
+        //}
+        //else
+        //{
+        //    bool liquidAdded = false;
+        //    int amountLiquidAdded = 0;
+        //    for(int i = 0; i < maxLiquidType; i++)
+        //    {
 
-            return amountLiquidAdded;
-        }
-        
+        //        if(playerLiquids[i] == null && !liquidAdded)
+        //        {
+        //            playerLiquids[i] = liquid;
+
+        //            amountLiquidAdded = liquid.liquidAmount;
+
+        //            liquidAdded = true;
+
+        //            liquidSelectionIndex = i;
+        //        }
+        //        else if(playerLiquids[i] != null)
+        //        {
+        //            // clear non-current liquid
+        //            playerLiquids[i].liquidAmount = 0;
+
+        //        }
+        //    }
+
+        //    return amountLiquidAdded;
+        //}
+
     }
 
-    public void RemoveSelectedLiquid(int amount)
+    public void RemoveSelectedLiquid(float amount)
     {
         playerLiquids[liquidSelectionIndex].liquidAmount -= amount;
+        if (playerLiquids[liquidSelectionIndex].liquidAmount < 0)
+        {
+            playerLiquids[liquidSelectionIndex].liquidAmount = 0;
+        }
+    }
+
+    public void RemoveLiquidFromIndex(int index, float amount)
+    {
+        playerLiquids[index].liquidAmount -= amount;
+        if (playerLiquids[index].liquidAmount < 0)
+        {
+            playerLiquids[index].liquidAmount = 0;
+        }
     }
 
     public int GetSelectionIndex()
@@ -108,25 +124,46 @@ public class LiquidTracker : MonoBehaviour
         liquidSelectionIndex = index;
     }
 
-    public int CalcWeight()
+    public float CalcWeight()
     {
-        int weight = 0;
+        float weight = 0;
         for(int i = 0; i < maxLiquidType; i++)
         {
             if(playerLiquids[i] != null)
             {
-                weight += playerLiquids[i].liquidAmount;
+                weight += playerLiquids[i].liquidAmount * (1f/3f);
             }
         }
 
         
 
-        return Mathf.Min(weight, maxLiquidAmount);
+        return Mathf.Min(weight, 1);
+    }
+    public bool IsHeavy()
+    {
+        if (CalcWeight() > 0) {
+            return true;
+        }
+        return false;
     }
 
-    public bool FullLiquid()
+    public int GetLiquidIndex(string liquidType)
     {
-        if (playerLiquids[GetSelectionIndex()].liquidAmount == maxLiquidAmount) return true;
+        for (int i = 0; i < maxLiquidType; i++)
+        {
+            if (liquidType == playerLiquids[i].liquidType)
+            {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    public bool FullLiquid(string liquidType)
+    {
+        int liquidIndex = GetLiquidIndex(liquidType);
+        if (playerLiquids[liquidIndex].liquidAmount == maxLiquidAmount) return true;
         return false;
     }
 }

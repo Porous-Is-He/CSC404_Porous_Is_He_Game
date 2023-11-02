@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class PauseMenu : MonoBehaviour
     public static bool isPaused;
 
     private PlayerInputActions playerInputActions;
+    [SerializeField] private GameObject pauseMenuFirst;
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +43,7 @@ public class PauseMenu : MonoBehaviour
             Time.timeScale = 0f;
             isPaused = true;
             Cursor.lockState = CursorLockMode.None;
+            EventSystem.current.SetSelectedGameObject(pauseMenuFirst);
         }
     }
 
@@ -52,12 +55,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f;
         isPaused = false;
         Cursor.lockState = CursorLockMode.Locked;
-    }
-
-    public void BackToMenu()
-    {
-        Destroy(this);
-        SceneManager.LoadScene(0);
+        EventSystem.current.SetSelectedGameObject(null);
     }
 
     private void OnDestroy()

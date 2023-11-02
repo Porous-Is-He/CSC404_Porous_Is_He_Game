@@ -7,31 +7,40 @@ public class FlameScript : MonoBehaviour, ReactantInterface
 {
 
     //fireLevel must be between [0, maxFireLevel]
-    public int fireLevel = 0;
-    public int maxFireLevel = 3;
+    public float fireLevel = 0;
+    public float maxFireLevel = 3;
 
-    private int lastFireLevel = -1;
+    private float lastFireLevel = -1;
 
     private float elapsedTime = 0.0f;
     private float animTime = 0.5f;
-    
-    // Variable to keep track of flames
-    private bool isFlameOut = false;
 
-    public MoverScript thisPlayer;
+    // Variable to keep track of flames
+    private bool wasBurning = false;
+    public bool isBurning = false;
+    public bool canDamage = false;
+    public bool isAlwaysBurning = false;
+    public bool startOff = false;
+
+    public GameObject SmokeEmitter;
+
+    private Transform parent;
 
     public void ApplyLiquid(LiquidInfo liquid)
     {
-        Debug.Log("Hello");
-
         if (liquid.liquidType == "Water")
         {
-            fireLevel--;
+            fireLevel -= liquid.liquidAmount * 2;
+            //if (fireLevel <= 0 && isAlwaysBurning) fireLevel = 1;
+
+            if (fireLevel > 0)
+            {
+                SmokeEmitter.GetComponent<ParticleSystem>().Emit(5);
+            }
         } else if (liquid.liquidType == "Oil")
         {
-            fireLevel++;
+            fireLevel += liquid.liquidAmount * 2;
         }
-
 
         if (fireLevel < 0) {
             fireLevel = 0;
@@ -52,89 +61,150 @@ public class FlameScript : MonoBehaviour, ReactantInterface
     // Start is called before the first frame update
     void Start()
     {
-        thisPlayer = FindObjectOfType<MoverScript>();
+        wasBurning = isBurning;
+        parent = transform.parent.transform;
+
+        float oldFireLevel = fireLevel;
+        if (startOff)
+        {
+            fireLevel = 0;
+        }
+
+        ChangeFlameSize();
+
+        if (startOff)
+        {
+            fireLevel = oldFireLevel;
+        }
     }
 
 
     // Update is called once per frame
     void Update()
     {
-        if (lastFireLevel != fireLevel)
+        if (lastFireLevel != fireLevel && isBurning)
         {
-            //var fireSprite = this.transform.parent.Find("FireSprite");
-            //var newScale = new Vector3(1.2f, 1.2f * fireLevel, 1.2f);
-            //fireSprite.transform.localScale = newScale;
-            //fireSprite.transform.localPosition = new Vector3(0f, newScale.y * 0.5f, 0f);
+            ChangeFlameSize();
+        }
 
-            //var fireSprite = gameObject;
-            //var newScale = new Vector3(1.0f, 1.0f * (float)fireLevel / 3.0f + 0.1f, 1.0f);
-            //fireSprite.transform.localScale = newScale;
-            //fireSprite.transform.localPosition = new Vector3(0f, newScale.y * 0.5f, 0f);
+        if (wasBurning != isBurning)
+        {
+            ChangeFlameSize();
+        }
+        wasBurning = isBurning;
+    }
 
+    private float minSpd = 6;
+    private float maxSpd = 10;
+    private float minLife = 5;
+    private float maxLife = 7;
 
-
-            float fireMultiplier = 1.8f;
-            float flameSize = transform.lossyScale.y * fireMultiplier * ( ((float)fireLevel + 2) / ((float)maxFireLevel + 2) );
-
-            elapsedTime += Time.deltaTime;
-            float interpolationRatio = Mathf.Max(elapsedTime / animTime, 1.0f);
-
-            for (int i = 0; i < transform.childCount; ++i)
+    private void ChangeFlameSize()
+    {
+        if (fireLevel == 0)
+        {
+            canDamage = false;
+            if (isAlwaysBurning == false) 
             {
-                ParticleSystem fireParticle = transform.GetChild(i).GetComponent<ParticleSystem>();
-                if (fireParticle)
-                {
-                    float lastFlameSize = fireParticle.startSize;
+                isBurning = false;
+            }
+        }
 
-                    if (fireLevel == 0)
+        float fireMultiplier = 1.7f;
+        float flameSize = transform.lossyScale.x * fireMultiplier * ((fireLevel + 6) / (maxFireLevel + 6));
+
+        float fireSpeed = (fireLevel / maxFireLevel) * (maxSpd - minSpd) + minSpd;
+        float fireLife = maxLife - ( (fireLevel / maxFireLevel) * (maxLife - minLife) );
+
+
+        if (fireLevel == 0)
+        {
+            flameSize = transform.lossyScale.x * fireMultiplier * 0.15f;
+            fireSpeed = fireSpeed / 4;
+        }
+
+        elapsedTime += Time.deltaTime;
+        float interpolationRatio = Mathf.Max(elapsedTime / animTime, 1.0f);
+
+        for (int i = 0; i < parent.childCount; ++i)
+        {
+            if (parent.GetChild(i).name == "Smoke")
+            {
+                continue;
+            }
+
+                ParticleSystem fireParticle = parent.GetChild(i).GetComponent<ParticleSystem>();
+            if (fireParticle)
+            {
+                var main = fireParticle.main;
+                //float lastFlameSize = fireParticle.startSize;
+
+                if (fireLevel == 0 && isAlwaysBurning == false)
+                {
+                    fireParticle.Stop();
+
+                }
+                else
+                {
+
+                    if (parent.GetChild(i).name == "RedFire")
                     {
-                        fireParticle.Stop();
-                        isFlameOut = true; // The flame has been put out
-                        
+                        flameSize = flameSize * 0.9f;
                     }
-                    else { 
-                        if (transform.GetChild(i).name == "OrangeFire")
-                        {
-                            flameSize = flameSize * 0.7f;
-                        } else if (transform.GetChild(i).name == "YellowFire")
-                        {
-                            flameSize = flameSize * 0.5f;
-                        }
-                        fireParticle.startSize = (float)lastFlameSize + (float)(flameSize - lastFlameSize) * interpolationRatio;
-                        fireParticle.Play();
+                    if (parent.GetChild(i).name == "OrangeFire")
+                    {
+                        flameSize = flameSize * 0.7f;
+                    }
+                    else if (parent.GetChild(i).name == "YellowFire")
+                    {
+                        flameSize = flameSize * 0.5f;
+                    }
+                    //float t = lastFlameSize + (flameSize - lastFlameSize) * interpolationRatio;
+                    //fireParticle.startSize = lastFlameSize + (flameSize - lastFlameSize) * interpolationRatio;
+                    main.startSize = flameSize;
+                    ParticleSystem.VelocityOverLifetimeModule velocityModule = fireParticle.velocityOverLifetime;
+                    velocityModule.yMultiplier = fireSpeed;
+                    fireParticle.Play();
+
+                    isBurning = true;
+                    if (fireLevel > 0)
+                    {
+                        canDamage = true;
                     }
                 }
-
+                
             }
+            
 
-            if (lastFireLevel <= 0 || fireLevel == 0)
-            {
-                AudioSource audioSrc = transform.GetComponent<AudioSource>();
-                AudioClip audioClip = Resources.Load<AudioClip>("Sounds/FireBurning");
-                audioSrc.loop = true;
-                audioSrc.clip = audioClip;
-
-                if (fireLevel == 0)
-                    audioSrc.Stop();
-                else
-                    audioSrc.Play();
-            }
-
-            if (interpolationRatio >= 1) {
-                lastFireLevel = fireLevel;
-            }
         }
-    }
 
-    private void OnTriggerEnter(Collider other)
-    {   
-        // Only want knockback to occur when the flame still exists
-        // And only want knockback on the player object
-        if (!isFlameOut && other.transform.gameObject.CompareTag("Player")) 
+        if (lastFireLevel <= 0 || fireLevel == 0)
         {
-            Vector3 moveDirection = other.transform.position - transform.position;
-            moveDirection = moveDirection.normalized;
-            thisPlayer.KnockBack(moveDirection);
+            AudioSource audioSrc = transform.GetComponent<AudioSource>();
+            AudioClip audioClip = Resources.Load<AudioClip>("Sounds/FireBurning");
+            audioSrc.loop = true;
+            audioSrc.clip = audioClip;
+
+            if (fireLevel == 0)
+                audioSrc.Stop();
+            else
+                audioSrc.Play();
+        }
+
+        if (interpolationRatio >= 1)
+        {
+            lastFireLevel = fireLevel;
         }
     }
+
+    public void SetIsBurning(bool isBurn)
+    {
+        isBurning = isBurn;
+    }
+
+    public bool GetIsBurning()
+    {
+        return isBurning;
+    }
+
 }
