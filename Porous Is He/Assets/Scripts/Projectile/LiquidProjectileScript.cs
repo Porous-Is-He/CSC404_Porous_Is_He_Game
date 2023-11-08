@@ -97,9 +97,7 @@ public class LiquidProjectileScript : MonoBehaviour
         GreasableObject greaseObj = obj.gameObject.GetComponent<GreasableObject>();
         if (greaseObj && gameObject.name.StartsWith("OilProjectile"))
         {
-            Debug.Log("SPLAT");
-            Debug.Log(obj.GetContact(0).point);
-            //greaseObj.DrawGreaseSplat(obj.GetContact(0).point);
+            greaseObj.AddGrease();
         }
 
     }

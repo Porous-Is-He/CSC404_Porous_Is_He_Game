@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Pushable : MonoBehaviour
 {
-
     private bool isPushed = false;
     private GameObject Player;
     private Animator animator;
+    [SerializeField] private GreasableObject greaseObj;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +29,10 @@ public class Pushable : MonoBehaviour
     public void push()
     {
         if (isPushed == true) return;
+        if (greaseObj)
+        {
+            if (!greaseObj.IsGreased()) return;
+        }
 
         if (Player.GetComponent<LiquidTracker>().IsHeavy())
         {
