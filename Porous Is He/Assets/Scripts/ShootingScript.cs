@@ -15,8 +15,6 @@ public class ShootingScript : MonoBehaviour
     private LiquidTracker liquidTracker;
 
     // Shooting variables
-    [SerializeField] private float shootForce = 15;
-    [SerializeField] private float shootUpwardForce = 10;
     [SerializeField] private float shootDistance = 60;
     [SerializeField] private float shootAmount = 0.1f;
     private bool shooting = false;
@@ -24,6 +22,15 @@ public class ShootingScript : MonoBehaviour
     private float time = 1f;
 
     private PlayerInputActions playerInputActions;
+
+    // shooting force 
+    private float maxShootForce = 32;
+    private float minShootForce = 5;
+    private float maxShootUpwardForce = 6;
+    private float minShootUpwardForce = 4;
+    private float shootForce;
+    private float shootUpwardForce;
+    private Vector2 inputVector;
 
     void Start()
     {
@@ -49,6 +56,21 @@ public class ShootingScript : MonoBehaviour
 
     private void Update()
     {
+        if (aiming)
+        {
+            // this controls shoot force when aiming
+            inputVector = playerInputActions.Player.Movement.ReadValue<Vector2>();
+            float tempShootForce = shootForce + inputVector.y * 0.2f;
+
+            if (tempShootForce < minShootForce) 
+                shootForce = minShootForce;
+            else if (tempShootForce > maxShootForce) 
+                shootForce = maxShootForce;
+            else 
+                shootForce = tempShootForce;
+            shootUpwardForce = Utils.ConvertRatio(minShootForce, maxShootForce, shootForce, minShootUpwardForce, maxShootUpwardForce);
+
+        }
         if (shooting && CanShoot())
         {
             if (time >= timeBetweenShoot)

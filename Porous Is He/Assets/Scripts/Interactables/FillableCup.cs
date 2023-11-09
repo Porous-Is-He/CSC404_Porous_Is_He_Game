@@ -47,11 +47,11 @@ public class FillableCup : MonoBehaviour
 
         // vfx logic
         // update water level (y position)
-        float waterLevelValue = ConvertRatio(0, maxWaterAmount, waterAmount, minWaterLevel, maxWaterLevel);
+        float waterLevelValue = Utils.ConvertRatio(0, maxWaterAmount, waterAmount, minWaterLevel, maxWaterLevel);
         waterLevel.transform.localPosition = new Vector3(0, waterLevelValue, 0);
 
         // update water xz scale
-        float waterScaleValue = ConvertRatio(0, maxWaterAmount, waterAmount, minWaterScale, maxWaterScale);
+        float waterScaleValue = Utils.ConvertRatio(0, maxWaterAmount, waterAmount, minWaterScale, maxWaterScale);
         Vector3 currWaterScale = waterLevel.transform.localScale;
         waterLevel.transform.localScale = new Vector3(waterScaleValue, currWaterScale.y, waterScaleValue);
 
@@ -62,12 +62,4 @@ public class FillableCup : MonoBehaviour
 
     }
 
-    private float ConvertRatio(float min1, float max1, float value1, float min2, float max2)
-    {
-        float totalDiff = max1 - min1;
-        float valueDiff = value1 - min1;
-        float percentage = valueDiff / totalDiff;
-
-        return min2 + ((max2 - min2) * percentage);
-    }
 }

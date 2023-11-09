@@ -135,6 +135,7 @@ public class SwitchCamera : MonoBehaviour
 
     private void Switch()
     {
+        if (aiming) return;
         gameObject.GetComponent<MoverScript>().aiming = false;
         projectile.GetComponent<ShootingScript>().aiming = false;
         gameObject.GetComponent<Transparency>().aiming = false;

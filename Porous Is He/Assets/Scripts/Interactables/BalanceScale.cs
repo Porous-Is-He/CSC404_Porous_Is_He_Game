@@ -70,22 +70,11 @@ public class BalanceScale : MonoBehaviour
         Vector3 pos1 = scaleObject1.transform.localPosition;
         Vector3 pos2 = scaleObject2.transform.localPosition;
         
-        float newPos2Y = ConvertRatio(minAngle, maxAngle, zRotation, minValueY, maxValueY);
+        float newPos2Y = Utils.ConvertRatio(minAngle, maxAngle, zRotation, minValueY, maxValueY);
         scaleObject2.transform.localPosition = new Vector3(pos2.x, newPos2Y, pos2.z);
 
         float newPos1Y = middleValueY - (newPos2Y - middleValueY);
         scaleObject1.transform.localPosition = new Vector3(pos1.x, newPos1Y, pos1.z);
     }
-
-    private float ConvertRatio(float min1, float max1, float value1, float min2, float max2)
-    {
-        float totalDiff = max1 - min1;
-        float valueDiff = value1 - min1;
-        float percentage = valueDiff / totalDiff;
-
-        return min2 + ((max2 - min2) * percentage);
-    }
-
-
 
 }
