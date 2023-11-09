@@ -13,7 +13,7 @@ public class PoCombust : MonoBehaviour
     [SerializeField] private GameObject YellowFire;
 
     [Header("Length of fire")]
-    [SerializeField] private float secondsOnFirePerUnit;
+    [SerializeField] private float oilAmountTaken = 0.01f;
 
     private LiquidTracker liquidTracker;
     private float amount;
@@ -31,7 +31,6 @@ public class PoCombust : MonoBehaviour
     {
         liquidTracker = GetComponent<LiquidTracker>();
         isOnFire = false;
-        timeCounter = 0;
         FireBorder.SetActive(false);
         PoFire.SetActive(false);
         animator = FireBorder.GetComponentInChildren<Animator>();
@@ -41,21 +40,11 @@ public class PoCombust : MonoBehaviour
     {   
         if (isOnFire)
         {
-            if (timeCounter >= secondsOnFirePerUnit)
-            {
-                liquidTracker.RemoveLiquidFromIndex(oilIndex, 1);
+                liquidTracker.RemoveLiquidFromIndex(oilIndex, oilAmountTaken);
                 amount = liquidTracker.GetLiquidAmountFromIndex(oilIndex);
 
-                if (amount == 0) EndFire();
-                StartCoroutine(LerpFireScale(amount, RedFire, false));
-                StartCoroutine(LerpFireScale(amount, OrangeFire, false));
-                StartCoroutine(LerpFireScale(amount, YellowFire, false));
-                timeCounter = 0;
+                if (amount <= 0) EndFire();
 
-            } else
-            {
-                timeCounter += Time.deltaTime;
-            }
         }
         
     }
@@ -69,10 +58,9 @@ public class PoCombust : MonoBehaviour
         isOnFire = true;
         FireBorder.SetActive(true);
         PoFire.SetActive(true);
-        RedFire.transform.localScale = Vector3.one * FireSizeModifier(liquidTracker.GetSelectedLiquid().liquidAmount);
-        OrangeFire.transform.localScale = Vector3.one * FireSizeModifier(liquidTracker.GetSelectedLiquid().liquidAmount);
-        YellowFire.transform.localScale = Vector3.one * FireSizeModifier(liquidTracker.GetSelectedLiquid().liquidAmount);
-
+        RedFire.transform.localScale = new Vector3(3, 3, 3);
+        OrangeFire.transform.localScale = new Vector3(3, 3, 3);
+        YellowFire.transform.localScale = new Vector3(3, 3, 3);
         animator.SetBool("IsOnFire", true);
     }
 
@@ -80,35 +68,26 @@ public class PoCombust : MonoBehaviour
     {
         isOnFire = false;
         animator.SetBool("IsOnFire", false);
-        StartCoroutine(LerpFireScale(0, RedFire, true));
-        StartCoroutine(LerpFireScale(0, OrangeFire, true));
-        StartCoroutine(LerpFireScale(0, YellowFire, true));
+        StartCoroutine(LerpFireScale(1, 3, 0, RedFire, true));
+        StartCoroutine(LerpFireScale(1, 3, 0, OrangeFire, true));
+        StartCoroutine(LerpFireScale(1, 3, 0, YellowFire, true));
     }
 
-    private float FireSizeModifier(float size)
-    {
-        if (size <= 3)  return 3f;
-        if (size <= 2) return 2.5f;
-        if (size <= 1) return 2f;
-        return 0f;
-    }
 
-    IEnumerator LerpFireScale(float size, GameObject fire, bool endFire)
+
+    IEnumerator LerpFireScale(float duration, float startSize, float endSize, GameObject fire, bool endFire)
     {
         float time = 0;
-        float duration = secondsOnFirePerUnit;
-        startValue = FireSizeModifier(size + 1);
-        endValue = FireSizeModifier(size);
 
         while (time < duration)
         {
-            scaleModifier = Mathf.Lerp(startValue, endValue, time / duration);
+            scaleModifier = Mathf.Lerp(startSize, endSize, time / duration);
             fire.transform.localScale = new Vector3(scaleModifier, scaleModifier, scaleModifier);
             time += Time.deltaTime;
             yield return null;
         }
-        fire.transform.localScale = new Vector3(endValue, endValue, endValue);
-        scaleModifier = endValue;
+        fire.transform.localScale = new Vector3(endSize, endSize, endSize);
+        scaleModifier = endSize;
 
         if (endFire) PoFire.SetActive(false);
     }
