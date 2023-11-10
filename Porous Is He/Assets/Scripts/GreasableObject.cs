@@ -31,7 +31,6 @@ public class GreasableObject : MonoBehaviour
         color.a = (float)count / (float)maxCount;
         grease.material.color = color;
         if (count == maxCount) isGreased = true;
-        Debug.Log(isGreased);
     }
 
     public bool IsGreased()

@@ -24,4 +24,14 @@ public class Scale : MonoBehaviour
     {
         weight += add;
     }
+
+    public void ResetWeight()
+    {
+        weight = 0;
+    }
+
+    public void SetWeight(float newWeight)
+    {
+        weight = newWeight;
+    }
 }
