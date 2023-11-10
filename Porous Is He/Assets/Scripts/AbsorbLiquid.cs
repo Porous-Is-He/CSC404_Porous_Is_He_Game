@@ -13,6 +13,8 @@ public class AbsorbLiquid : MonoBehaviour
     private LiquidTracker liquidTracker;
 
     private bool absorbing = false;
+    private bool onFillableCup = false;
+    private FillableCup fillableCup;
 
     public GameObject interactUI;
 
@@ -30,7 +32,12 @@ public class AbsorbLiquid : MonoBehaviour
     {
         if (absorbing)
         {
-            if (touchingLiquid && !liquidTracker.FullLiquid(liquidSource.liquidType))
+            if (onFillableCup && fillableCup.GetLiquidAmount() > 0 && !liquidTracker.FullLiquid(fillableCup.GetSurfaceLiquidType()))
+            {
+                LiquidInfo liquid = fillableCup.RemoveLiquid(amountAbsorbed);
+                gameObject.GetComponent<LiquidTracker>().AddSelectedLiquid(liquid);
+            }
+            else if (touchingLiquid && !liquidTracker.FullLiquid(liquidSource.liquidType))
             {
                 LiquidInfo liquid = liquidSource.AbsorbLiquid(amountAbsorbed);
                 if (liquid.liquidAmount != 0)
@@ -47,6 +54,7 @@ public class AbsorbLiquid : MonoBehaviour
 
         interactUI.SetActive(false);
         touchingLiquid = false;
+        onFillableCup = false;
 
         if (hit.collider.gameObject.tag == "Water" || hit.collider.gameObject.tag == "Oil")
         {
@@ -55,13 +63,21 @@ public class AbsorbLiquid : MonoBehaviour
             touchingLiquid = true;
             liquidSource = hit.collider.gameObject.GetComponent<LiquidSource>();
         }
+        if (hit.collider.gameObject.name == "LiquidLevelCollider")
+        {
+            interactUI.SetActive(true);
+            onFillableCup = true;
+            fillableCup = hit.collider.gameObject.GetComponentInParent<FillableCup>();
+        }
     }
+
 
     private void StartAbsorb(InputAction.CallbackContext context)
     {
         if (PauseMenu.isPaused) return;
         absorbing = true;
-        if (touchingLiquid && !liquidTracker.FullLiquid(liquidSource.liquidType))
+        if ((touchingLiquid && !liquidTracker.FullLiquid(liquidSource.liquidType)) || 
+            (onFillableCup && fillableCup.GetLiquidAmount() > 0 && !liquidTracker.FullLiquid(fillableCup.GetSurfaceLiquidType())))
         {
             gameObject.GetComponent<PoSoundManager>().PlaySound("Absorb");
         }

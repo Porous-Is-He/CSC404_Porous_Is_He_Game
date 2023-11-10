@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -63,7 +64,7 @@ public class LiquidProjectileScript : MonoBehaviour
             // Put out fire
             //Destroy(other.gameObject);
 
-        }
+        } 
         else
         {
             if (doDestroy)
@@ -88,5 +89,16 @@ public class LiquidProjectileScript : MonoBehaviour
     private void OnCollisionEnter(Collision other)
     {
         actOnHitObject(other.gameObject, true);
+        GreaseObject(other);
+    }
+
+    private void GreaseObject(Collision obj)
+    {
+        GreasableObject greaseObj = obj.gameObject.GetComponent<GreasableObject>();
+        if (greaseObj && gameObject.name.StartsWith("OilProjectile"))
+        {
+            greaseObj.AddGrease();
+        }
+
     }
 }

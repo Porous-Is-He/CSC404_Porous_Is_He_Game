@@ -545,7 +545,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2104767397470787153}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.17899986, y: 0.000000016928482, z: 0.0000000030799396, w: 0.9838491}
+  m_LocalRotation: {x: -0.16446161, y: -0.21073382, z: -0.035991564, w: 0.9629373}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1295,6 +1295,7 @@ MonoBehaviour:
   aiming: 0
   isGrounded_Custom: 0
   slideSpeed: 1
+  onMovingPlatform: 0
 --- !u!114 &3618396350336822367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1463,7 +1464,7 @@ MonoBehaviour:
   RedFire: {fileID: 7052571643294926783}
   OrangeFire: {fileID: 189772704086872204}
   YellowFire: {fileID: 4983267783649798768}
-  secondsOnFirePerUnit: 2
+  oilAmountTaken: 0.004
 --- !u!114 &3488412272124620621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1507,7 +1508,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4404137931860652479}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.15846588, y: -1.45313045e-36, z: -4.397372e-37, w: 0.9873645}
+  m_LocalRotation: {x: -0.1437522, y: -0.21145788, z: -0.031459417, w: 0.96624595}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2111,8 +2112,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aiming: 0
-  shootForce: 32
-  shootUpwardForce: 6
   shootDistance: 60
   shootAmount: 0.08
   timeBetweenShoot: 0.06
@@ -2157,8 +2156,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6621278007299373635}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -34.68, y: 78.5, z: 67.682}
+  m_LocalRotation: {x: -0.16446161, y: -0.21073385, z: -0.03599157, w: 0.96293736}
+  m_LocalPosition: {x: -53.76176, y: 76.35, z: 173.72}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2197,7 +2196,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 40
+  field of view: 60
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -2665,7 +2664,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8933293459980694514}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.22975291, y: -1e-45, z: -0, w: 0.973249}
+  m_LocalRotation: {x: -0.20670658, y: -0.20894442, z: -0.045236655, w: 0.95476085}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
