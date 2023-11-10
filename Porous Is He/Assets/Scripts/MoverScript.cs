@@ -50,7 +50,7 @@ public class MoverScript : MonoBehaviour
     public bool onMovingPlatform;
     private bool isJumping = false;
 
-    DifficultyManager diffm;
+    private DifficultyManager diffm;
 
     private void Awake()
     {
