@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using System;
 
 /// <summary>Manages data for persistance between play sessions.</summary>
@@ -12,11 +13,31 @@ public class PlayerInfoManager : MonoBehaviour
     public bool showControls = true;
     public bool hardmode = false;
 
+    public bool ready = false;
+    private bool readyInvoked = false;
+
     private static string sensitivityKey = "PLAYER_SENSITIVITY";
     private static string aimSensitivityKey = "PLAYER_AIMSENSITIVITY";
     private static string useControllerKey = "PLAYER_USECONTROLLER";
     private static string showControlsKey = "PLAYER_SHOWCONTROLS";
     private static string hardmodeKey = "PLAYER_HARDMODE";
+
+    public UnityEvent loadedEvent;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        Load();
+        ready = true;
+    }
+    void Update()
+    {
+        if (ready && !readyInvoked)
+        {
+            loadedEvent.Invoke();
+            readyInvoked = true;
+        }
+    }
 
     public void Save()
     {
@@ -35,25 +56,9 @@ public class PlayerInfoManager : MonoBehaviour
         if (PlayerPrefs.HasKey(sensitivityKey))
         {
             sensitivity = PlayerPrefs.GetFloat(sensitivityKey);
-        }
-
-        if (PlayerPrefs.HasKey(aimSensitivityKey))
-        {
             aimSensitivity = PlayerPrefs.GetFloat(aimSensitivityKey);
-        }
-        
-        if (PlayerPrefs.HasKey(useControllerKey))
-        {
             useController = PlayerPrefs.GetInt(useControllerKey) == 0 ? false : true;
-        }
-
-        if (PlayerPrefs.HasKey(showControlsKey))
-        {
             showControls = PlayerPrefs.GetInt(showControlsKey) == 0 ? false : true;
-        }
-
-        if (PlayerPrefs.HasKey(hardmodeKey))
-        {
             hardmode = PlayerPrefs.GetInt(hardmodeKey) == 0 ? false : true;
         }
     }

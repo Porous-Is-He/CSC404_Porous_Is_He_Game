@@ -13,12 +13,12 @@ public class MoverScript : MonoBehaviour
     private PlayerInputActions playerInputActions;
     private Transform cameraMainTransform;
 
-    private static float verticalMod = 0.9f;
+    private static float verticalMod;
 
     // Jump variables
     private float playerVelocity;
-    private float gravityValue = -8.8f * verticalMod;
-    private float jumpPower = 2.5f * verticalMod;
+    private float gravityValue;
+    private float jumpPower;
     private int numberOfJumps = 0;
     private int maxNumberOfJumps = 2;
 
@@ -50,6 +50,8 @@ public class MoverScript : MonoBehaviour
     public bool onMovingPlatform;
     private bool isJumping = false;
 
+    DifficultyManager diffm;
+
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -61,7 +63,34 @@ public class MoverScript : MonoBehaviour
     {
         cameraMainTransform = Camera.main.transform;
         slopeLimit = controller.slopeLimit;
+
+        //AssignMovement();
+        diffm = GameObject.Find("GameController").GetComponent<DifficultyManager>();
+        diffm.loadedEvent.AddListener(AssignMovement);
     }
+
+    private void AssignMovement()
+    {
+        float jumpMulti = 1;
+        if (diffm.difficultyAssigned)
+        {
+            if (diffm.isHardmode)
+            {
+                verticalMod = 0.9f;
+            } else
+            {
+                jumpMulti = 1.05f;
+                verticalMod = 0.75f;
+            }
+        } else
+        {
+            verticalMod = 0.9f;
+        }
+
+        gravityValue = -8.8f * verticalMod;
+        jumpPower = 2.5f * verticalMod * jumpMulti;
+    }
+
 
     void Update()
     {
