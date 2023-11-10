@@ -15,8 +15,9 @@ public class SwitchCamera : MonoBehaviour
     private Transform projectile;
     public GameObject projectionLine;
 
-    public Slider sensitivitySlider;
-    public Slider aimSensitivitySlider;
+    //public Slider sensitivitySlider;
+    //public Slider aimSensitivitySlider;
+    public PlayerInfoManager pim;
     public Toggle usingController;
     private float Xsensitivity = 0.0264f;
     private float Ysensitivity = 0.0004f;
@@ -71,8 +72,9 @@ public class SwitchCamera : MonoBehaviour
             Xsensitivity = 0.0264f;
             Ysensitivity = 0.0004f;
 }
-        thirdPersonCamera.m_XAxis.m_MaxSpeed = Xsensitivity * sensitivitySlider.value;
-        thirdPersonCamera.m_YAxis.m_MaxSpeed = Ysensitivity * sensitivitySlider.value;
+        //thirdPersonCamera.m_XAxis.m_MaxSpeed = Xsensitivity * sensitivitySlider.value;
+        thirdPersonCamera.m_XAxis.m_MaxSpeed = Xsensitivity * pim.sensitivity;
+        thirdPersonCamera.m_YAxis.m_MaxSpeed = Ysensitivity * pim.sensitivity;
     }
 
     private void Aim(InputAction.CallbackContext context)
@@ -147,13 +149,14 @@ public class SwitchCamera : MonoBehaviour
         Vector2 inputVector = playerInputActions.Player.MouseLook.ReadValue<Vector2>();
         if (usingController.isOn)
         {
-            rotationX -= speedV * inputVector.y * 10 * aimSensitivitySlider.value;
-            rotationY += speedH * inputVector.x * 10 * aimSensitivitySlider.value;
+            //rotationX -= speedV * inputVector.y * 10 * aimSensitivitySlider.value;
+            rotationX -= speedV * inputVector.y * 10 * pim.aimSensitivity;
+            rotationY += speedH * inputVector.x * 10 * pim.aimSensitivity;
         }
         else
         {
-            rotationX -= speedV * inputVector.y * aimSensitivitySlider.value;
-            rotationY += speedH * inputVector.x * aimSensitivitySlider.value;
+            rotationX -= speedV * inputVector.y * pim.aimSensitivity;
+            rotationY += speedH * inputVector.x * pim.aimSensitivity;
         }
 
         if (rotationX > 33.0f)
