@@ -3,14 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DissolveController : MonoBehaviour
+public class DisintegrateController : MonoBehaviour
 {
     // To use this, the object to be burned must be a child of an empty object parent
     // This script is attached to the parent
     // Attach the objects mesh renderer to the mesh variable.
     // This object must also have the material on it using the shaders/disintegrate
     // make sure that on the material, alpha clipping is enabled
-    // To dissintegrate, call StartCoroutine(Dissolve())
+    // To disintegrate, call StartCoroutine(Dissolve())
 
     // Refer to JennysPlayground Scene for an example
 
@@ -31,7 +31,10 @@ public class DissolveController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+/*        if (Input.GetKeyDown(KeyCode.L))
+        {
+            StartCoroutine(Dissolve());
+        }*/
     }
 
     IEnumerator Dissolve()
