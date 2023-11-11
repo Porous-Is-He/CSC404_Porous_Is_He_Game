@@ -15,7 +15,7 @@ public class DialogueUI : MonoBehaviour
 
     private string currentMessage;
     TextMeshProUGUI textfield;
-    private bool hidden;
+    private bool hidden = true;
 
     // Start is called before the first frame update
     void Start()
