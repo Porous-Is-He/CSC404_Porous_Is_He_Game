@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class PoMessenger : MonoBehaviour
 {
+    // Usage:
+    // Call AddMessage() to play a subtitle
+    // Call AddReplayableMessage() to play a subtitle and save it in case the player wants to replay this message
+
     public DialogueUI dialogue;
-    //private static PoMessage message = new PoMessage("I'm trapped under a bowl. I need to break my way out.", 5);
-    //private PoMessage[] messages = { message };
 
     private Queue<PoMessage> sentences;
     private bool displaying = false;
@@ -62,7 +64,7 @@ public class PoMessenger : MonoBehaviour
 /*            for (int i = 0; i < poMessage.message.Length; i++)
             {
                 dialogue.SetMessage(poMessage.message.Substring(0, i));
-                yield return new WaitForSeconds(0.05f);
+                yield return new WaitForSeconds(0.01f);
             }*/
             yield return new WaitForSeconds(poMessage.time);
         }
