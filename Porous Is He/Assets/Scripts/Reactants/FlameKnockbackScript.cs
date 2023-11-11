@@ -59,7 +59,8 @@ public class FlameKnockbackScript : MonoBehaviour
                 {
                     PoMessage msg = new PoMessage("Ow! Ow! Why am I jumping into the fire?", 5);
                     PoMessenger poMessenger = GameObject.Find("Player").GetComponent<PoMessenger>();
-                    StartCoroutine(poMessenger.SendMessage(msg));
+                    //StartCoroutine(poMessenger.SendMessage(msg));
+                    poMessenger.AddMessage(msg);
                 }
                 timesTouchedFire++;
 
