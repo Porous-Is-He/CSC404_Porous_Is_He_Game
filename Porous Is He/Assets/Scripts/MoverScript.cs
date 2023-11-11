@@ -42,6 +42,8 @@ public class MoverScript : MonoBehaviour
     public bool aiming = false;
 
     private Vector3 hitNormal;
+    private GameObject hitObject;
+
     public bool isGrounded_Custom;
     private float slopeLimit;
     public float slideSpeed = 1.0f;
@@ -77,12 +79,14 @@ public class MoverScript : MonoBehaviour
             if (diffm.isHardmode)
             {
                 verticalMod = 0.9f;
-            } else
+            }
+            else
             {
                 jumpMulti = 1.05f;
                 verticalMod = 0.75f;
             }
-        } else
+        }
+        else
         {
             verticalMod = 0.9f;
         }
@@ -102,7 +106,7 @@ public class MoverScript : MonoBehaviour
             slidingMovement.x += (1f - hitNormal.y) * hitNormal.x * slideSpeed;
             slidingMovement.z += (1f - hitNormal.y) * hitNormal.z * slideSpeed;
         }
-        if ( !(Vector3.Angle(Vector3.up, hitNormal) <= slopeLimit) )
+        if (!(Vector3.Angle(Vector3.up, hitNormal) <= slopeLimit))
         {
             isGrounded_Custom = false;
         }
@@ -111,6 +115,15 @@ public class MoverScript : MonoBehaviour
             isGrounded_Custom = controller.isGrounded;
         }
 
+        if (hitObject)
+        {
+            SpinRollingPin spinRolling = hitObject.GetComponent("SpinRollingPin") as SpinRollingPin;
+            if (spinRolling != null)
+            {
+                slidingMovement += -hitObject.transform.parent.transform.right * spinRolling.rotationSpeed;
+            }
+
+        }
 
 
         if (LevelComplete.LevelEnd) return;
@@ -144,6 +157,10 @@ public class MoverScript : MonoBehaviour
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         hitNormal = hit.normal;
+
+        hitObject = hit.gameObject;
+
+
     }
 
 
@@ -185,7 +202,7 @@ public class MoverScript : MonoBehaviour
             playerVelocity = gravityValue;
         else if (IsGrounded() && playerVelocity < 0f)
             playerVelocity = 0.0f;
-        else 
+        else
             playerVelocity += gravityValue * Time.deltaTime;
 
         direction.y = playerVelocity;
@@ -244,4 +261,6 @@ public class MoverScript : MonoBehaviour
     {
         playerInputActions.Player.Disable();
     }
+
+
 }
