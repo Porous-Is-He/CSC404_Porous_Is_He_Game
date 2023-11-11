@@ -30,7 +30,8 @@ public class RevisitableCheckpoint : MonoBehaviour
         if (Time.time - lastTriggered > coolDown)
         {
             PoMessage msg = new PoMessage(messages[timesTriggered], time[timesTriggered]);
-            StartCoroutine(poMessenger.SendMessage(msg));
+            //StartCoroutine(poMessenger.SendMessage(msg));
+            poMessenger.AddMessage(msg);
 
             timesTriggered++;
             if (timesTriggered >= messages.Length)

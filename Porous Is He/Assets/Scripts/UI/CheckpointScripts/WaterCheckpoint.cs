@@ -31,7 +31,8 @@ public class WaterCheckpoint : MonoBehaviour
             {
                 PoMessage msg = new PoMessage(message, time);
                 PoMessage[] messages = { msg };
-                StartCoroutine(poMessenger.SendMessage(messages));
+                //StartCoroutine(poMessenger.SendMessage(messages));
+                poMessenger.AddMessage(messages);
                 triggered = true;
             }
         }

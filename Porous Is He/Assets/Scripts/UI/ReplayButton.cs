@@ -29,6 +29,7 @@ public class ReplayButton : MonoBehaviour
     private void RepeatMsg(InputAction.CallbackContext context)
     {
         PoMessage[] lastMessage = GameObject.Find("Player").GetComponent<PoMessenger>().GetLastMessage();
-        StartCoroutine(GameObject.Find("Player").GetComponent<PoMessenger>().SendMessage(lastMessage));
+        //StartCoroutine(GameObject.Find("Player").GetComponent<PoMessenger>().SendMessage(lastMessage));
+        GameObject.Find("Player").GetComponent<PoMessenger>().AddMessage(lastMessage);
     }
 }

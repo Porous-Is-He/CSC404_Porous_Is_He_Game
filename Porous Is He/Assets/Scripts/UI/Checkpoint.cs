@@ -29,7 +29,8 @@ public class Checkpoint : MonoBehaviour
             if (!triggered)
             {
                 PoMessage msg = new PoMessage(message, time);
-                StartCoroutine(poMessenger.SendMessage(msg));
+                //StartCoroutine(poMessenger.SendMessage(msg));
+                poMessenger.AddReplayableMessage(msg);
                 triggered = true;
             }
         }
