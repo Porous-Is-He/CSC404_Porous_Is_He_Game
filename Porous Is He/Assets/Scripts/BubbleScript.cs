@@ -11,7 +11,7 @@ public class BubbleScript : MonoBehaviour
         GetComponent<Renderer>().enabled = true;
     }
 
-    public void OnTriggernEnter(Collider other) {
+    public void OnTriggerEnter(Collider other) {
         if (other.transform.gameObject.CompareTag("Player"))
         {
             Debug.Log("Collision Detected.");
