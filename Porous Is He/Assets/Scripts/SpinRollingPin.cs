@@ -14,6 +14,6 @@ public class SpinRollingPin : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        gameObject.transform.Rotate(0, rotationSpeed, 0, Space.Self);
+        gameObject.transform.Rotate(0, 0, rotationSpeed, Space.Self);
     }
 }

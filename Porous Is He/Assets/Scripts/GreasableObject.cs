@@ -38,4 +38,6 @@ public class GreasableObject : MonoBehaviour
         return isGreased;
     }
 
+    public bool HasGrease() => hasGrease;
+
 }
