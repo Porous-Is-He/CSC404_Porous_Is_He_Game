@@ -46,7 +46,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 0b828154a780eb342980a71b55dda23e, type: 2}
+  m_Motion: {fileID: 7400000, guid: 1891b79e87a9b78419ab8ead56cb290c, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -72,7 +72,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 0b828154a780eb342980a71b55dda23e, type: 2}
+  m_Motion: {fileID: 7400000, guid: 1891b79e87a9b78419ab8ead56cb290c, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -106,7 +106,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PushableCups
+  m_Name: level2_cups_controller
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: isPushed
@@ -201,7 +201,7 @@ AnimatorStateMachine:
     m_Position: {x: 730, y: -80, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 2004633848091871135}
-    m_Position: {x: 765, y: -15, z: 0}
+    m_Position: {x: 770, y: -20, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []

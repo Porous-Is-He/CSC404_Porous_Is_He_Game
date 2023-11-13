@@ -7282,8 +7282,8 @@ GameObject:
   m_Component:
   - component: {fileID: 232941533}
   - component: {fileID: 232941536}
-  - component: {fileID: 232941535}
   - component: {fileID: 232941537}
+  - component: {fileID: 232941538}
   m_Layer: 0
   m_Name: PushableCups
   m_TagString: Collider
@@ -7308,18 +7308,6 @@ Transform:
   - {fileID: 1289504719}
   m_Father: {fileID: 1944566412}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &232941535
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 232941532}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8f738ec4bdb94e4bad4d71043d7508f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &232941536
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7362,6 +7350,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &232941538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 232941532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a66924eee71502245ace776a6e5207db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canBePushedAgain: 0
+  greaseObj: {fileID: 0}
+  fillableCupObj: {fileID: 0}
 --- !u!1 &233507079
 GameObject:
   m_ObjectHideFlags: 0
@@ -73184,15 +73187,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1057805920311239184, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.023669051
+      value: 0.023669053
       objectReference: {fileID: 0}
     - target: {fileID: 1057805920311239184, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0021250057
+      value: 0.0021250073
       objectReference: {fileID: 0}
     - target: {fileID: 1057805920311239184, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000050311075
+      value: -0.000050311115
       objectReference: {fileID: 0}
     - target: {fileID: 1346025499800480971, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
       propertyPath: m_AnchorMax.y
