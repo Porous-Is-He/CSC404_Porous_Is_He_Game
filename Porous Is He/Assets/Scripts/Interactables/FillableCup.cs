@@ -22,9 +22,15 @@ public class FillableCup : MonoBehaviour
     private float waterAmount = 0;
     private float maxAmount = 35;
 
+    private float waterWeight = 2;
+    private float oilWeight = 0.8f;
+
+    private PoMessenger poMessenger;
+    private bool triggered = false;
+
     void Start()
     {
-
+        poMessenger = GameObject.Find("Player").GetComponent<PoMessenger>();
     }
 
     // Update is called once per frame
@@ -47,15 +53,22 @@ public class FillableCup : MonoBehaviour
     private void AddWaterToCup()
     {
         waterAmount++;
-        scale.AddWeight(2);
+        scale.AddWeight(waterWeight);
         UpdateLiquidLevel();
     }
 
     private void AddOilToCup()
     {
         oilAmount++;
-        scale.AddWeight(1);
+        scale.AddWeight(oilWeight);
         UpdateLiquidLevel();
+
+        if (!triggered && TriggerMessage())
+        {
+            PoMessage msg = new PoMessage("Oil won't be heavy enough", 5);
+            poMessenger.AddMessage(msg);
+            triggered = true;
+        }
     }
 
     private void UpdateLiquidLevel()
@@ -132,5 +145,7 @@ public class FillableCup : MonoBehaviour
     {
         return waterAmount * 2 + oilAmount;
     }
+
+    public bool TriggerMessage() => oilAmount * oilWeight > 20;
 
 }

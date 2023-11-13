@@ -11,11 +11,16 @@ public class Pushable : MonoBehaviour
     [SerializeField] private GreasableObject greaseObj;
     [SerializeField] private FillableCup fillableCupObj;
 
+    private PoMessenger poMessenger;
+    private bool triggered = false;
+
     // Start is called before the first frame update
     void Start()
     {
         Player = GameObject.Find("Player");
         animator = GetComponent<Animator>();
+
+        poMessenger = GameObject.Find("Player").GetComponent<PoMessenger>();
     }
 
     // Update is called once per frame
@@ -26,6 +31,12 @@ public class Pushable : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (!triggered && other.gameObject.CompareTag("Player"))
+        {
+            PoMessage msg = new PoMessage("Looks like I can push this cup to empty it.", 6);
+            poMessenger.AddReplayableMessage(msg);
+            triggered = true;
+        }
     }
 
     public void push()
