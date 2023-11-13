@@ -38,7 +38,8 @@ public class RevisitableCheckpoint : MonoBehaviour
             {
                 timesTriggered = messages.Length - 1;
             }
+            lastTriggered = Time.time;
         }
-        lastTriggered = Time.time;
+        //lastTriggered = Time.time;
     }
 }
