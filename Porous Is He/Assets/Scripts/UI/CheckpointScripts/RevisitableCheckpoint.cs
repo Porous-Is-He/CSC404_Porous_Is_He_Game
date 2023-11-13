@@ -34,12 +34,13 @@ public class RevisitableCheckpoint : MonoBehaviour
                 //StartCoroutine(poMessenger.SendMessage(msg));
                 poMessenger.AddMessage(msg);
 
-            timesTriggered++;
-            if (timesTriggered >= messages.Length)
-            {
-                timesTriggered = messages.Length - 1;
+                timesTriggered++;
+                if (timesTriggered >= messages.Length)
+                {
+                    timesTriggered = messages.Length - 1;
+                }
+                lastTriggered = Time.time;
             }
-            lastTriggered = Time.time;
         }
         //lastTriggered = Time.time;
     }
