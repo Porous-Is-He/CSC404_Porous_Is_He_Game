@@ -394,8 +394,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""e59f0d5c-0a0b-4199-8999-979fb2b87f86"",
-                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""id"": ""be2414d7-3f35-432e-a42f-34e2f0843dbd"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
