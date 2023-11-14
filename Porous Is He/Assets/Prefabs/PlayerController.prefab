@@ -1323,8 +1323,7 @@ MonoBehaviour:
   thirdPersonCamera: {fileID: 5920926245140926465}
   aimCamera: {fileID: 418182252726296595}
   projectionLine: {fileID: 0}
-  sensitivitySlider: {fileID: 0}
-  aimSensitivitySlider: {fileID: 0}
+  pim: {fileID: 0}
   usingController: {fileID: 0}
   aimColliderLayerMask:
     serializedVersion: 2
@@ -1464,7 +1463,7 @@ MonoBehaviour:
   RedFire: {fileID: 7052571643294926783}
   OrangeFire: {fileID: 189772704086872204}
   YellowFire: {fileID: 4983267783649798768}
-  oilAmountTaken: 0.004
+  oilAmountTaken: 0.003
 --- !u!114 &3488412272124620621
 MonoBehaviour:
   m_ObjectHideFlags: 0

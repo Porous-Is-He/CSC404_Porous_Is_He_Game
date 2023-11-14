@@ -30,6 +30,7 @@ public class MultiCheckpoint : MonoBehaviour
                 }
 
                 poMessenger.AddMessage(msgs);
+                triggered = true;
             }
         }
     }
