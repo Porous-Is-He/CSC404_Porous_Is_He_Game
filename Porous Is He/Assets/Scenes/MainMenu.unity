@@ -626,9 +626,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1084205151}
     - target: {fileID: 143867912284923043, guid: cbd119da9cb483a4e82524746c3032c7, type: 3}
-      propertyPath: resumeButton
+      propertyPath: closeDefaultButton
       value: 
-      objectReference: {fileID: 1881372188}
+      objectReference: {fileID: 1316845811}
+    - target: {fileID: 539376944450667071, guid: cbd119da9cb483a4e82524746c3032c7, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 539376944450667071, guid: cbd119da9cb483a4e82524746c3032c7, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 539376944450667071, guid: cbd119da9cb483a4e82524746c3032c7, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1512682148024427596, guid: cbd119da9cb483a4e82524746c3032c7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -717,9 +729,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6587118232132826981, guid: cbd119da9cb483a4e82524746c3032c7, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6587118232132826981, guid: cbd119da9cb483a4e82524746c3032c7, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6587118232132826981, guid: cbd119da9cb483a4e82524746c3032c7, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7244301965966129245, guid: cbd119da9cb483a4e82524746c3032c7, type: 3}
       propertyPath: m_Name
       value: PauseCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 7322118745189780578, guid: cbd119da9cb483a4e82524746c3032c7, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7322118745189780578, guid: cbd119da9cb483a4e82524746c3032c7, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7487434533726899998, guid: cbd119da9cb483a4e82524746c3032c7, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7487434533726899998, guid: cbd119da9cb483a4e82524746c3032c7, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7716821444099613395, guid: cbd119da9cb483a4e82524746c3032c7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1464,11 +1508,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1843792580}
   m_CullTransparentMesh: 1
---- !u!1 &1881372188 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5582999230498841620, guid: cbd119da9cb483a4e82524746c3032c7, type: 3}
-  m_PrefabInstance: {fileID: 320255855}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1971289030
 GameObject:
   m_ObjectHideFlags: 0

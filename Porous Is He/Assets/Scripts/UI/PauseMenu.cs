@@ -24,6 +24,9 @@ public class PauseMenu : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI pauseSymbol;
     [SerializeField] private Button menuButton;
+    [SerializeField] private Button resumeButton;
+
+    [SerializeField] private Button closeDefaultButton;
 
     [SerializeField] private PlayerInfoManager pim;
 
@@ -43,7 +46,8 @@ public class PauseMenu : MonoBehaviour
         } else
         {
             pauseSymbol.text = "";
-            //menuButton.interactable = false;
+            menuButton.interactable = false;
+            resumeButton.GetComponent<RectTransform>().position += new Vector3(0, -20, 0); 
             menuButton.gameObject.SetActive(false);
         }
 
@@ -89,9 +93,12 @@ public class PauseMenu : MonoBehaviour
         if (scene.name != "MainMenu")
         {
             Cursor.lockState = CursorLockMode.Locked;
+            EventSystem.current.SetSelectedGameObject(null);
+        } else
+        {
+            EventSystem.current.SetSelectedGameObject(closeDefaultButton.gameObject);
         }
 
-        EventSystem.current.SetSelectedGameObject(null);
 
         if (doSave)
         {
