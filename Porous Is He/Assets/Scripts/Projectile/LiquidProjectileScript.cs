@@ -89,6 +89,7 @@ public class LiquidProjectileScript : MonoBehaviour
     private void OnCollisionEnter(Collision other)
     {
         actOnHitObject(other.gameObject, true);
+        CleanObject(other);
         GreaseObject(other);
     }
 
@@ -101,4 +102,23 @@ public class LiquidProjectileScript : MonoBehaviour
         }
 
     }
+
+    private void CleanObject(Collision obj)
+    {
+        Clean cleanObj = obj.gameObject.GetComponent<Clean>();
+        if (cleanObj && gameObject.name.StartsWith("WaterProjectile"))
+        {
+
+            Ray ray = new Ray(obj.contacts[0].point + obj.contacts[0].normal, -obj.contacts[0].normal * 5f);
+            //Debug.DrawRay(obj.contacts[0].point + obj.contacts[0].normal, -obj.contacts[0].normal * 5f, UnityEngine.Color.blue, 7, false);
+
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit))
+            {
+                Debug.Log("Coords: " + hit.textureCoord);
+                cleanObj.CleanArea(hit.textureCoord);
+            } 
+        }
+    }
+
 }

@@ -1272,7 +1272,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 1835403103}
+  m_FirstSelected: {fileID: 1127404419}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &777647257
@@ -1473,7 +1473,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1127404420
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1491,10 +1491,10 @@ RectTransform:
   - {fileID: 1335901514}
   m_Father: {fileID: 180520979}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 539.99994, y: -540.2978}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1127404421
 MonoBehaviour:
@@ -1540,9 +1540,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1127404419}
+      - m_Target: {fileID: 1127404424}
         m_TargetAssemblyTypeName: LevelSelectMenu, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: ChangeScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1572,7 +1572,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f7a478ab1760074aa9b7a508c37db08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelName: Level0
+  levelName: Tutorial
 --- !u!95 &1127404425
 Animator:
   serializedVersion: 5

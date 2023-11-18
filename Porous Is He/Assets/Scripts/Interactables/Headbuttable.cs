@@ -11,6 +11,8 @@ public class Headbuttable : MonoBehaviour
     [SerializeField] private GreasableObject greaseObj;
     [SerializeField] private FillableCup fillableCupObj;
 
+    private bool allow = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,7 +32,13 @@ public class Headbuttable : MonoBehaviour
 
     public void push()
     {
+        if (!allow) return;
         if (isPushed && !canBePushedAgain) return;
+        if (isPushed && canBePushedAgain)
+        {
+            PushReturn(); return;
+        }
+            
         if (greaseObj)
         {
             if (!greaseObj.IsGreased()) return;
@@ -51,4 +59,24 @@ public class Headbuttable : MonoBehaviour
             }
         }
     }
+
+    private void PushReturn()
+    {
+        if (Player.GetComponent<LiquidTracker>().IsHeavy())
+        {
+            if (animator != null)
+            {
+                animator.SetBool("isPushed", false);
+                isPushed = false;
+            }
+        }
+
+    }
+
+    public bool GetIsPushed() => isPushed;
+    public void SetAllow(bool isAllowed)
+    {
+        allow = isAllowed;
+    }
+
 }
