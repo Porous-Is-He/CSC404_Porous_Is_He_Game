@@ -30,6 +30,9 @@ public class PauseMenu : MonoBehaviour
 
     [SerializeField] private PlayerInfoManager pim;
 
+    [SerializeField] private TMP_FontAsset std_font;
+    [SerializeField] private TMP_FontAsset std_font_disabled;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -47,8 +50,9 @@ public class PauseMenu : MonoBehaviour
         {
             pauseSymbol.text = "";
             menuButton.interactable = false;
-            resumeButton.GetComponent<RectTransform>().position += new Vector3(0, -20, 0); 
-            menuButton.gameObject.SetActive(false);
+            menuButton.transform.Find("Text (TMP)").GetComponent<TextMeshProUGUI>().font = std_font_disabled;
+            //resumeButton.GetComponent<RectTransform>().position += new Vector3(0, -20, 0); 
+            //menuButton.gameObject.SetActive(false);
         }
 
         pim.loadedEvent.AddListener(ReflectSettings);

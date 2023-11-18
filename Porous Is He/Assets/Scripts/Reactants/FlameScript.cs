@@ -94,8 +94,8 @@ public class FlameScript : MonoBehaviour, ReactantInterface
         wasBurning = isBurning;
     }
 
-    private float minSpd = 6;
-    private float maxSpd = 10;
+    private float minSpd = 2;
+    private float maxSpd = 6;
     private float minLife = 5;
     private float maxLife = 7;
 
@@ -113,7 +113,7 @@ public class FlameScript : MonoBehaviour, ReactantInterface
         float fireMultiplier = 1.7f;
         float flameSize = transform.lossyScale.x * fireMultiplier * ((fireLevel + 6) / (maxFireLevel + 6));
 
-        float fireSpeed = (fireLevel / maxFireLevel) * (maxSpd - minSpd) + minSpd;
+        float fireSpeed = transform.lossyScale.x * 0.4f * ((fireLevel / maxFireLevel) * (maxSpd - minSpd) + minSpd);
         float fireLife = maxLife - ( (fireLevel / maxFireLevel) * (maxLife - minLife) );
 
 
