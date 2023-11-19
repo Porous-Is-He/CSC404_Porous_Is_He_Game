@@ -9,8 +9,8 @@ public class BubbleScript : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    public float amplitude = 0.15f;
-    public float frequency = 0.1f;
+    public float amplitude = 0.25f;
+    public float frequency = 1.5f;
     private Vector3 posOffset = new Vector3 ();
     private Vector3 tempPosition = new Vector3 ();
 
