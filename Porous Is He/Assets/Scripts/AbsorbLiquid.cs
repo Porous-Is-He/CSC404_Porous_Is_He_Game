@@ -35,7 +35,7 @@ public class AbsorbLiquid : MonoBehaviour
             if (onFillableCup && fillableCup.GetLiquidAmount() > 0 && !liquidTracker.FullLiquid(fillableCup.GetSurfaceLiquidType()))
             {
                 LiquidInfo liquid = fillableCup.RemoveLiquid(amountAbsorbed);
-                gameObject.GetComponent<LiquidTracker>().AddSelectedLiquid(liquid);
+                liquidTracker.AddSelectedLiquid(liquid);
             }
             else if (touchingLiquid && !liquidTracker.FullLiquid(liquidSource.liquidType))
             {
@@ -43,7 +43,7 @@ public class AbsorbLiquid : MonoBehaviour
                 if (liquid.liquidAmount != 0)
                 {
                     //gameObject.GetComponent<PoSoundManager>().PlaySound("Absorb");
-                    gameObject.GetComponent<LiquidTracker>().AddSelectedLiquid(liquid);
+                    liquidTracker.AddSelectedLiquid(liquid);
                 }
             }
         }
@@ -90,7 +90,8 @@ public class AbsorbLiquid : MonoBehaviour
 
     private void ReleaseAllLiquid(InputAction.CallbackContext context)
     {
-        liquidTracker.RemoveSelectedLiquid(liquidTracker.GetSelectedLiquid().liquidAmount);
+        //liquidTracker.RemoveSelectedLiquid(liquidTracker.GetSelectedLiquid().liquidAmount);
+        liquidTracker.RemoveAllLiquid();
     }
 
     private void OnDestroy()
