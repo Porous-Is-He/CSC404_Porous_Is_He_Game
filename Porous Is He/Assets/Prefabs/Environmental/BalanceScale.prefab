@@ -121,6 +121,7 @@ GameObject:
   - component: {fileID: 3649096337327874506}
   - component: {fileID: 7020385751702166502}
   - component: {fileID: 6328270866050528979}
+  - component: {fileID: 3474492221646971136}
   m_Layer: 0
   m_Name: FillableCup
   m_TagString: Collider
@@ -265,6 +266,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3.815027, y: 2.0582623, z: 1.0630344}
   m_Center: {x: 0.12650894, y: 0.52913076, z: -2.391532}
+--- !u!114 &3474492221646971136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023926511717415645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d01155dcdca336c40b9fb9d892083c54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  message: I can maybe empty this cup by pushing it.
+  time: 6
 --- !u!1 &1848941308400933487
 GameObject:
   m_ObjectHideFlags: 0
