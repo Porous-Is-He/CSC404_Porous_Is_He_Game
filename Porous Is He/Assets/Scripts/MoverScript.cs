@@ -25,7 +25,7 @@ public class MoverScript : MonoBehaviour
     // Player Movement variables
     private Vector2 inputVector;
     private Vector3 direction;
-    private float playerSpeed = 7.5f;
+    [SerializeField] private float playerSpeed = 6.5f;
     private float turnSmoothTime = 0.05f;
     private float turnSmoothVelocity;
 
@@ -187,7 +187,10 @@ public class MoverScript : MonoBehaviour
     {
         inputVector = playerInputActions.Player.Movement.ReadValue<Vector2>();
         direction = new Vector3(inputVector.x, 0f, inputVector.y);
-        direction = cameraMainTransform.forward * direction.z + cameraMainTransform.right * direction.x;
+
+        Vector3 XZCMTForward = new Vector3(cameraMainTransform.forward.x, 0, cameraMainTransform.forward.z).normalized;
+        Vector3 XZCMTRight = new Vector3(cameraMainTransform.right.x, 0, cameraMainTransform.right.z).normalized;
+        direction = XZCMTForward * direction.z + XZCMTRight  * direction.x;
 
         if (direction.magnitude >= 0.1f)
         {
