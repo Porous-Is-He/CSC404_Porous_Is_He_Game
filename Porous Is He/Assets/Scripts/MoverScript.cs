@@ -168,6 +168,8 @@ public class MoverScript : MonoBehaviour
 
     private void MoveWhileAiming()
     {
+        playerAnimator.SetBool("IsRunning", false);
+
         // To be implemented
         if (IsGrounded() && playerVelocity < 0f)
         {

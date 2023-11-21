@@ -1484,7 +1484,7 @@ MonoBehaviour:
   playerLayerMask:
     serializedVersion: 2
     m_Bits: 0
-  meshRenderer: {fileID: 0}
+  meshRenderer: {fileID: 7017454341414752833}
   transparentMaterial: {fileID: 0}
 --- !u!1 &4404137931860652479
 GameObject:
@@ -3420,3 +3420,8 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!137 &7017454341414752833 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -3270788982989512572, guid: f846cd64b11af784c8facf6382b6b5f2, type: 3}
+  m_PrefabInstance: {fileID: 3744975313842123461}
+  m_PrefabAsset: {fileID: 0}
