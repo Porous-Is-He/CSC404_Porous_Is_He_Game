@@ -23,6 +23,7 @@ public class FlameScript : MonoBehaviour, ReactantInterface
     public bool startOff = false;
 
     public GameObject SmokeEmitter;
+    public GameObject OilSmokeEmitter;
 
     private Transform parent;
 
@@ -33,12 +34,16 @@ public class FlameScript : MonoBehaviour, ReactantInterface
             fireLevel -= liquid.liquidAmount * 2;
             //if (fireLevel <= 0 && isAlwaysBurning) fireLevel = 1;
 
-            if (fireLevel > 0)
+            if (fireLevel > 0 && isBurning)
             {
                 SmokeEmitter.GetComponent<ParticleSystem>().Emit(5);
             }
         } else if (liquid.liquidType == "Oil")
         {
+            if (fireLevel < maxFireLevel && isBurning)
+            {
+                OilSmokeEmitter.GetComponent<ParticleSystem>().Emit(5);
+            }
             fireLevel += liquid.liquidAmount * 2;
         }
 
@@ -113,7 +118,7 @@ public class FlameScript : MonoBehaviour, ReactantInterface
         float fireMultiplier = 1.7f;
         float flameSize = transform.lossyScale.x * fireMultiplier * ((fireLevel + 6) / (maxFireLevel + 6));
 
-        float fireSpeed = transform.lossyScale.x * 0.4f * ((fireLevel / maxFireLevel) * (maxSpd - minSpd) + minSpd);
+        float fireSpeed = transform.lossyScale.x * 0.3f * ((fireLevel / maxFireLevel) * (maxSpd - minSpd) + minSpd);
         float fireLife = maxLife - ( (fireLevel / maxFireLevel) * (maxLife - minLife) );
 
 
@@ -128,7 +133,7 @@ public class FlameScript : MonoBehaviour, ReactantInterface
 
         for (int i = 0; i < parent.childCount; ++i)
         {
-            if (parent.GetChild(i).name == "Smoke")
+            if (parent.GetChild(i).name == "Smoke" || parent.GetChild(i).name == "OilSmoke")
             {
                 continue;
             }
