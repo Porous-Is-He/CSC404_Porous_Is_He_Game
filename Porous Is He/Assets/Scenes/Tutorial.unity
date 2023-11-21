@@ -1259,7 +1259,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9510caea28620e40b7fd7979eda139f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _camera: {fileID: 0}
   _dirtMaskBase: {fileID: 2800000, guid: 3d919218cec81264784ede5919774380, type: 3}
   _brush: {fileID: 2800000, guid: a008142e2cfab4f4a9ecac71167b7d9c, type: 3}
   _material: {fileID: 2100000, guid: 42ed7918252695640abcfab9bb6eec66, type: 2}
@@ -1331,7 +1330,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 59789844181278977, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 1e-45
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 59789844181278977, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
       propertyPath: m_LocalRotation.z
@@ -2259,8 +2258,8 @@ Transform:
   m_GameObject: {fileID: 1122272455}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 45.2, y: 1.847, z: -40.34}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 45.189, y: 1.847, z: -40.34}
+  m_LocalScale: {x: 0.51525164, y: 1.0616759, z: 0.51525164}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -3523,7 +3522,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9510caea28620e40b7fd7979eda139f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _camera: {fileID: 0}
   _dirtMaskBase: {fileID: 2800000, guid: 3d919218cec81264784ede5919774380, type: 3}
   _brush: {fileID: 2800000, guid: 951e73593afce3b4283ed9b1e25970ec, type: 3}
   _material: {fileID: 2100000, guid: 42ed7918252695640abcfab9bb6eec66, type: 2}
