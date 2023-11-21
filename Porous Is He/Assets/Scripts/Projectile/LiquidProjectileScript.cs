@@ -115,7 +115,6 @@ public class LiquidProjectileScript : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
-                Debug.Log("Coords: " + hit.textureCoord);
                 cleanObj.CleanArea(hit.textureCoord);
             } 
         }

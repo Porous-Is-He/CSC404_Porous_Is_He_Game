@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LiquidTracker : MonoBehaviour
 {
+    [SerializeField] private LiquidBarsUI ui;
     private LiquidInfo[] playerLiquids;
 
     // current liquid index
@@ -51,6 +52,11 @@ public class LiquidTracker : MonoBehaviour
         // if liquid is the same as player's current liquid
 
         int liquidIndex = GetLiquidIndex(liquid.liquidType);
+        // switches to the liquid that is currently being absorbed
+        if (liquidIndex != liquidSelectionIndex)
+        {
+            ui.SwapLiquidHelper();
+        }
 
         float beforeAmount = playerLiquids[liquidIndex].liquidAmount;
         float tempAmount = playerLiquids[liquidIndex].liquidAmount + liquid.liquidAmount;
@@ -165,5 +171,13 @@ public class LiquidTracker : MonoBehaviour
         int liquidIndex = GetLiquidIndex(liquidType);
         if (playerLiquids[liquidIndex].liquidAmount == maxLiquidAmount) return true;
         return false;
+    }
+
+    public void RemoveAllLiquid()
+    {
+        for (int i = 0; i < maxLiquidType; i++)
+        {
+            playerLiquids[i].liquidAmount = 0;
+        }
     }
 }

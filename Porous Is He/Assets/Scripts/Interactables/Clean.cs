@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class Clean : MonoBehaviour
 {
-    [SerializeField] private Camera _camera;
-
     [SerializeField] private Texture2D _dirtMaskBase;
     [SerializeField] private Texture2D _brush;
 
