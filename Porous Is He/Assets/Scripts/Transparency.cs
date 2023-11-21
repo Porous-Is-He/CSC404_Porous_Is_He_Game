@@ -9,7 +9,7 @@ public class Transparency : MonoBehaviour
     public bool aiming = false;
 
     [SerializeField] private LayerMask playerLayerMask = new LayerMask();
-    [SerializeField] private MeshRenderer meshRenderer;
+    [SerializeField] private SkinnedMeshRenderer meshRenderer;
 
     [Header("Transparent Materials")]
     [SerializeField] private Material transparentMaterial;

@@ -40,7 +40,7 @@ public class PoCombust : MonoBehaviour
     {   
         if (isOnFire)
         {
-                liquidTracker.RemoveLiquidFromIndex(oilIndex, oilAmountTaken);
+                liquidTracker.RemoveLiquidFromIndex(oilIndex, oilAmountTaken * Time.deltaTime * 60);
                 amount = liquidTracker.GetLiquidAmountFromIndex(oilIndex);
 
                 if (amount <= 0) EndFire();
