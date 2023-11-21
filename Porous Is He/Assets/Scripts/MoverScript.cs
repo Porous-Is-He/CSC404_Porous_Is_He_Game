@@ -54,6 +54,8 @@ public class MoverScript : MonoBehaviour
 
     private DifficultyManager diffm;
 
+    [SerializeField] private Animator playerAnimator;
+
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -125,7 +127,6 @@ public class MoverScript : MonoBehaviour
 
         }
 
-
         if (LevelComplete.LevelEnd) return;
 
         if (knockBackCounter <= 0)
@@ -190,9 +191,13 @@ public class MoverScript : MonoBehaviour
 
         if (direction.magnitude >= 0.1f)
         {
+            playerAnimator.SetBool("IsRunning", true);
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
+        } else
+        {
+            playerAnimator.SetBool("IsRunning", false);
         }
     }
 
