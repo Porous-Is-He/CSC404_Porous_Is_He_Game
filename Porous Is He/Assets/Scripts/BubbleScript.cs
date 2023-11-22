@@ -13,6 +13,7 @@ public class BubbleScript : MonoBehaviour
     public float frequency = 1.5f;
     private Vector3 posOffset = new Vector3 ();
     private Vector3 tempPosition = new Vector3 ();
+    private bool popped = false;
 
     public void Start()
     {
@@ -32,10 +33,11 @@ public class BubbleScript : MonoBehaviour
     }
 
     public void OnTriggerEnter(Collider other) {
-        if (other.transform.gameObject.CompareTag("Player"))
+        if (popped == false && other.transform.gameObject.CompareTag("Player"))
         {
-
+            GetComponent<AudioSource>().Play();
             GetComponent<Renderer>().enabled = false;
+            popped = true;
         }
 
     }

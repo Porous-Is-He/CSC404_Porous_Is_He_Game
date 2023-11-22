@@ -92,6 +92,7 @@ public class AbsorbLiquid : MonoBehaviour
     {
         //liquidTracker.RemoveSelectedLiquid(liquidTracker.GetSelectedLiquid().liquidAmount);
         liquidTracker.RemoveAllLiquid();
+        gameObject.GetComponent<PoSoundManager>().PlaySound("Release");
     }
 
     private void OnDestroy()

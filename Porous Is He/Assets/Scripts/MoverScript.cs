@@ -237,6 +237,13 @@ public class MoverScript : MonoBehaviour
             playerVelocity = jumpPower;
         }
 
+        if (numberOfJumps == 0) {
+            gameObject.GetComponent<PoSoundManager>().PlaySound("Jump");
+        } else
+        {
+            gameObject.GetComponent<PoSoundManager>().PlaySound("DoubleJump");
+        }
+
         numberOfJumps++;
     }
 

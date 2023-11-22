@@ -24,7 +24,9 @@ public class FlameScript : MonoBehaviour, ReactantInterface
 
     public GameObject SmokeEmitter;
     public GameObject OilSmokeEmitter;
+    public GameObject FireLight;
 
+    private float lastFlameChangeTime = 0.0f;
     private Transform parent;
 
     public void ApplyLiquid(LiquidInfo liquid)
@@ -56,11 +58,16 @@ public class FlameScript : MonoBehaviour, ReactantInterface
             fireLevel = maxFireLevel;
         }
 
-        if (fireLevel != lastFireLevel)
+        if (fireLevel < lastFireLevel)
         {
             AudioClip audioClip = Resources.Load<AudioClip>("Sounds/Extinguish");
             AudioSource.PlayClipAtPoint(audioClip, transform.position, 0.5f);
+        } else if (fireLevel > lastFireLevel)
+        {
+            OilSmokeEmitter.GetComponent<AudioSource>().Play();
         }
+
+        lastFlameChangeTime = Time.time;
     }
 
     // Start is called before the first frame update
@@ -97,6 +104,11 @@ public class FlameScript : MonoBehaviour, ReactantInterface
             ChangeFlameSize();
         }
         wasBurning = isBurning;
+
+        if (Time.time - lastFlameChangeTime > 1.0f)
+        {
+            OilSmokeEmitter.GetComponent<AudioSource>().Stop();
+        }
     }
 
     private float minSpd = 2;
@@ -106,6 +118,7 @@ public class FlameScript : MonoBehaviour, ReactantInterface
 
     private void ChangeFlameSize()
     {
+
         if (fireLevel == 0)
         {
             canDamage = false;
@@ -124,8 +137,8 @@ public class FlameScript : MonoBehaviour, ReactantInterface
 
         if (fireLevel == 0)
         {
-            flameSize = transform.lossyScale.x * fireMultiplier * 0.15f;
-            fireSpeed = fireSpeed / 4;
+            flameSize = transform.lossyScale.x * fireMultiplier * 0.2f;
+            fireSpeed = fireSpeed / 3;
         }
 
         elapsedTime += Time.deltaTime;
@@ -152,21 +165,27 @@ public class FlameScript : MonoBehaviour, ReactantInterface
                 else
                 {
 
+                    float tempFloatSize = flameSize;
                     if (parent.GetChild(i).name == "RedFire")
                     {
-                        flameSize = flameSize * 0.9f;
+                        tempFloatSize = flameSize * 0.9f;
+
+                        if (fireLevel == 0)
+                        {
+                            tempFloatSize = 0;
+                        }
                     }
                     if (parent.GetChild(i).name == "OrangeFire")
                     {
-                        flameSize = flameSize * 0.7f;
+                        tempFloatSize = flameSize * 0.55f;
                     }
                     else if (parent.GetChild(i).name == "YellowFire")
                     {
-                        flameSize = flameSize * 0.5f;
+                        tempFloatSize = flameSize * 0.35f;
                     }
                     //float t = lastFlameSize + (flameSize - lastFlameSize) * interpolationRatio;
                     //fireParticle.startSize = lastFlameSize + (flameSize - lastFlameSize) * interpolationRatio;
-                    main.startSize = flameSize;
+                    main.startSize = tempFloatSize;
                     ParticleSystem.VelocityOverLifetimeModule velocityModule = fireParticle.velocityOverLifetime;
                     velocityModule.yMultiplier = fireSpeed;
                     fireParticle.Play();
@@ -190,10 +209,14 @@ public class FlameScript : MonoBehaviour, ReactantInterface
             audioSrc.loop = true;
             audioSrc.clip = audioClip;
 
-            if (fireLevel == 0)
+            if (fireLevel == 0) {
                 audioSrc.Stop();
-            else
+                FireLight.GetComponent<Light>().enabled = false; 
+            }
+            else {
                 audioSrc.Play();
+                FireLight.GetComponent<Light>().enabled = true;
+            }
         }
 
         if (interpolationRatio >= 1)

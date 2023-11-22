@@ -31,6 +31,7 @@ public class ShootingScript : MonoBehaviour
     private float shootForce;
     private float shootUpwardForce;
     private Vector2 inputVector;
+    private float lastFailedShot = 0f;
 
     void Start()
     {
@@ -47,11 +48,13 @@ public class ShootingScript : MonoBehaviour
     {
         if (PauseMenu.isPaused) return;
         shooting = true;
+        transform.GetComponent<AudioSource>().Play();
     }
 
     private void StopShoot(InputAction.CallbackContext context)
     {
         shooting = false;
+        transform.GetComponent<AudioSource>().Stop();
     }
 
     private void Update()
@@ -79,6 +82,14 @@ public class ShootingScript : MonoBehaviour
                 DeductLiquid();
                 time = 0;
             }
+        } else if (shooting && !CanShoot())
+        {
+            transform.GetComponent<AudioSource>().Stop();
+            if (Time.time - lastFailedShot >= 1.0f)
+            {
+                transform.parent.GetComponent<PoSoundManager>().PlaySound("NoLiquid");
+            }
+            lastFailedShot = Time.time;
         }
         if (time < timeBetweenShoot) time += Time.deltaTime;
     }
