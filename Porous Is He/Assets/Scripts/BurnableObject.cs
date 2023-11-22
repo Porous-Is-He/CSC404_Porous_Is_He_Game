@@ -7,6 +7,9 @@ public class BurnableObject : MonoBehaviour
     // Start is called before the first frame update
 
     [SerializeField] private FlameScript flameScript;
+    [SerializeField] private DisintegrateController disintegrateController;
+    [SerializeField] private float burningTime = 2;
+    private bool burned = false;
 
     void Start()
     {
@@ -14,15 +17,20 @@ public class BurnableObject : MonoBehaviour
 
     void Update()
     {
-        if (flameScript.fireLevel == flameScript.maxFireLevel && flameScript.GetIsBurning())
+        if (flameScript.fireLevel == flameScript.maxFireLevel && flameScript.GetIsBurning() && !burned)
         {
-            Invoke("BurnObject", 2);
+            flameScript.isAlwaysBurning = false;
+            if (disintegrateController)
+            {
+                disintegrateController.Dissolve();
+            }
+            Invoke("BurnObject", burningTime);
+            burned = true;
         }
     }
 
     public void BurnObject()
     {
-        flameScript.isAlwaysBurning = false;
         Destroy(gameObject);
     }
 
