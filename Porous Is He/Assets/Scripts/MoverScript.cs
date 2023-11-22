@@ -237,6 +237,13 @@ public class MoverScript : MonoBehaviour
             playerVelocity = jumpPower;
         }
 
+        if (numberOfJumps == 0) {
+            gameObject.GetComponent<PoSoundManager>().PlaySound("Jump");
+        } else
+        {
+            gameObject.GetComponent<PoSoundManager>().PlaySound("DoubleJump");
+        }
+
         numberOfJumps++;
     }
 
@@ -255,12 +262,14 @@ public class MoverScript : MonoBehaviour
     {
         //Debug.Log("PUSHHH"); // Nice little debug statement to check stuff
 
+        float knockbackMulti = 1f;
+
         knockBackCounter = knockBackTime;
         //enableMovement = false;
         //WaitForLanding();
-        direction = moveDirection * knockBackForceHorizontal;
-        direction.y = knockBackForce;
-        playerVelocity = knockBackForce;
+        direction = moveDirection * knockBackForceHorizontal * knockbackMulti;
+        direction.y = knockBackForce * knockbackMulti;
+        playerVelocity = knockBackForce * knockbackMulti;
 
         /*        if (knockBackCounter >= 0)
                 {

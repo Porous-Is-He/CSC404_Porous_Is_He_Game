@@ -62,11 +62,13 @@ public class FlameKnockbackScript : MonoBehaviour
                     poMessenger.AddMessage(msg);
                 } else if (timesTouchedFire == 8)
                 {
-                    PoMessage msg = new PoMessage("Actually, it's not so bad.", 2);
+                    PoMessage msg = new PoMessage("Actually, that's not so bad.", 2);
                     PoMessenger poMessenger = GameObject.Find("Player").GetComponent<PoMessenger>();
                     poMessenger.AddMessage(msg);
                 }
                 timesTouchedFire++;
+
+                thisPlayer.transform.GetComponent<PoSoundManager>().PlaySound("BurnDamage");
 
 
                 // This handles when Po has oil and touches fire

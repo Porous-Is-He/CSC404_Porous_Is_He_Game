@@ -10,6 +10,7 @@ public class Headbuttable : MonoBehaviour
     [SerializeField] private bool canBePushedAgain = false;
     [SerializeField] private GreasableObject greaseObj;
     [SerializeField] private FillableCup fillableCupObj;
+    [SerializeField] private AudioSource crashSoundSrc = null;
 
     private bool allow = true;
 
@@ -28,6 +29,14 @@ public class Headbuttable : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+    }
+
+    public void playHitSound()
+    {
+        if (crashSoundSrc != null)
+        {
+            crashSoundSrc.Play();
+        }
     }
 
     public void push()
