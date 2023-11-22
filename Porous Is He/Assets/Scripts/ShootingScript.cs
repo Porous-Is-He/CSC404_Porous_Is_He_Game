@@ -32,6 +32,9 @@ public class ShootingScript : MonoBehaviour
     private float shootUpwardForce;
     private Vector2 inputVector;
     private float lastFailedShot = 0f;
+    private bool dryFired = false;
+    private float dryFireStart = 0f;
+    private int dryFireTimesInRow = 0;
 
     void Start()
     {
@@ -55,10 +58,18 @@ public class ShootingScript : MonoBehaviour
     {
         shooting = false;
         transform.GetComponent<AudioSource>().Stop();
+
+        dryFired = false;
     }
 
     private void Update()
     {
+        if (Time.time - dryFireStart > 4.0f)
+        {
+            dryFireStart = Time.time;
+            dryFireTimesInRow = 0;
+        }
+
         if (aiming)
         {
             // this controls shoot force when aiming
@@ -85,11 +96,21 @@ public class ShootingScript : MonoBehaviour
         } else if (shooting && !CanShoot())
         {
             transform.GetComponent<AudioSource>().Stop();
-            if (Time.time - lastFailedShot >= 1.0f)
+            if (Time.time - lastFailedShot >= 0.5f && !dryFired)
             {
+                dryFired = true;
+                dryFireTimesInRow++;
+
+                if (dryFireTimesInRow >= 5 && GameObject.Find("Player").GetComponent<LiquidTracker>().CalcWeight() <= 0)
+                {
+                    PoMessenger poMessenger = GameObject.Find("Player").GetComponent<PoMessenger>();
+                    PoMessage msg = new PoMessage("Please don't squeeze me when I'm dry :( It hurts", 4);
+                    poMessenger.AddMessage(msg);
+                }
+
                 transform.parent.GetComponent<PoSoundManager>().PlaySound("NoLiquid");
+                lastFailedShot = Time.time;
             }
-            lastFailedShot = Time.time;
         }
         if (time < timeBetweenShoot) time += Time.deltaTime;
     }
