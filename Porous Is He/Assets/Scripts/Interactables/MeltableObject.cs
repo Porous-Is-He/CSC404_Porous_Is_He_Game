@@ -37,10 +37,12 @@ public class MeltableObject : MonoBehaviour
                 }
             } else if (!melted && Time.time - lastTriggered > coolDown)
             {
-                PoMessage msg = new PoMessage("I need to be lit on fire to melt these ice cubes", 6);
-                poMessenger.AddMessage(msg);
+                PoMessage msg = new PoMessage("I'll need to be on fire to melt these ice cubes.", 6);
+                poMessenger.AddReplayableMessage(msg);
                 lastTriggered = Time.time;
             }
         }
     }
+
+    public bool IsMelted() => melted;
 }
