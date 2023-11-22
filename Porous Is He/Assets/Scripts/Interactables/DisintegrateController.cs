@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DisintegrateController : MonoBehaviour
@@ -10,9 +9,8 @@ public class DisintegrateController : MonoBehaviour
     // Attach the objects mesh renderer to the mesh variable.
     // This object must also have the material on it using the shaders/disintegrate
     // make sure that on the material, alpha clipping is enabled
-    // To disintegrate, call StartCoroutine(Dissolve())
-
-    // Refer to JennysPlayground Scene for an example
+    // and make sure that you turn on Read/Write on the model import settings
+    // To disintegrate, call Dissolve()
 
 
     public MeshRenderer mesh;
@@ -31,13 +29,18 @@ public class DisintegrateController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-/*        if (Input.GetKeyDown(KeyCode.L))
+        if (Input.GetKeyDown(KeyCode.L))
         {
-            StartCoroutine(Dissolve());
-        }*/
+            StartCoroutine(DissolveCoroutine());
+        }
     }
 
-    IEnumerator Dissolve()
+    public void Dissolve()
+    {
+        StartCoroutine(DissolveCoroutine());
+    }
+
+    IEnumerator DissolveCoroutine()
     {
         if (materials.Length > 0)
         {

@@ -27,7 +27,7 @@ public class ShootingScript : MonoBehaviour
     private float maxShootForce = 32;
     private float minShootForce = 5;
     private float maxShootUpwardForce = 6;
-    private float minShootUpwardForce = 4;
+    private float minShootUpwardForce = 5;
     private float shootForce;
     private float shootUpwardForce;
     private Vector2 inputVector;

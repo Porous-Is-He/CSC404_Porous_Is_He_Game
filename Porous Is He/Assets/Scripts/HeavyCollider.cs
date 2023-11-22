@@ -57,8 +57,8 @@ public class HeavyCollider : MonoBehaviour
     {
         PoMessenger poMessenger = GameObject.Find("Player").GetComponent<PoMessenger>();
         PoMessage[] msg = { 
-            new PoMessage("Hmmm, shooting water isn't going to break it.", 5),
-            new PoMessage("Maybe if I absorb enough water, I'll be heavy enough to break through it.", 8)};
+            new PoMessage("Hmmm, shooting water isn't going to break it.", 4),
+            new PoMessage("Maybe if I absorb enough water, I'll be heavy enough to break through it.", 6)};
         //StartCoroutine(messenger.SendMessage(msg));
         poMessenger.AddReplayableMessage(msg);
     }
