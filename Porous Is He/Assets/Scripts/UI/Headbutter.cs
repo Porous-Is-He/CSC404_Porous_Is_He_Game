@@ -43,11 +43,11 @@ public class Headbutter : MonoBehaviour
                         obj.GetComponent<HeavyCollider>().push();
                     }
 
-                    if (obj.GetComponent<Pushable>())
+                    if (obj.GetComponent<Headbuttable>())
                     {
                         hit = true;
                         transform.parent.gameObject.GetComponent<PoSoundManager>().PlaySound("Headbutt_Hit");
-                        obj.GetComponent<Pushable>().push();
+                        obj.GetComponent<Headbuttable>().push();
                     }
                 }
             }

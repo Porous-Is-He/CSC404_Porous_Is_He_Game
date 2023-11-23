@@ -21,6 +21,7 @@ public class Startpoint : MonoBehaviour
             msgs[i] = msg;
         }
 
-        StartCoroutine(poMessenger.SendMessage(msgs));
+        //StartCoroutine(poMessenger.SendMessage(msgs));
+        poMessenger.AddMessage(msgs);
     }
 }

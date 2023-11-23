@@ -23,15 +23,18 @@ public class LevelComplete : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Cursor.lockState = CursorLockMode.None;
-        PauseMenu.isPaused = true;
-        LevelCompletePanel.SetActive(true);
-        EventSystem.current.SetSelectedGameObject(selectFirst);
-
-        if (animator != null && animator.isActiveAndEnabled)
+        if (other.gameObject.CompareTag("Player"))
         {
-            animator.SetBool("open", true);
-            StartCoroutine(WaitAnimationEnd());
+            Cursor.lockState = CursorLockMode.None;
+            PauseMenu.isPaused = true;
+            LevelCompletePanel.SetActive(true);
+            EventSystem.current.SetSelectedGameObject(selectFirst);
+
+            if (animator != null && animator.isActiveAndEnabled)
+            {
+                animator.SetBool("open", true);
+                StartCoroutine(WaitAnimationEnd());
+            }
         }
     }
 

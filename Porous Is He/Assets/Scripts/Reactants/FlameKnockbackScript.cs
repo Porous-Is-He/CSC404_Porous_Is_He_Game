@@ -55,13 +55,20 @@ public class FlameKnockbackScript : MonoBehaviour
                 thisPlayer.KnockBack(moveDirection);
 
                 lastTimeTouchedFire = Time.time;
-                if (timesTouchedFire == 3)
+                if (timesTouchedFire == 5)
                 {
-                    PoMessage msg = new PoMessage("Ow! Ow! Why am I jumping into the fire?", 5);
+                    PoMessage msg = new PoMessage("Ow! Ow! That hurts!", 2);
                     PoMessenger poMessenger = GameObject.Find("Player").GetComponent<PoMessenger>();
-                    StartCoroutine(poMessenger.SendMessage(msg));
+                    poMessenger.AddMessage(msg);
+                } else if (timesTouchedFire == 8)
+                {
+                    PoMessage msg = new PoMessage("Actually, that's not so bad.", 2);
+                    PoMessenger poMessenger = GameObject.Find("Player").GetComponent<PoMessenger>();
+                    poMessenger.AddMessage(msg);
                 }
                 timesTouchedFire++;
+
+                thisPlayer.transform.GetComponent<PoSoundManager>().PlaySound("BurnDamage");
 
 
                 // This handles when Po has oil and touches fire

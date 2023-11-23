@@ -4,55 +4,116 @@ using UnityEngine;
 
 public class PoMessenger : MonoBehaviour
 {
+    // Usage:
+    // Call AddMessage() to play a subtitle
+    // Call AddReplayableMessage() to play a subtitle and save it in case the player wants to replay this message
+
     public DialogueUI dialogue;
-    private static PoMessage message = new PoMessage("I'm trapped under a bowl. I need to break my way out.", 5);
-    private PoMessage[] messages = { message };
-    // Start is called before the first frame update
+
+    private Queue<PoMessage> sentences;
+    private bool displaying = false;
+    private PoMessage[] lastMessages;
+
+
     void Start()
     {
-        // PoMessage message = new PoMessage("I'm trapped under a bowl. I need to break my way out.", 5);
-        // PoMessage[] messages = { message };
-
-        // StartCoroutine(SendMessage(messages));
-
+        sentences = new Queue<PoMessage>();
+        lastMessages = new PoMessage[] { };
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.Question))
+        if (sentences.Count > 0 && !displaying)
         {
-            Debug.Log("clicked");
-            PoMessage[] lastMessage = GetLastMessage();
-            StartCoroutine(SendMessage(lastMessage));
+            displaying = true;
+            StartCoroutine(DisplayMessage());
         }
     }
 
-
-
-    public IEnumerator SendMessage(PoMessage message)
+    public void AddMessage(PoMessage message)
     {
-        PoMessage[] messages = { message };
-        return SendMessage(messages);
-
+        sentences.Enqueue(message);
     }
 
-    public IEnumerator SendMessage(PoMessage[] messages)
+    public void AddMessage(PoMessage[] messages)
     {
-        for(int i = 0; i < messages.Length; i++)
+        foreach (PoMessage message in messages)
         {
-            dialogue.SetMessage(messages[i].message);
-            yield return new WaitForSeconds(messages[i].time);
+            sentences.Enqueue(message);
+        }
+    }
+
+    public void AddReplayableMessage(PoMessage message)
+    {
+        lastMessages = new PoMessage[] { message };
+        AddMessage(message);
+    }
+
+    public void AddReplayableMessage(PoMessage[] messages)
+    {
+        lastMessages = messages;
+        AddMessage(messages);
+    }
+
+    IEnumerator DisplayMessage()
+    {
+        while (sentences.Count > 0)
+        {
+            PoMessage poMessage = sentences.Dequeue();
+            dialogue.SetMessage(poMessage.message);
+/*            for (int i = 0; i < poMessage.message.Length; i++)
+            {
+                dialogue.SetMessage(poMessage.message.Substring(0, i));
+                yield return new WaitForSeconds(0.01f);
+            }*/
+            yield return new WaitForSeconds(poMessage.time);
         }
 
         // reset message text field after the last message is shown
         dialogue.SetMessage("");
-
+        displaying = false;
     }
 
-    public PoMessage[] GetLastMessage()
-    {
-        PoMessage[] lastone = { messages[(int)messages.Length - 1] };
-        return lastone;
-    }
+    public PoMessage[] GetLastMessage() => lastMessages;
+
+
+
+    // Update is called once per frame
+    /*    void Update()
+        {
+            if (Input.GetKey(KeyCode.Question))
+            {
+                Debug.Log("clicked");
+                PoMessage[] lastMessage = GetLastMessage();
+                StartCoroutine(SendMessage(lastMessage));
+            }
+        }
+
+
+
+        public IEnumerator SendMessage(PoMessage message)
+        {
+            PoMessage[] messages = { message };
+            return SendMessage(messages);
+
+        }
+
+        public IEnumerator SendMessage(PoMessage[] messages)
+        {
+            for(int i = 0; i < messages.Length; i++)
+            {
+                dialogue.SetMessage(messages[i].message);
+                yield return new WaitForSeconds(messages[i].time);
+            }
+
+            // reset message text field after the last message is shown
+            dialogue.SetMessage("");
+
+        }
+
+        public PoMessage[] GetLastMessage()
+        {
+            PoMessage[] lastone = { messages[(int)messages.Length - 1] };
+            return lastone;
+        }*/
 }

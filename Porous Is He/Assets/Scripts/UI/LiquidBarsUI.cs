@@ -85,6 +85,11 @@ public class LiquidBarsUI : MonoBehaviour
     // Swap currently selected liquid and change the scale of the UI
     private void SwapLiquid(InputAction.CallbackContext context)
     {
+        SwapLiquidHelper();
+    }
+
+    public void SwapLiquidHelper()
+    {
         if (liquidTracker.maxLiquidType == 1) return;
 
         int currentSelection = liquidTracker.GetSelectionIndex();

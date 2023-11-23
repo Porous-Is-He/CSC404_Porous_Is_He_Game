@@ -41,6 +41,14 @@ public class PoSoundManager : MonoBehaviour
                 headbuttMissCounter = 2;
             }
         }
+        else if (soundType == "Jump")
+        {
+            soundDir += "sfx_jump_nl_02";
+        }
+        else if (soundType == "DoubleJump")
+        {
+            soundDir += "sfx_jump_nl_01";
+        }
         else if (soundType == "Headbutt_Hit")
         {
             soundDir += "sfx_HdbtHit_nl_" + headbuttCounter.ToString();
@@ -49,6 +57,18 @@ public class PoSoundManager : MonoBehaviour
             {
                 headbuttCounter = 1;
             }
+        }
+        else if (soundType == "BurnDamage")
+        {
+            soundDir += "sfx_burndamage_nl_01";
+        }
+        else if (soundType == "Release")
+        {
+            soundDir += "sfx_squeeze_nl_01";
+        }
+        else if (soundType == "NoLiquid")
+        {
+            soundDir += "sfx_noliquid_nl_01";
         }
         else
         {

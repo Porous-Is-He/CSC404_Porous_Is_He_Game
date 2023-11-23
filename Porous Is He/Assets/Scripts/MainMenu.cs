@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    [SerializeField] private PauseMenu pauseMenu;
+
 
     public void StartGame()
     {
@@ -14,5 +16,10 @@ public class MainMenu : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void OpenSettings()
+    {
+        pauseMenu.PauseGame();
     }
 }

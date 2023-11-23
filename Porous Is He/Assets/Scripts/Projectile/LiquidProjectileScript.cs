@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -63,7 +64,7 @@ public class LiquidProjectileScript : MonoBehaviour
             // Put out fire
             //Destroy(other.gameObject);
 
-        }
+        } 
         else
         {
             if (doDestroy)
@@ -88,5 +89,35 @@ public class LiquidProjectileScript : MonoBehaviour
     private void OnCollisionEnter(Collision other)
     {
         actOnHitObject(other.gameObject, true);
+        CleanObject(other);
+        GreaseObject(other);
     }
+
+    private void GreaseObject(Collision obj)
+    {
+        GreasableObject greaseObj = obj.gameObject.GetComponent<GreasableObject>();
+        if (greaseObj && gameObject.name.StartsWith("OilProjectile"))
+        {
+            greaseObj.AddGrease();
+        }
+
+    }
+
+    private void CleanObject(Collision obj)
+    {
+        Clean cleanObj = obj.gameObject.GetComponent<Clean>();
+        if (cleanObj && gameObject.name.StartsWith("WaterProjectile"))
+        {
+
+            Ray ray = new Ray(obj.contacts[0].point + obj.contacts[0].normal, -obj.contacts[0].normal * 5f);
+            //Debug.DrawRay(obj.contacts[0].point + obj.contacts[0].normal, -obj.contacts[0].normal * 5f, UnityEngine.Color.blue, 7, false);
+
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit))
+            {
+                cleanObj.CleanArea(hit.textureCoord);
+            } 
+        }
+    }
+
 }

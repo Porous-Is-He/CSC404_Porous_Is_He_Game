@@ -116,6 +116,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ShootForce"",
+                    ""type"": ""Value"",
+                    ""id"": ""17bbcd03-ad13-4e87-9144-ed8dd1ed4e17"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -385,8 +394,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""e59f0d5c-0a0b-4199-8999-979fb2b87f86"",
-                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""id"": ""be2414d7-3f35-432e-a42f-34e2f0843dbd"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -437,6 +446,72 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""RepeatMsg"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e269b5b9-7ea6-4a1e-ada5-53c148cf86c3"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShootForce"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""WASD"",
+                    ""id"": ""becd7012-30e5-4c36-b61c-d39f5db179e3"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShootForce"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""3abd8077-7851-4b8b-ba17-504dfda6d524"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShootForce"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""03b626e2-1685-43a3-98dd-5f0591aa7d72"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShootForce"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""d6858d38-029d-4369-a7d6-0cba1e1a12c5"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShootForce"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""a46ec080-8de2-4732-97bf-0f8303926d78"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShootForce"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -505,6 +580,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Release = m_Player.FindAction("Release", throwIfNotFound: true);
         m_Player_RepeatMsg = m_Player.FindAction("RepeatMsg", throwIfNotFound: true);
         m_Player_Headbutt = m_Player.FindAction("Headbutt", throwIfNotFound: true);
+        m_Player_ShootForce = m_Player.FindAction("ShootForce", throwIfNotFound: true);
         // GameManager
         m_GameManager = asset.FindActionMap("GameManager", throwIfNotFound: true);
         m_GameManager_Pause = m_GameManager.FindAction("Pause", throwIfNotFound: true);
@@ -579,6 +655,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Release;
     private readonly InputAction m_Player_RepeatMsg;
     private readonly InputAction m_Player_Headbutt;
+    private readonly InputAction m_Player_ShootForce;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -593,6 +670,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Release => m_Wrapper.m_Player_Release;
         public InputAction @RepeatMsg => m_Wrapper.m_Player_RepeatMsg;
         public InputAction @Headbutt => m_Wrapper.m_Player_Headbutt;
+        public InputAction @ShootForce => m_Wrapper.m_Player_ShootForce;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -632,6 +710,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Headbutt.started += instance.OnHeadbutt;
             @Headbutt.performed += instance.OnHeadbutt;
             @Headbutt.canceled += instance.OnHeadbutt;
+            @ShootForce.started += instance.OnShootForce;
+            @ShootForce.performed += instance.OnShootForce;
+            @ShootForce.canceled += instance.OnShootForce;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -666,6 +747,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Headbutt.started -= instance.OnHeadbutt;
             @Headbutt.performed -= instance.OnHeadbutt;
             @Headbutt.canceled -= instance.OnHeadbutt;
+            @ShootForce.started -= instance.OnShootForce;
+            @ShootForce.performed -= instance.OnShootForce;
+            @ShootForce.canceled -= instance.OnShootForce;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -741,6 +825,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnRelease(InputAction.CallbackContext context);
         void OnRepeatMsg(InputAction.CallbackContext context);
         void OnHeadbutt(InputAction.CallbackContext context);
+        void OnShootForce(InputAction.CallbackContext context);
     }
     public interface IGameManagerActions
     {

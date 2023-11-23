@@ -26,18 +26,22 @@ public class RevisitableCheckpoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-
-        if (Time.time - lastTriggered > coolDown)
+        if (other.gameObject.CompareTag("Player"))
         {
-            PoMessage msg = new PoMessage(messages[timesTriggered], time[timesTriggered]);
-            StartCoroutine(poMessenger.SendMessage(msg));
-
-            timesTriggered++;
-            if (timesTriggered >= messages.Length)
+            if (Time.time - lastTriggered > coolDown)
             {
-                timesTriggered = messages.Length - 1;
+                PoMessage msg = new PoMessage(messages[timesTriggered], time[timesTriggered]);
+                //StartCoroutine(poMessenger.SendMessage(msg));
+                poMessenger.AddMessage(msg);
+
+                timesTriggered++;
+                if (timesTriggered >= messages.Length)
+                {
+                    timesTriggered = messages.Length - 1;
+                }
+                lastTriggered = Time.time;
             }
         }
-        lastTriggered = Time.time;
+        //lastTriggered = Time.time;
     }
 }

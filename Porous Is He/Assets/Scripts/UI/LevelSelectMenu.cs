@@ -12,7 +12,8 @@ public class LevelSelectMenu : MonoBehaviour
 
     private void Start()
     {
-        if (levelName == "Level0")
+        // Change to "Level0" once the tutorial level is implemented
+        if (levelName == "Tutorial")
         {
             EventSystem.current.SetSelectedGameObject(this.gameObject);
         }
