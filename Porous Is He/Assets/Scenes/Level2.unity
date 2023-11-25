@@ -476,6 +476,7 @@ Transform:
   m_Children:
   - {fileID: 74912249}
   - {fileID: 1299951369}
+  - {fileID: 1853777922}
   - {fileID: 652604465}
   - {fileID: 946796178}
   - {fileID: 1312656386}
@@ -1099,7 +1100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d01155dcdca336c40b9fb9d892083c54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  message: This drumstick is very crispy. Maybe I can burn it down.
+  message: This drumstick is very crispy.
   time: 5
 --- !u!65 &74912251
 BoxCollider:
@@ -9089,10 +9090,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   messages:
   - This cardboard box is in the way.
-  - I could burn it down, but I need to light it on fire first.
   time:
   - 4
-  - 5
 --- !u!1 &658157738 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 29551b26eb81b414683c30eee2a70e53, type: 3}
@@ -19389,8 +19388,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d01155dcdca336c40b9fb9d892083c54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  message: There's a lot of candles here. Looks like I can use them to go up.
-  time: 7
+  message: There's a lot of candles here for some reason.
+  time: 5
 --- !u!65 &1299951371
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -21323,15 +21322,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1557473859615359910, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.23767635
+      value: -0.23767634
       objectReference: {fileID: 0}
     - target: {fileID: 1557473859615359910, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.010342286
+      value: -0.010342257
       objectReference: {fileID: 0}
     - target: {fileID: 1557473859615359910, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0025307857
+      value: -0.0025307785
       objectReference: {fileID: 0}
     - target: {fileID: 1832423305731349504, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -23485,9 +23484,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d01155dcdca336c40b9fb9d892083c54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  message: That platform is very far away. Maybe I can propel myself extra far with
-    something?
-  time: 8
+  message: It feels dangerous jumping around this fire.
+  time: 4
 --- !u!65 &1560979987
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -27571,6 +27569,126 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 735331919}
   m_SourcePrefab: {fileID: 100100000, guid: e499b916deca63c4a985cfdf4f21633f, type: 3}
+--- !u!1 &1853777921
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1853777922}
+  - component: {fileID: 1853777926}
+  - component: {fileID: 1853777925}
+  - component: {fileID: 1853777924}
+  - component: {fileID: 1853777923}
+  m_Layer: 0
+  m_Name: Checkpoint4 (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1853777922
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1853777921}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.78235453, z: -0, w: 0.6228334}
+  m_LocalPosition: {x: 2, y: -4.64, z: 23.58}
+  m_LocalScale: {x: 1, y: 3.7626, z: 28.149397}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 30526956}
+  m_LocalEulerAnglesHint: {x: 0, y: -102.953, z: 0}
+--- !u!114 &1853777923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1853777921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d01155dcdca336c40b9fb9d892083c54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  message: Very romantic!
+  time: 2
+--- !u!65 &1853777924
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1853777921}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1853777925
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1853777921}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1853777926
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1853777921}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1855274050 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: d7c586446f15d4f479afd4325df16ec4, type: 3}
@@ -31230,7 +31348,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 905226783369425675, guid: ed9627e58c53c6f4f8c1da87f081f8ce, type: 3}
       propertyPath: fireLevel
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 905226783369425675, guid: ed9627e58c53c6f4f8c1da87f081f8ce, type: 3}
       propertyPath: isAlwaysBurning
