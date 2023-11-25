@@ -52,7 +52,14 @@ public class FlameKnockbackScript : MonoBehaviour
                 Vector3 moveDirection = other.transform.position - transform.position;
                 moveDirection.y = 0;
                 moveDirection = moveDirection.normalized;
-                thisPlayer.KnockBack(moveDirection);
+
+                bool doBoost = false;
+                if (other.transform.position.y >= this.GetComponent<Collider>().bounds.max.y)
+                {
+                    doBoost = true;
+                }
+
+                thisPlayer.KnockBack(moveDirection, doBoost);
 
                 lastTimeTouchedFire = Time.time;
                 if (timesTouchedFire == 5)

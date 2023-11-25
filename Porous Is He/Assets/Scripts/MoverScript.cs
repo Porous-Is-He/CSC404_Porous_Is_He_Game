@@ -33,6 +33,11 @@ public class MoverScript : MonoBehaviour
     public float knockBackForce = 4f;
     public float knockBackForceHorizontal = 2f;
     public float knockBackTime = 0.2f;
+
+    public float knockBackForceUP = 4f;
+    public float knockBackForceHorizontalUP = 2f;
+    public float knockBackTimeUP = 0.2f;
+
     private float knockBackCounter;
 
     // Variable that toggles movement
@@ -95,6 +100,9 @@ public class MoverScript : MonoBehaviour
 
         gravityValue = -8.8f * verticalMod;
         jumpPower = 2.5f * verticalMod * jumpMulti;
+
+
+
     }
 
 
@@ -258,23 +266,25 @@ public class MoverScript : MonoBehaviour
     //private bool IsGrounded() => controller.isGrounded;
     private bool IsGrounded() => isGrounded_Custom;
 
-    public void KnockBack(Vector3 moveDirection)
+    public void KnockBack(Vector3 moveDirection, bool propelUp)
     {
         //Debug.Log("PUSHHH"); // Nice little debug statement to check stuff
 
         float knockbackMulti = 1f;
 
-        knockBackCounter = knockBackTime;
-        //enableMovement = false;
-        //WaitForLanding();
-        direction = moveDirection * knockBackForceHorizontal * knockbackMulti;
-        direction.y = knockBackForce * knockbackMulti;
-        playerVelocity = knockBackForce * knockbackMulti;
-
-        /*        if (knockBackCounter >= 0)
-                {
-                    enableMovement = true;
-                }*/
+        if (propelUp)
+        {
+            knockBackCounter = knockBackTimeUP;
+            direction = moveDirection * knockBackForceHorizontalUP * knockbackMulti;
+            direction.y = knockBackForceUP * knockbackMulti;
+            playerVelocity = knockBackForceUP * knockbackMulti;
+        } else
+        {
+            knockBackCounter = knockBackTime;
+            direction = moveDirection * knockBackForceHorizontal * knockbackMulti;
+            direction.y = knockBackForce * knockbackMulti;
+            playerVelocity = knockBackForce * knockbackMulti;
+        }
     }
     private void OnDestroy()
     {
