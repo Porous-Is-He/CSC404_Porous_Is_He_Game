@@ -587,6 +587,10 @@ PrefabInstance:
       propertyPath: knockBackForce
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 6024000846915643651, guid: 073a277f6b63eb04dbd363f4b7f79515, type: 3}
+      propertyPath: singleJumpToggle
+      value: 
+      objectReference: {fileID: 8258551396931659568}
     - target: {fileID: 6143170508443161054, guid: 073a277f6b63eb04dbd363f4b7f79515, type: 3}
       propertyPath: m_IsKinematic
       value: 1
@@ -1123,6 +1127,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2c5ac9de919a59a408d788e7df34484b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8258551396931659568 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1115694116785192942, guid: 8b3fe3505dbc1ae4ab8ffd3724038ede, type: 3}
+  m_PrefabInstance: {fileID: 9072494157315152094}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &8938991980063140932 stripped
