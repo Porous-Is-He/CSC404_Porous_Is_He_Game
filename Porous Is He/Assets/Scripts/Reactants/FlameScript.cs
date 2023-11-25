@@ -22,6 +22,8 @@ public class FlameScript : MonoBehaviour, ReactantInterface
     public bool isAlwaysBurning = false;
     public bool startOff = false;
 
+    public bool boosterFlame = false;
+
     public GameObject SmokeEmitter;
     public GameObject OilSmokeEmitter;
     public GameObject FireLight;

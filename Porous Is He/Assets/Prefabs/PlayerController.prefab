@@ -1295,10 +1295,14 @@ MonoBehaviour:
   knockBackForce: 0
   knockBackForceHorizontal: 1.75
   knockBackTime: 0.5
+  knockBackForceUP: 4.5
+  knockBackForceHorizontalUP: 2
+  knockBackTimeUP: 0.1
   aiming: 0
   isGrounded_Custom: 0
   slideSpeed: 1
   onMovingPlatform: 0
+  singleJumpToggle: {fileID: 0}
   playerAnimator: {fileID: 4987792093485968824}
 --- !u!114 &3618396350336822367
 MonoBehaviour:
@@ -2165,7 +2169,7 @@ Transform:
   m_GameObject: {fileID: 6590280418530236107}
   serializedVersion: 2
   m_LocalRotation: {x: 0.0032946344, y: -0, z: -0, w: 0.9999946}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.7, z: 0.2}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:

@@ -25,6 +25,9 @@ public class BurnableObject : MonoBehaviour
                 disintegrateController.Dissolve();
             }
             Invoke("BurnObject", burningTime);
+
+            flameScript.fireLevel = 0;
+
             burned = true;
         }
     }
