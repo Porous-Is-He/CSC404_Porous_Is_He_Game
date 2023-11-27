@@ -1537,7 +1537,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3398206673033455591, guid: ff341ec44032963469d6f5153aeb0930, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.425003
+      value: -3.2
       objectReference: {fileID: 0}
     - target: {fileID: 3398206673033455591, guid: ff341ec44032963469d6f5153aeb0930, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5032,6 +5032,7 @@ MonoBehaviour:
   greaseObj: {fileID: 1055303779}
   fillableCupObj: {fileID: 0}
   crashSoundSrc: {fileID: 0}
+  isAPushableCup: 0
 --- !u!64 &523894821
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -11847,6 +11848,7 @@ MonoBehaviour:
   greaseObj: {fileID: 0}
   fillableCupObj: {fileID: 0}
   crashSoundSrc: {fileID: 2031587827}
+  isAPushableCup: 1
 --- !u!1 &1220327966
 GameObject:
   m_ObjectHideFlags: 0
@@ -14150,11 +14152,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1057805920311239184, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000016928482
+      value: 0.000000016928484
       objectReference: {fileID: 0}
     - target: {fileID: 1057805920311239184, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000000030799396
+      value: 0.00000000307994
       objectReference: {fileID: 0}
     - target: {fileID: 1346025499800480971, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
       propertyPath: m_AnchorMax.y
@@ -14374,11 +14376,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6001652697770797970, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000033856967
+      value: 0.00000003385697
       objectReference: {fileID: 0}
     - target: {fileID: 6001652697770797970, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000000061598793
+      value: 0.00000000615988
       objectReference: {fileID: 0}
     - target: {fileID: 6140749378053686555, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
       propertyPath: m_Name
@@ -16212,6 +16214,7 @@ MonoBehaviour:
   greaseObj: {fileID: 0}
   fillableCupObj: {fileID: 80403414}
   crashSoundSrc: {fileID: 0}
+  isAPushableCup: 0
 --- !u!1001 &1633565718
 PrefabInstance:
   m_ObjectHideFlags: 0
