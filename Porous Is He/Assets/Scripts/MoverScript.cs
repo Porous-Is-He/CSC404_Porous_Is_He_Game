@@ -60,15 +60,6 @@ public class MoverScript : MonoBehaviour
 
     private DifficultyManager diffm;
 
-    //single jump variables
-    float singleGravity = -8.0f;
-    float singleJumpPower = 3.5f;
-    //double jump
-    float doubleGravity = -8.8f;
-    float doubleJumpPower = 2.5f;
-    float jumpMulti = 1;
-    [SerializeField] private Toggle singleJumpToggle;
-
     [SerializeField] private Animator playerAnimator;
 
     private void Awake()
@@ -90,7 +81,7 @@ public class MoverScript : MonoBehaviour
 
     private void AssignMovement()
     {
-        //float jumpMulti = 1;
+        float jumpMulti = 1;
         if (diffm.difficultyAssigned)
         {
             if (diffm.isHardmode)
@@ -118,21 +109,6 @@ public class MoverScript : MonoBehaviour
 
     void Update()
     {
-        // -------to remove after--------------
-        if (singleJumpToggle.isOn)
-        {
-            maxNumberOfJumps = 1;
-            gravityValue = singleGravity * verticalMod;
-            jumpPower = singleJumpPower * verticalMod * jumpMulti;
-        } else
-        {
-            maxNumberOfJumps = 2;
-            gravityValue = doubleGravity * verticalMod;
-            jumpPower = doubleJumpPower * verticalMod * jumpMulti;
-        }
-
-
-        //--------------------------------------
         Vector3 slidingMovement = new Vector3();
 
         //grounded detection
