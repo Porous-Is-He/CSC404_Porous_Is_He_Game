@@ -11,6 +11,7 @@ public class Headbuttable : MonoBehaviour
     [SerializeField] private GreasableObject greaseObj;
     [SerializeField] private FillableCup fillableCupObj;
     [SerializeField] private AudioSource crashSoundSrc = null;
+    [SerializeField] private bool isAPushableCup = false;
 
     private bool allow = true;
 
@@ -66,6 +67,12 @@ public class Headbuttable : MonoBehaviour
                 animator.SetBool("isPushed", true);
                 isPushed = true;
             }
+        } else if (isAPushableCup)
+        {
+            //not heavy and is a pushable cup
+            //wobble cup
+            animator.SetTrigger("wobble");
+
         }
     }
 
