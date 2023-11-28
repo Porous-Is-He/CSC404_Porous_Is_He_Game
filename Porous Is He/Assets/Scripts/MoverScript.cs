@@ -30,6 +30,8 @@ public class MoverScript : MonoBehaviour
     private float turnSmoothTime = 0.05f;
     private float turnSmoothVelocity;
 
+    public bool cannotMove = false;
+
     // Variables that deals with knockback
     public float knockBackForce = 4f;
     public float knockBackForceHorizontal = 2f;
@@ -196,6 +198,11 @@ public class MoverScript : MonoBehaviour
 
     private void Move()
     {
+        if (cannotMove)
+        {
+            return;
+        }
+
         inputVector = playerInputActions.Player.Movement.ReadValue<Vector2>();
         direction = new Vector3(inputVector.x, 0f, inputVector.y);
 

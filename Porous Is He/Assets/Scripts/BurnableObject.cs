@@ -26,7 +26,7 @@ public class BurnableObject : MonoBehaviour
             }
             Invoke("BurnObject", burningTime);
 
-            //flameScript.fireLevel = 0;
+            flameScript.fireLevel = 0;
 
             burned = true;
         }
