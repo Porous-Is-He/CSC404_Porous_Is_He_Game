@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using static CollectedBubbleScript;
 
 // This script is in charge of the "Bubbles"
 // The main thing is that it has a floating animation
@@ -37,10 +36,8 @@ public class BubbleScript : MonoBehaviour
     public void OnTriggerEnter(Collider other) {
         if (popped == false && other.transform.gameObject.CompareTag("Player"))
         {
-            GetComponent<AudioSource>().Play();
+            // GetComponent<AudioSource>().Play();
             GetComponent<Renderer>().enabled = false;
-            Destroy(this);
-            CollectedBubbleScript.score += 1;
             popped = true;
         }
 
