@@ -1,20 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using static CollectedBubbleScript;
 
 // This script is in charge of the "Bubbles"
 // The main thing is that it has a floating animation
 // As well as disappearing when collided by the player
 public class BubbleScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-
+    // Variables for bobbing up & down animation
     public float amplitude = 0.25f;
     public float frequency = 1.5f;
     private Vector3 posOffset = new Vector3 ();
     private Vector3 tempPosition = new Vector3 ();
     public bool popped = false;
 
+    // Start is called before the first frame update
     public void Start()
     {
         GetComponent<Renderer>().enabled = true;
@@ -37,6 +39,8 @@ public class BubbleScript : MonoBehaviour
         {
             GetComponent<AudioSource>().Play();
             GetComponent<Renderer>().enabled = false;
+            Destroy(this);
+            CollectedBubbleScript.score += 1;
             popped = true;
         }
 
