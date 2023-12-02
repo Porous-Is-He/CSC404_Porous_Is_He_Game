@@ -216,9 +216,14 @@ public class MoverScript : MonoBehaviour
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
+            if (!transform.Find("RunningSound").GetComponent<AudioSource>().isPlaying)
+            {
+                transform.Find("RunningSound").GetComponent<AudioSource>().Play();
+                }
         } else
         {
             playerAnimator.SetBool("IsRunning", false);
+            transform.Find("RunningSound").GetComponent<AudioSource>().Stop();
         }
     }
 
