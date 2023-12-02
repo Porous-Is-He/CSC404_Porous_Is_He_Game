@@ -180,6 +180,7 @@ public class MoverScript : MonoBehaviour
     private void MoveWhileAiming()
     {
         playerAnimator.SetBool("IsRunning", false);
+        transform.Find("RunningSound").GetComponent<AudioSource>().Stop();
 
         // To be implemented
         if (IsGrounded() && playerVelocity < 0f)
@@ -220,6 +221,10 @@ public class MoverScript : MonoBehaviour
             {
                 transform.Find("RunningSound").GetComponent<AudioSource>().Play();
                 }
+                 /*if (!IsGrounded())
+            {
+                transform.Find("RunningSound").GetComponent<AudioSource>().Stop();
+                }*/
         } else
         {
             playerAnimator.SetBool("IsRunning", false);
