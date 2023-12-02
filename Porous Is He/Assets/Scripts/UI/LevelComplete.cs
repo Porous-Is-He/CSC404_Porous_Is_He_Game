@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class LevelComplete : MonoBehaviour
 {
@@ -11,7 +12,8 @@ public class LevelComplete : MonoBehaviour
     [SerializeField] private GameObject selectFirst;
     private Animator animator;
     public string NextLevelScene;
-
+    public TextMeshProUGUI BubblesCollected;
+    private int allBubbles;
     public static bool LevelEnd;
 
     void Start()
@@ -19,6 +21,7 @@ public class LevelComplete : MonoBehaviour
         LevelCompletePanel.SetActive(false);
         LevelEnd = false;
         animator = LevelCompletePopup.GetComponent<Animator>();
+        allBubbles = GameObject.FindGameObjectsWithTag("Bubble").Length;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -28,6 +31,7 @@ public class LevelComplete : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             PauseMenu.isPaused = true;
             LevelCompletePanel.SetActive(true);
+            BubblesCollected.text = "Bubbles Collected: " + other.gameObject.GetComponent<BubbleCountingScript>().bubbles.ToString() + "/" + allBubbles.ToString();
             EventSystem.current.SetSelectedGameObject(selectFirst);
 
             if (animator != null && animator.isActiveAndEnabled)
