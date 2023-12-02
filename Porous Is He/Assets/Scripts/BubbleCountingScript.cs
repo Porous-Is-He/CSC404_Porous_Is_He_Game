@@ -17,7 +17,7 @@ public class BubbleCountingScript : MonoBehaviour
     }
 
     public void OnTriggerEnter(Collider other) {
-        if (other.transform.tag == "Bubble")
+        if (other.transform.tag == "Bubble" && other.gameObject.GetComponent<BubbleScript>().popped == false)
         {
             bubbles++;
             bubbleText.text = "Bubbles: " + bubbles.ToString();
