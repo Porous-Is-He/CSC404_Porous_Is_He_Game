@@ -36,9 +36,15 @@ public class BubbleScript : MonoBehaviour
     public void OnTriggerEnter(Collider other) {
         if (popped == false && other.transform.gameObject.CompareTag("Player"))
         {
-            // GetComponent<AudioSource>().Play();
+
+            GetComponent<AudioSource>().Play();
+
             GetComponent<Renderer>().enabled = false;
+            
+            GetComponent<Collider>().enabled = false;
+            
             popped = true;
+
         }
 
     }
