@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 // This script is in charge of the "Bubbles"
 // The main thing is that it has a floating animation
@@ -19,6 +20,7 @@ public class BubbleScript : MonoBehaviour
     public void Start()
     {
         GetComponent<Renderer>().enabled = true;
+        GetComponent<Collider>().enabled = true;
         tempPosition = transform.position;
         posOffset = tempPosition;
     }
@@ -43,6 +45,11 @@ public class BubbleScript : MonoBehaviour
             
             GetComponent<Collider>().enabled = false;
             
+            other.gameObject.GetComponent<BubbleCountingScript>().bubbles++;
+
+            other.gameObject.GetComponent<BubbleCountingScript>().bubbleText.text = 
+            "Bubbles: " + other.gameObject.GetComponent<BubbleCountingScript>().bubbles.ToString();
+
             popped = true;
 
         }

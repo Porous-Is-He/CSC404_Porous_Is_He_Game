@@ -7,22 +7,15 @@ using static BubbleScript;
 public class BubbleCountingScript : MonoBehaviour
 {
 
-    private int bubbles = 0;
-    private BubbleScript currentBubble;
+    public int bubbles = 0;
     public TextMeshProUGUI bubbleText;
-
-    public void Start()
-    {
-    currentBubble = FindObjectOfType<BubbleScript>();
-    }
-
-    public void OnTriggerEnter(Collider other) {
-        if (other.transform.tag == "Bubble" && other.gameObject.GetComponent<BubbleScript>().popped == false)
-        {
-            bubbles++;
-            bubbleText.text = "Bubbles: " + bubbles.ToString();
-            Debug.Log(bubbles);
-        }
-    }
+    // public void OnTriggerEnter(Collider other) {
+    //     if (other.transform.tag == "Bubble" && other.gameObject.GetComponent<BubbleScript>().popped == false)
+    //     {
+    //         bubbles++;
+    //         bubbleText.text = "Bubbles: " + bubbles.ToString();
+    //         Debug.Log(bubbles);
+    //     }
+    // }
 
 }
