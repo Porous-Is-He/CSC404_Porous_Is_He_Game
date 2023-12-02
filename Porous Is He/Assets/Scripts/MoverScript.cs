@@ -61,6 +61,8 @@ public class MoverScript : MonoBehaviour
     private bool isJumping = false;
 
     private DifficultyManager diffm;
+    [SerializeField] private AudioSource WetRunningSound;
+    [SerializeField] private AudioSource Oil RunningSound;
 
     [SerializeField] private Animator playerAnimator;
 

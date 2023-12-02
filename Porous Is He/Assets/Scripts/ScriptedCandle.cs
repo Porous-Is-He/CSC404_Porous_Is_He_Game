@@ -8,6 +8,8 @@ public class ScriptedCandle : MonoBehaviour
     [SerializeField] Animator CandleAnimator;
 
     public bool triggered = false;
+    
+    [SerializeField] AudioSource CandleAudio;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +27,7 @@ public class ScriptedCandle : MonoBehaviour
     {
         if (other.transform.gameObject.CompareTag("Player") && !triggered)
         {
+            CandleAudio.Play();
             CandleAnimator.SetBool("isPushed", true);
             triggered = true;
 
