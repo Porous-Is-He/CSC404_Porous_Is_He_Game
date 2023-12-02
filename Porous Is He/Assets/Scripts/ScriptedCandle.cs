@@ -46,12 +46,4 @@ public class ScriptedCandle : MonoBehaviour
         MS.cannotMove = false;
     }
 
-    public void playHitSound()
-    {
-        if (gameObject.GetComponent<AudioSource>() != null)
-        {
-            gameObject.GetComponent<AudioSource>().Play();
-        }
-    }
-
 }
