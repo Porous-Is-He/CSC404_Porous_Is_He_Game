@@ -14,7 +14,6 @@ public class LevelComplete : MonoBehaviour
     private Animator animator;
     public string NextLevelScene;
     public TextMeshProUGUI BubblesCollected;
-    private TextMeshProUGUI BubblesCollectedForLevel;
     private int allBubbles;
     public static bool LevelEnd;
 
@@ -24,21 +23,6 @@ public class LevelComplete : MonoBehaviour
         LevelEnd = false;
         animator = LevelCompletePopup.GetComponent<Animator>();
         allBubbles = GameObject.FindGameObjectsWithTag("Bubble").Length;
-
-        Scene scene = SceneManager.GetActiveScene();
-        // Check the scene's name and set up the Bubbles GUI correctly
-        if (scene.name == "Level1")
-        {
-            BubblesCollectedForLevel = GameObject.Find("SelectBoard").GetComponent<BubblesInLevelSelect>().Level1Bubbles;
-        }
-        else if (scene.name == "Level2")
-        {
-            BubblesCollectedForLevel = GameObject.Find("SelectBoard").GetComponent<BubblesInLevelSelect>().Level2Bubbles;
-        }
-        else if (scene.name == "Level3")
-        {
-            BubblesCollectedForLevel = GameObject.Find("SelectBoard").GetComponent<BubblesInLevelSelect>().Level2Bubbles;
-        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -51,7 +35,20 @@ public class LevelComplete : MonoBehaviour
             BubblesCollected.text = "Bubbles Collected: " + other.gameObject.GetComponent<BubbleCountingScript>().bubbles.ToString() + "/" + allBubbles.ToString();
             EventSystem.current.SetSelectedGameObject(selectFirst);
 
-            BubblesCollectedForLevel.text = other.gameObject.GetComponent<BubbleCountingScript>().bubbles.ToString() + "/" + allBubbles.ToString();
+            Scene scene = SceneManager.GetActiveScene();
+            // Check the scene's name and set up the Bubbles GUI correctly
+            if (scene.name == "Level1")
+            {
+                GameObject.Find("SelectBoard").GetComponent<BubblesInLevelSelect>().Level1Bubbles = other.gameObject.GetComponent<BubbleCountingScript>().bubbles.ToString() + "/" + allBubbles.ToString();
+            }
+            else if (scene.name == "Level2")
+            {
+                GameObject.Find("SelectBoard").GetComponent<BubblesInLevelSelect>().Level2Bubbles = other.gameObject.GetComponent<BubbleCountingScript>().bubbles.ToString() + "/" + allBubbles.ToString();
+            }
+            else if (scene.name == "Level3")
+            {
+                GameObject.Find("SelectBoard").GetComponent<BubblesInLevelSelect>().Level2Bubbles = other.gameObject.GetComponent<BubbleCountingScript>().bubbles.ToString() + "/" + allBubbles.ToString();
+            }
 
             if (animator != null && animator.isActiveAndEnabled)
             {

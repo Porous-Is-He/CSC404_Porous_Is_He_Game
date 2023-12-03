@@ -9,9 +9,9 @@ public class BubblesInLevelSelect : MonoBehaviour
     public static BubblesInLevelSelect control;
     public bool sceneIsSwitched = false;
 
-    public TextMeshProUGUI Level1Bubbles;
-    public TextMeshProUGUI Level2Bubbles;
-    public TextMeshProUGUI Level3Bubbles;
+    public string Level1Bubbles = "";
+    public string Level2Bubbles = "";
+    public string Level3Bubbles = "";
 
     public void Start()
     {
@@ -25,15 +25,4 @@ public class BubblesInLevelSelect : MonoBehaviour
         GameObject.DontDestroyOnLoad(this.gameObject);
     }
 
-    public void Update()
-    {
-        if (sceneIsSwitched == false)
-        {
-            this.gameObject.GetComponent<Canvas>().enabled = true;
-        }
-        else
-        {
-            this.gameObject.GetComponent<Canvas>().enabled = false;
-        }
-    }
 }
