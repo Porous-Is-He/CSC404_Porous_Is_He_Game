@@ -31,6 +31,8 @@ public class FlameScript : MonoBehaviour, ReactantInterface
     private float lastFlameChangeTime = 0.0f;
     private Transform parent;
 
+    [SerializeField] private AudioSource BurningAudio;
+
     public void ApplyLiquid(LiquidInfo liquid)
     {
         if (liquid.liquidType == "Water")
@@ -206,10 +208,7 @@ public class FlameScript : MonoBehaviour, ReactantInterface
 
         if (lastFireLevel <= 0 || fireLevel == 0)
         {
-            AudioSource audioSrc = transform.GetComponent<AudioSource>();
-            AudioClip audioClip = Resources.Load<AudioClip>("Sounds/FireBurning");
-            audioSrc.loop = true;
-            audioSrc.clip = audioClip;
+            AudioSource audioSrc = BurningAudio;
 
             if (fireLevel == 0) {
                 audioSrc.Stop();

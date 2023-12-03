@@ -61,8 +61,13 @@ public class MoverScript : MonoBehaviour
     private bool isJumping = false;
 
     private DifficultyManager diffm;
+    [SerializeField] private AudioSource WetRunningSound;
+    [SerializeField] private AudioSource OilRunningSound;
+    [SerializeField] private AudioSource RunningSound;
 
     [SerializeField] private Animator playerAnimator;
+
+    private float lastGrounded = 0;
 
     private void Awake()
     {
@@ -128,6 +133,11 @@ public class MoverScript : MonoBehaviour
             isGrounded_Custom = controller.isGrounded;
         }
 
+        if (isGrounded_Custom)
+        {
+            lastGrounded = Time.time;
+        }
+
         if (hitObject)
         {
             SpinRollingPin spinRolling = hitObject.GetComponent("SpinRollingPin") as SpinRollingPin;
@@ -175,11 +185,59 @@ public class MoverScript : MonoBehaviour
 
     }
 
+    private void PlayRunningSound()
+    {
+        LiquidTracker liquidTracker = GameObject.Find("Player").GetComponent<LiquidTracker>();
+
+        if (!IsGrounded() && Time.time - lastGrounded > 0.1 )
+        {
+            StopRunningSound();
+            return;
+        }
+
+        if (liquidTracker.GetLiquidAmountFromIndex(1) > 0)
+        {
+            if (!OilRunningSound.isPlaying)
+            {
+                OilRunningSound.Play();
+            }
+        } else if (liquidTracker.CalcWeight() > 0)
+        {
+            if (!WetRunningSound.isPlaying)
+            {
+                WetRunningSound.Play();
+            }
+        }
+        else
+        {
+            if (!RunningSound.isPlaying)
+            {
+                RunningSound.Play();
+            }
+        }
+    }
+    private void StopRunningSound()
+    {
+        if (RunningSound.isPlaying)
+        {
+            RunningSound.Stop();
+        }
+        if (WetRunningSound.isPlaying)
+        {
+            WetRunningSound.Stop();
+        }
+        if (OilRunningSound.isPlaying)
+        {
+            OilRunningSound.Stop();
+        }
+    }
+
 
 
     private void MoveWhileAiming()
     {
         playerAnimator.SetBool("IsRunning", false);
+        StopRunningSound();
 
         // To be implemented
         if (IsGrounded() && playerVelocity < 0f)
@@ -216,14 +274,13 @@ public class MoverScript : MonoBehaviour
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
-            if (!transform.Find("RunningSound").GetComponent<AudioSource>().isPlaying)
-            {
-                transform.Find("RunningSound").GetComponent<AudioSource>().Play();
-                }
-        } else
+
+            PlayRunningSound();
+        }
+        else
         {
             playerAnimator.SetBool("IsRunning", false);
-            transform.Find("RunningSound").GetComponent<AudioSource>().Stop();
+            StopRunningSound();
         }
     }
 
