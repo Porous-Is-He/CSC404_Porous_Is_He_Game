@@ -34,7 +34,6 @@ public class Lander : MonoBehaviour
     {
         if (!other.isTrigger)
         {
-            Debug.Log(other.gameObject.name);
             ObjectsEntered.Add(other.gameObject);
         }
     }
