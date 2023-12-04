@@ -37,18 +37,23 @@ public class LevelComplete : MonoBehaviour
 
             Scene scene = SceneManager.GetActiveScene();
             // Check the scene's name and set up the Bubbles GUI correctly
-            if (scene.name == "Level1")
+            GameObject selectBoard = GameObject.Find("SelectBoard");
+            if (selectBoard)
             {
-                GameObject.Find("SelectBoard").GetComponent<BubblesInLevelSelect>().Level1Bubbles = other.gameObject.GetComponent<BubbleCountingScript>().bubbles.ToString() + "/" + allBubbles.ToString();
+                if (scene.name == "Level1")
+                {
+                    selectBoard.GetComponent<BubblesInLevelSelect>().Level1Bubbles = other.gameObject.GetComponent<BubbleCountingScript>().bubbles.ToString() + "/" + allBubbles.ToString();
+                }
+                else if (scene.name == "Level2")
+                {
+                    selectBoard.GetComponent<BubblesInLevelSelect>().Level2Bubbles = other.gameObject.GetComponent<BubbleCountingScript>().bubbles.ToString() + "/" + allBubbles.ToString();
+                }
+                else if (scene.name == "Level3")
+                {
+                    selectBoard.GetComponent<BubblesInLevelSelect>().Level2Bubbles = other.gameObject.GetComponent<BubbleCountingScript>().bubbles.ToString() + "/" + allBubbles.ToString();
+                }
             }
-            else if (scene.name == "Level2")
-            {
-                GameObject.Find("SelectBoard").GetComponent<BubblesInLevelSelect>().Level2Bubbles = other.gameObject.GetComponent<BubbleCountingScript>().bubbles.ToString() + "/" + allBubbles.ToString();
-            }
-            else if (scene.name == "Level3")
-            {
-                GameObject.Find("SelectBoard").GetComponent<BubblesInLevelSelect>().Level2Bubbles = other.gameObject.GetComponent<BubbleCountingScript>().bubbles.ToString() + "/" + allBubbles.ToString();
-            }
+            
 
             if (animator != null && animator.isActiveAndEnabled)
             {
