@@ -9319,6 +9319,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2962774517478417370, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
   m_PrefabInstance: {fileID: 2067353732}
   m_PrefabAsset: {fileID: 0}
+--- !u!82 &627062744 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 7187386119364175040, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
+  m_PrefabInstance: {fileID: 1477737202}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &632724813 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e499b916deca63c4a985cfdf4f21633f, type: 3}
@@ -14693,12 +14698,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5763967223723853624, guid: d270d24d1ab1c41469490e6211090bd0, type: 3}
       propertyPath: m_Volume
-      value: 0
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 5763967223723853624, guid: d270d24d1ab1c41469490e6211090bd0, type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: 37696b189dae6c640a54a0d84188c7e2, type: 3}
+      objectReference: {fileID: 8300000, guid: 95a67a78e20f64470970ccfab5f9d01d, type: 3}
     - target: {fileID: 6062771748351154389, guid: d270d24d1ab1c41469490e6211090bd0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 944.4741
@@ -16339,6 +16344,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1530890594}
   m_SourcePrefab: {fileID: 100100000, guid: e499b916deca63c4a985cfdf4f21633f, type: 3}
+--- !u!82 &1021442207 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1131191715456838827, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
+  m_PrefabInstance: {fileID: 1477737202}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1034177164
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23786,11 +23796,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1557473859615359910, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000007256538
+      value: 0.000000007256538
       objectReference: {fileID: 0}
     - target: {fileID: 1557473859615359910, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.000000004621421
+      value: -0.000000004621421
       objectReference: {fileID: 0}
     - target: {fileID: 1832423305731349504, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -24134,11 +24144,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6001652697770797970, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000014513076
+      value: 0.000000014513076
       objectReference: {fileID: 0}
     - target: {fileID: 6001652697770797970, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.000000009242843
+      value: -0.000000009242843
       objectReference: {fileID: 0}
     - target: {fileID: 6140749378053686555, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
       propertyPath: m_Name
@@ -24217,6 +24227,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7710189505378009081, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
+      propertyPath: RunningSound
+      value: 
+      objectReference: {fileID: 1477737206}
+    - target: {fileID: 7710189505378009081, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
       propertyPath: knockBackTime
       value: 0.34
       objectReference: {fileID: 0}
@@ -24224,6 +24238,14 @@ PrefabInstance:
       propertyPath: knockBackForce
       value: 3.75
       objectReference: {fileID: 0}
+    - target: {fileID: 7710189505378009081, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
+      propertyPath: OilRunningSound
+      value: 
+      objectReference: {fileID: 1021442207}
+    - target: {fileID: 7710189505378009081, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
+      propertyPath: WetRunningSound
+      value: 
+      objectReference: {fileID: 627062744}
     - target: {fileID: 7710189505378009081, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
       propertyPath: knockBackForceHorizontal
       value: 2.3
@@ -24298,6 +24320,11 @@ GameObject:
 --- !u!1 &1477737205 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9060938892475715924, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
+  m_PrefabInstance: {fileID: 1477737202}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &1477737206 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 111623722265177958, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
   m_PrefabInstance: {fileID: 1477737202}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1482351809 stripped
