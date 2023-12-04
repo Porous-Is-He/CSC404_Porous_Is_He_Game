@@ -135,7 +135,14 @@ public class MoverScript : MonoBehaviour
 
         if (isGrounded_Custom)
         {
+            StopFallAnim();
             lastGrounded = Time.time;
+        } else
+        {
+            if (Time.time - lastGrounded > 0.1 && numberOfJumps == 0)
+            {
+                PlayFallAnim(false, false);
+            }
         }
 
         if (hitObject)
@@ -232,6 +239,26 @@ public class MoverScript : MonoBehaviour
         }
     }
 
+    private void PlayFallAnim(bool doJump, bool doDoubleJump)
+    {
+        if (doDoubleJump)
+        {
+            playerAnimator.SetBool("IsDoubleJumping", true);
+        }
+
+        if (doJump)
+        {
+            playerAnimator.SetBool("IsJumping", true);
+        }
+
+        playerAnimator.SetBool("IsFalling", true);
+    }
+    private void StopFallAnim()
+    {
+        playerAnimator.SetBool("IsDoubleJumping", false);
+        playerAnimator.SetBool("IsJumping", false);
+        playerAnimator.SetBool("IsFalling", false);
+    }
 
 
     private void MoveWhileAiming()
@@ -305,6 +332,7 @@ public class MoverScript : MonoBehaviour
         if (numberOfJumps == 0) StartCoroutine(WaitForLanding());
 
 
+
         float playerWeight = GameObject.Find("Player").GetComponent<LiquidTracker>().CalcWeight();
         if (playerWeight > 0)
         {
@@ -317,9 +345,11 @@ public class MoverScript : MonoBehaviour
 
         if (numberOfJumps == 0) {
             gameObject.GetComponent<PoSoundManager>().PlaySound("Jump");
+            PlayFallAnim(true, false);
         } else
         {
             gameObject.GetComponent<PoSoundManager>().PlaySound("DoubleJump");
+            PlayFallAnim(true, true);
         }
 
         numberOfJumps++;
