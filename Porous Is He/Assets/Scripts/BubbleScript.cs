@@ -48,7 +48,7 @@ public class BubbleScript : MonoBehaviour
             other.gameObject.GetComponent<BubbleCountingScript>().bubbles++;
 
             other.gameObject.GetComponent<BubbleCountingScript>().bubbleText.text = 
-            "Bubbles: " + other.gameObject.GetComponent<BubbleCountingScript>().bubbles.ToString();
+            other.gameObject.GetComponent<BubbleCountingScript>().bubbles.ToString();
 
             popped = true;
 
