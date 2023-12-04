@@ -60,6 +60,9 @@ public class MoverScript : MonoBehaviour
     public bool onMovingPlatform;
     private bool isJumping = false;
 
+    [SerializeField] private Lander landingHitbox;
+    private float lastJumped = 0;
+
     private DifficultyManager diffm;
     [SerializeField] private AudioSource WetRunningSound;
     [SerializeField] private AudioSource OilRunningSound;
@@ -113,10 +116,28 @@ public class MoverScript : MonoBehaviour
 
     }
 
-
-    void Update()
+    void FixedUpdate()
     {
         Vector3 slidingMovement = new Vector3();
+
+
+        if (isGrounded_Custom)
+        {
+            lastGrounded = Time.time;
+        }
+
+        if (landingHitbox.IsGrounded() && Time.time - lastJumped > 0.2f)
+        {
+            StopFallAnim();
+        }
+        else
+        {
+            if (Time.time - lastGrounded > 0.1f && numberOfJumps == 0)
+            {
+                PlayFallAnim(false, false);
+            }
+        }
+
 
         //grounded detection
         if (!isGrounded_Custom)
@@ -133,10 +154,6 @@ public class MoverScript : MonoBehaviour
             isGrounded_Custom = controller.isGrounded;
         }
 
-        if (isGrounded_Custom)
-        {
-            lastGrounded = Time.time;
-        }
 
         if (hitObject)
         {
@@ -189,7 +206,7 @@ public class MoverScript : MonoBehaviour
     {
         LiquidTracker liquidTracker = GameObject.Find("Player").GetComponent<LiquidTracker>();
 
-        if (!IsGrounded() && Time.time - lastGrounded > 0.1 )
+        if (!IsGrounded() && Time.time - lastGrounded > 0.1f )
         {
             StopRunningSound();
             return;
@@ -231,6 +248,28 @@ public class MoverScript : MonoBehaviour
             OilRunningSound.Stop();
         }
     }
+
+    private void PlayFallAnim(bool doJump, bool doDoubleJump)
+    {
+        //if (doDoubleJump)
+        //{
+        //    playerAnimator.SetBool("IsDoubleJumping", true);
+        //}
+
+        //if (doJump)
+        //{
+        //    playerAnimator.SetBool("IsJumping", true);
+        //}
+
+        //playerAnimator.SetBool("IsFalling", true);
+    }
+    private void StopFallAnim()
+    {
+        //playerAnimator.SetBool("IsDoubleJumping", false);
+        //playerAnimator.SetBool("IsJumping", false);
+        //playerAnimator.SetBool("IsFalling", false);
+    }
+
 
 
 
@@ -316,10 +355,14 @@ public class MoverScript : MonoBehaviour
         }
 
         if (numberOfJumps == 0) {
+            lastJumped = Time.time;
+
             gameObject.GetComponent<PoSoundManager>().PlaySound("Jump");
+            PlayFallAnim(true, false);
         } else
         {
             gameObject.GetComponent<PoSoundManager>().PlaySound("DoubleJump");
+            PlayFallAnim(true, true);
         }
 
         numberOfJumps++;

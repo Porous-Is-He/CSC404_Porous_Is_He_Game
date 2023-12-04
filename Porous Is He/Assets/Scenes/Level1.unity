@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4465798, g: 0.49641424, b: 0.574817, a: 1}
+  m_IndirectSpecularColor: {r: 0.44658023, g: 0.49641448, b: 0.5748174, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -367,6 +367,17 @@ Transform:
   - {fileID: 1792260289}
   m_Father: {fileID: 938767962}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &17056931 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4625802487203166175, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
+  m_PrefabInstance: {fileID: 3879490293779172367}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &19884199 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a9ed846024f7e1843a3c9846fc20ae02, type: 3}
@@ -3869,6 +3880,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bubble
       objectReference: {fileID: 0}
+    - target: {fileID: 3590612807687156298, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: m_TagString
+      value: Bubble
+      objectReference: {fileID: 0}
+    - target: {fileID: 3967515375200852075, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 449829172}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4503,6 +4522,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bubble
       objectReference: {fileID: 0}
+    - target: {fileID: 3590612807687156298, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: m_TagString
+      value: Bubble
+      objectReference: {fileID: 0}
+    - target: {fileID: 3967515375200852075, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 449829172}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8839,6 +8866,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bubble
       objectReference: {fileID: 0}
+    - target: {fileID: 3590612807687156298, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: m_TagString
+      value: Bubble
+      objectReference: {fileID: 0}
+    - target: {fileID: 3967515375200852075, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 449829172}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9763,6 +9798,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bubble
       objectReference: {fileID: 0}
+    - target: {fileID: 3590612807687156298, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: m_TagString
+      value: Bubble
+      objectReference: {fileID: 0}
+    - target: {fileID: 3967515375200852075, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 449829172}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10261,6 +10304,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bubble (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3590612807687156298, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: m_TagString
+      value: Bubble
+      objectReference: {fileID: 0}
+    - target: {fileID: 3967515375200852075, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 449829172}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -14098,6 +14149,7 @@ MonoBehaviour:
   LevelCompletePopup: {fileID: 8761804207892952834}
   selectFirst: {fileID: 3767281302046923223}
   NextLevelScene: Level2
+  BubblesCollected: {fileID: 17056931}
 --- !u!1001 &397620078
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16248,6 +16300,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -7416203216324085428, guid: a9ed846024f7e1843a3c9846fc20ae02, type: 3}
+--- !u!1 &449829172 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1709269699339462737, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
+  m_PrefabInstance: {fileID: 3879490293779172367}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &449829174 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7909560545049959921, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
+  m_PrefabInstance: {fileID: 3879490293779172367}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 449829172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &454649552
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23008,6 +23076,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bubble
       objectReference: {fileID: 0}
+    - target: {fileID: 3590612807687156298, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: m_TagString
+      value: Bubble
+      objectReference: {fileID: 0}
+    - target: {fileID: 3967515375200852075, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 449829172}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -24993,10 +25069,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3102689156160792820, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: m_Radius
+      value: 0.50012404
+      objectReference: {fileID: 0}
+    - target: {fileID: 3102689156160792820, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: m_Center.y
+      value: 0.00012403727
+      objectReference: {fileID: 0}
     - target: {fileID: 3590612807687156298, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
       propertyPath: m_Name
       value: Bubble
       objectReference: {fileID: 0}
+    - target: {fileID: 3590612807687156298, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: m_TagString
+      value: Bubble
+      objectReference: {fileID: 0}
+    - target: {fileID: 3967515375200852075, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 449829172}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -25739,6 +25831,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bubble
       objectReference: {fileID: 0}
+    - target: {fileID: 3590612807687156298, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: m_TagString
+      value: Bubble
+      objectReference: {fileID: 0}
+    - target: {fileID: 3967515375200852075, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 449829172}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -27937,6 +28037,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bubble
       objectReference: {fileID: 0}
+    - target: {fileID: 3590612807687156298, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: m_TagString
+      value: Bubble
+      objectReference: {fileID: 0}
+    - target: {fileID: 3967515375200852075, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 449829172}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -28991,6 +29099,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bubble
       objectReference: {fileID: 0}
+    - target: {fileID: 3590612807687156298, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: m_TagString
+      value: Bubble
+      objectReference: {fileID: 0}
+    - target: {fileID: 3967515375200852075, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 449829172}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -32484,6 +32600,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bubble (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 3590612807687156298, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: m_TagString
+      value: Bubble
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -34661,6 +34781,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bubble
       objectReference: {fileID: 0}
+    - target: {fileID: 3590612807687156298, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: m_TagString
+      value: Bubble
+      objectReference: {fileID: 0}
+    - target: {fileID: 3967515375200852075, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 449829172}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -36056,6 +36184,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bubble
       objectReference: {fileID: 0}
+    - target: {fileID: 3590612807687156298, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: m_TagString
+      value: Bubble
+      objectReference: {fileID: 0}
+    - target: {fileID: 3967515375200852075, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 449829172}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -37855,6 +37991,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bubble
       objectReference: {fileID: 0}
+    - target: {fileID: 3590612807687156298, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: m_TagString
+      value: Bubble
+      objectReference: {fileID: 0}
+    - target: {fileID: 3967515375200852075, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 449829172}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -38830,6 +38974,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bubble
       objectReference: {fileID: 0}
+    - target: {fileID: 3590612807687156298, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: m_TagString
+      value: Bubble
+      objectReference: {fileID: 0}
+    - target: {fileID: 3967515375200852075, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 449829172}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -40105,6 +40257,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bubble
       objectReference: {fileID: 0}
+    - target: {fileID: 3590612807687156298, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: m_TagString
+      value: Bubble
+      objectReference: {fileID: 0}
+    - target: {fileID: 3967515375200852075, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 449829172}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -42896,6 +43056,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bubble (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 3590612807687156298, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: m_TagString
+      value: Bubble
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -43369,15 +43533,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3398206673033455591, guid: ff341ec44032963469d6f5153aeb0930, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.52
+      value: 5.141
       objectReference: {fileID: 0}
     - target: {fileID: 3398206673033455591, guid: ff341ec44032963469d6f5153aeb0930, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.22
+      value: -1.39
       objectReference: {fileID: 0}
     - target: {fileID: 3398206673033455591, guid: ff341ec44032963469d6f5153aeb0930, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -34.01
+      value: -34.264
       objectReference: {fileID: 0}
     - target: {fileID: 3398206673033455591, guid: ff341ec44032963469d6f5153aeb0930, type: 3}
       propertyPath: m_LocalRotation.w
@@ -46312,6 +46476,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bubble
       objectReference: {fileID: 0}
+    - target: {fileID: 3590612807687156298, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: m_TagString
+      value: Bubble
+      objectReference: {fileID: 0}
+    - target: {fileID: 3967515375200852075, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 449829172}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -54986,6 +55158,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bubble
       objectReference: {fileID: 0}
+    - target: {fileID: 3590612807687156298, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: m_TagString
+      value: Bubble
+      objectReference: {fileID: 0}
+    - target: {fileID: 3967515375200852075, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 449829172}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -57099,6 +57279,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bubble
       objectReference: {fileID: 0}
+    - target: {fileID: 3590612807687156298, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: m_TagString
+      value: Bubble
+      objectReference: {fileID: 0}
+    - target: {fileID: 3967515375200852075, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 449829172}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -59744,6 +59932,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bubble (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 3590612807687156298, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: m_TagString
+      value: Bubble
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -60539,6 +60731,10 @@ PrefabInstance:
     - target: {fileID: 3590612807687156298, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
       propertyPath: m_Name
       value: Bubble (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3590612807687156298, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: m_TagString
+      value: Bubble
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -64810,6 +65006,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bubble
       objectReference: {fileID: 0}
+    - target: {fileID: 3590612807687156298, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: m_TagString
+      value: Bubble
+      objectReference: {fileID: 0}
+    - target: {fileID: 3967515375200852075, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 449829172}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -69441,6 +69645,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bubble (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 3590612807687156298, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: m_TagString
+      value: Bubble
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -69768,6 +69976,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bubble
       objectReference: {fileID: 0}
+    - target: {fileID: 3590612807687156298, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: m_TagString
+      value: Bubble
+      objectReference: {fileID: 0}
+    - target: {fileID: 3967515375200852075, guid: 1ad38259bb6e80d4d9edf902945b254d, type: 3}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 449829172}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -77848,11 +78064,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1057805920311239184, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0021136373
+      value: 0.0021136727
       objectReference: {fileID: 0}
     - target: {fileID: 1057805920311239184, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.00009876525
+      value: -0.00009876692
       objectReference: {fileID: 0}
     - target: {fileID: 1247780715241331008, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
       propertyPath: m_Volume
@@ -77914,6 +78130,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0.00040951214
       objectReference: {fileID: 0}
+    - target: {fileID: 1910910551977011156, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
+      propertyPath: bubbleText
+      value: 
+      objectReference: {fileID: 449829174}
     - target: {fileID: 2577968014182724436, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -77961,6 +78181,10 @@ PrefabInstance:
     - target: {fileID: 3569255629800827826, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3830443218040574021, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
+      propertyPath: m_CullTransparentMesh
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3884919353436065875, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
       propertyPath: m_AnchorMax.x
@@ -78145,6 +78369,10 @@ PrefabInstance:
     - target: {fileID: 8778659819944997191, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
       propertyPath: m_LocalPosition.z
       value: 50.38
+      objectReference: {fileID: 0}
+    - target: {fileID: 9060938892475715924, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

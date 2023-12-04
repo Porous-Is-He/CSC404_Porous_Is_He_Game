@@ -38,7 +38,12 @@ public class LiquidTracker : MonoBehaviour
 
     public float GetLiquidAmountFromIndex(int index)
     {
-        return playerLiquids[index].liquidAmount;
+        if (index < maxLiquidType && index >= 0)
+        {
+            return playerLiquids[index].liquidAmount;
+        } else {
+            return 0;
+        }
     }
 
     public LiquidInfo GetSelectedLiquid()

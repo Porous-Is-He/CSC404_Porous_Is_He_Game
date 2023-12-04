@@ -8,6 +8,8 @@ public class Headbutter : MonoBehaviour
     private PlayerInputActions playerInputActions;
     private List<GameObject> triggersEntered = new List<GameObject>();
 
+    [SerializeField] private Animator playerAnimator;
+
     private float lastHeadbutt = -1;
     private float headbuttCD = 0.5f;
 
@@ -58,6 +60,9 @@ public class Headbutter : MonoBehaviour
             }
 
             lastHeadbutt = Time.time;
+
+
+            playerAnimator.Play("Headbutt");
         }
 
     }
@@ -76,5 +81,10 @@ public class Headbutter : MonoBehaviour
         {
             triggersEntered.Add(other.gameObject);
         }
+    }
+
+    private void OnDestroy()
+    {
+        playerInputActions.Player.Disable();
     }
 }
