@@ -82,4 +82,9 @@ public class Headbutter : MonoBehaviour
             triggersEntered.Add(other.gameObject);
         }
     }
+
+    private void OnDestroy()
+    {
+        playerInputActions.Player.Disable();
+    }
 }
