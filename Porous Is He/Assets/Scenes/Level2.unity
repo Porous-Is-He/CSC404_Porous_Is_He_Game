@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -15852,12 +15852,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5763967223723853624, guid: d270d24d1ab1c41469490e6211090bd0, type: 3}
       propertyPath: m_Volume
-      value: 0
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 5763967223723853624, guid: d270d24d1ab1c41469490e6211090bd0, type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: 37696b189dae6c640a54a0d84188c7e2, type: 3}
+      objectReference: {fileID: 8300000, guid: 95a67a78e20f64470970ccfab5f9d01d, type: 3}
     - target: {fileID: 6062771748351154389, guid: d270d24d1ab1c41469490e6211090bd0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 944.4741
@@ -25313,11 +25313,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1057805920311239184, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000015311786
+      value: -0.000000015311777
       objectReference: {fileID: 0}
     - target: {fileID: 1057805920311239184, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000000007849135
+      value: 0.000000007849131
       objectReference: {fileID: 0}
     - target: {fileID: 1213246379201391549, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
