@@ -34,6 +34,8 @@ public class MeltableObject : MonoBehaviour
                 {
                     melted = true;
                     animator.SetBool("isMelting", melted);
+
+                    gameObject.GetComponent<AudioSource>().Play();
                 }
             } else if (!melted && Time.time - lastTriggered > coolDown)
             {

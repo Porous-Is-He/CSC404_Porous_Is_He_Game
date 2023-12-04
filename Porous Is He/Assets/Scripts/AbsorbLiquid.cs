@@ -80,12 +80,15 @@ public class AbsorbLiquid : MonoBehaviour
             (onFillableCup && fillableCup.GetLiquidAmount() > 0 && !liquidTracker.FullLiquid(fillableCup.GetSurfaceLiquidType())))
         {
             gameObject.GetComponent<PoSoundManager>().PlaySound("Absorb");
+            gameObject.GetComponent<AudioSource>().Play();
         }
+        
     }
 
     private void StopAbsorb(InputAction.CallbackContext context)
     {
         absorbing = false;
+        gameObject.GetComponent<AudioSource>().Stop();
     }
 
     private void ReleaseAllLiquid(InputAction.CallbackContext context)
