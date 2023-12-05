@@ -72,6 +72,11 @@ public class MoverScript : MonoBehaviour
 
     private float lastGrounded = 0;
 
+
+    [SerializeField] private LiquidTracker liquidTracker;
+    [SerializeField] private float knockbackMultiWithOil = 1f;
+
+
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -204,7 +209,6 @@ public class MoverScript : MonoBehaviour
 
     private void PlayRunningSound()
     {
-        LiquidTracker liquidTracker = GameObject.Find("Player").GetComponent<LiquidTracker>();
 
         if (!IsGrounded() && Time.time - lastGrounded > 0.1f )
         {
@@ -344,7 +348,7 @@ public class MoverScript : MonoBehaviour
         if (numberOfJumps == 0) StartCoroutine(WaitForLanding());
 
 
-        float playerWeight = GameObject.Find("Player").GetComponent<LiquidTracker>().CalcWeight();
+        float playerWeight = liquidTracker.CalcWeight();
         if (playerWeight > 0)
         {
             playerVelocity = jumpPower * (8.0f / 10.0f);
@@ -381,9 +385,11 @@ public class MoverScript : MonoBehaviour
 
     public void KnockBack(Vector3 moveDirection, bool propelUp)
     {
-        //Debug.Log("PUSHHH"); // Nice little debug statement to check stuff
-
         float knockbackMulti = 1f;
+        if (liquidTracker.GetLiquidAmountFromIndex(1) > 0)
+        {
+            knockbackMulti = knockbackMultiWithOil;
+        }
 
         if (propelUp)
         {
