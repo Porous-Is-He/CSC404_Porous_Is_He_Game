@@ -36,6 +36,9 @@ public class ShootingScript : MonoBehaviour
     private float dryFireStart = 0f;
     private int dryFireTimesInRow = 0;
 
+    private float lastShoot = 0;
+    [SerializeField] private Animator playerAnimator;
+
     void Start()
     {
         playerInputActions = new PlayerInputActions();
@@ -64,6 +67,8 @@ public class ShootingScript : MonoBehaviour
 
     private void Update()
     {
+        bool fired = false;
+
         if (Time.time - dryFireStart > 4.0f)
         {
             dryFireStart = Time.time;
@@ -87,6 +92,7 @@ public class ShootingScript : MonoBehaviour
         }
         if (shooting && CanShoot())
         {
+            fired = true;
             if (time >= timeBetweenShoot)
             {
                 CreateBullet();
@@ -113,6 +119,14 @@ public class ShootingScript : MonoBehaviour
             }
         }
         if (time < timeBetweenShoot) time += Time.deltaTime;
+
+        if (fired)
+        {
+            playerAnimator.SetBool("IsShooting", true);
+        } else
+        {
+            playerAnimator.SetBool("IsShooting", false);
+        }
     }
 
     private bool CanShoot()
