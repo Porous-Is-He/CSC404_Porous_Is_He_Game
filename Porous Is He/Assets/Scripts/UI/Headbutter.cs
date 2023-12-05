@@ -28,40 +28,42 @@ public class Headbutter : MonoBehaviour
 
     }
 
+    public void DoHeadbuttCollide() {
+
+        bool hit = false;
+        foreach (GameObject obj in triggersEntered)
+        {
+            if (obj.CompareTag("Collider"))
+            {
+                if (obj.GetComponent<HeavyCollider>())
+                {
+                    hit = true;
+                    transform.parent.gameObject.GetComponent<PoSoundManager>().PlaySound("Headbutt_Hit");
+                    obj.GetComponent<HeavyCollider>().push();
+                }
+
+                if (obj.GetComponent<Headbuttable>())
+                {
+                    hit = true;
+                    transform.parent.gameObject.GetComponent<PoSoundManager>().PlaySound("Headbutt_Hit");
+                    obj.GetComponent<Headbuttable>().push();
+                }
+            }
+        }
+
+        if (hit == false)
+        {
+            transform.parent.gameObject.GetComponent<PoSoundManager>().PlaySound("Headbutt_Miss");
+        }
+
+        lastHeadbutt = Time.time;
+    }
+
 
     private void Headbutt(InputAction.CallbackContext context)
     {
         if (Time.time - lastHeadbutt > headbuttCD)
         {
-            bool hit = false;
-            foreach (GameObject obj in triggersEntered)
-            {
-                if (obj.CompareTag("Collider"))
-                {
-                    if (obj.GetComponent<HeavyCollider>())
-                    {
-                        hit = true;
-                        transform.parent.gameObject.GetComponent<PoSoundManager>().PlaySound("Headbutt_Hit");
-                        obj.GetComponent<HeavyCollider>().push();
-                    }
-
-                    if (obj.GetComponent<Headbuttable>())
-                    {
-                        hit = true;
-                        transform.parent.gameObject.GetComponent<PoSoundManager>().PlaySound("Headbutt_Hit");
-                        obj.GetComponent<Headbuttable>().push();
-                    }
-                }
-            }
-
-            if (hit == false)
-            {
-                transform.parent.gameObject.GetComponent<PoSoundManager>().PlaySound("Headbutt_Miss");
-            }
-
-            lastHeadbutt = Time.time;
-
-
             playerAnimator.Play("Headbutt");
         }
 
