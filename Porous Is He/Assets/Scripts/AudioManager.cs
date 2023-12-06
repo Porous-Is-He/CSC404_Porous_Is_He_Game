@@ -42,7 +42,10 @@ public class AudioManager : MonoBehaviour
 
     public void NoMusic(string sceneName)
     {
-        musicSource.Stop();
+        if (musicSource)
+        {
+            musicSource.Stop();
+        }
         currentScene = sceneName;
     }
 }
