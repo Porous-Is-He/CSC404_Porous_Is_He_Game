@@ -17,8 +17,12 @@ public class LevelComplete : MonoBehaviour
     private int allBubbles;
     public static bool LevelEnd;
 
+    private GameManager gameManager;
+
     void Start()
     {
+        gameManager = GameManager.Instance;
+
         LevelCompletePanel.SetActive(false);
         LevelEnd = false;
         animator = LevelCompletePopup.GetComponent<Animator>();
@@ -80,10 +84,16 @@ public class LevelComplete : MonoBehaviour
 
     public void NextLevel()
     {
+        LevelEnd = false;
         if (NextLevelScene == "MainMenu")
             SceneManager.LoadScene(0);
         else
             SceneManager.LoadScene(NextLevelScene);
+    }
+    public void MainMenu()
+    {
+        LevelEnd = false;
+        gameManager.MainMenu();
     }
 
 }
