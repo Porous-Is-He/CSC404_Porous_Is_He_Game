@@ -147,8 +147,9 @@ public class MoverScript : MonoBehaviour
         //grounded detection
         if (!isGrounded_Custom)
         {
-            slidingMovement.x += (1f - hitNormal.y) * hitNormal.x * slideSpeed;
-            slidingMovement.z += (1f - hitNormal.y) * hitNormal.z * slideSpeed;
+            float slideMulti = 1f + 1f * Mathf.Min((Time.time - lastGrounded) * 5f, 10f);
+            slidingMovement.x += (1f - hitNormal.y) * hitNormal.x * slideSpeed * slideMulti;
+            slidingMovement.z += (1f - hitNormal.y) * hitNormal.z * slideSpeed * slideMulti;
         }
         if (!(Vector3.Angle(Vector3.up, hitNormal) <= slopeLimit))
         {
