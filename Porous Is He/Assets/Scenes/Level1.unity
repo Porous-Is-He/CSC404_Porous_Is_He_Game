@@ -29435,7 +29435,6 @@ GameObject:
   - component: {fileID: 810510029}
   - component: {fileID: 810510028}
   - component: {fileID: 810510027}
-  - component: {fileID: 810510030}
   m_Layer: 0
   m_Name: PushableCups (1)
   m_TagString: Collider
@@ -29519,20 +29518,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.5162225, y: 4.166593, z: 2.2634275}
   m_Center: {x: 13.178788, y: 1.5832952, z: -6.048069}
---- !u!114 &810510030
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 810510025}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d01155dcdca336c40b9fb9d892083c54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  message: What if I push it...
-  time: 4
 --- !u!1 &817327043 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: d15a41403c89fdf4689eb1fdb5686364, type: 3}
@@ -78127,11 +78112,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1557473859615359910, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0022893108
+      value: 0.002289334
       objectReference: {fileID: 0}
     - target: {fileID: 1557473859615359910, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.00046055406
+      value: -0.00046055877
       objectReference: {fileID: 0}
     - target: {fileID: 1832423305731349504, guid: 352398c9bdd3be04d8c35443464a9862, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
