@@ -14594,6 +14594,7 @@ GameObject:
   - component: {fileID: 7869536036516414102}
   - component: {fileID: 8412373276243926401}
   - component: {fileID: 5494961440271190972}
+  - component: {fileID: 7421177508145933298}
   m_Layer: 0
   m_Name: FireHitbox
   m_TagString: Untagged
@@ -14701,6 +14702,102 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireBase: {fileID: 9218390471775107363}
+--- !u!82 &7421177508145933298
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3933958417735024240}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 9d2cd8b6eb1929544bc89e98a816cd35, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.4
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 200
+  DopplerLevel: 1
+  MinDistance: 2
+  MaxDistance: 200
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &7001596245132343326
 GameObject:
   m_ObjectHideFlags: 0
@@ -24625,9 +24722,11 @@ MonoBehaviour:
   canDamage: 0
   isAlwaysBurning: 0
   startOff: 0
+  boosterFlame: 0
   SmokeEmitter: {fileID: 8253015499642524784}
   OilSmokeEmitter: {fileID: 807356886657262605}
   FireLight: {fileID: 7001596245132343326}
+  BurningAudio: {fileID: 7421177508145933298}
 --- !u!82 &690347671230534269
 AudioSource:
   m_ObjectHideFlags: 0
@@ -24638,9 +24737,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 0.2
+  m_audioClip: {fileID: 8300000, guid: 0bcf1ae9b0ca44fcf999e97951b8d7d1, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -24648,8 +24747,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 200
   DopplerLevel: 1
-  MinDistance: 1.046751
-  MaxDistance: 100
+  MinDistance: 5
+  MaxDistance: 200
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0

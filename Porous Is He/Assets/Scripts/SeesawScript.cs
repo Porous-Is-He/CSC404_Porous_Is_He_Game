@@ -13,6 +13,8 @@ public class SeesawScript : MonoBehaviour
     private float maxRotation = 30.0f;
 
     private GameObject Player;
+    private int lastDirection;
+    private bool hasHit;
 
     void Start()
     {
@@ -43,10 +45,18 @@ public class SeesawScript : MonoBehaviour
                 if (negativeDist < positiveDist)
                 {
                     rotationSpdRatio = -maxDist / negativeDist;
+                    if (lastDirection>-1){
+                        gameObject.GetComponent<AudioSource>().Play();
+                    }
+                    lastDirection=-1;
                 }
                 else
                 {
                     rotationSpdRatio = maxDist / positiveDist;
+                       if (lastDirection<1){
+                        gameObject.GetComponent<AudioSource>().Play();
+                    }
+                    lastDirection=1;
                 }
                 float rotationSpd = rotSpdFactor * rotationSpdRatio;
 
@@ -55,19 +65,28 @@ public class SeesawScript : MonoBehaviour
                     rot -= 360;
                 }
 
-                if (rot > maxRotation)
+                if (rot >= maxRotation)
                 {
                     Quaternion newRotation = Quaternion.Euler(maxRotation, Platform.transform.localRotation.eulerAngles.y, Platform.transform.localRotation.eulerAngles.z);
                     Platform.transform.localRotation = newRotation;
+                    if (!hasHit){
+                        PositiveZone.GetComponent<AudioSource>().Play();
+                    }
+                    hasHit=true;
                 }
-                else if (rot < -maxRotation)
+                else if (rot <= -maxRotation)
                 {
                     Quaternion newRotation = Quaternion.Euler(-maxRotation, Platform.transform.localRotation.eulerAngles.y, Platform.transform.localRotation.eulerAngles.z);
                     Platform.transform.localRotation = newRotation;
+                     if (!hasHit){
+                        NegativeZone.GetComponent<AudioSource>().Play();
+                    }
+                    hasHit=true;
                 }
                 else
                 {
                     Platform.transform.Rotate(rotationSpd, 0, 0, Space.Self);
+                    hasHit=false;
                 }
             }
         }
@@ -75,5 +94,6 @@ public class SeesawScript : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         Player.GetComponent<MoverScript>().onMovingPlatform = false;
+        gameObject.GetComponent<AudioSource>().Stop();
     }
 }

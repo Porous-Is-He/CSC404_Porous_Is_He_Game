@@ -10,15 +10,14 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance;
     private int levelUnlocked;
-    private AudioManager AudioManager;
     private bool audioInit = false;
 
     private void Awake()
     {
         if (Instance == null)
         {
+            DontDestroyOnLoad(gameObject);
             Instance = this;
-            DontDestroyOnLoad(this);
         }
         else
         {
@@ -30,11 +29,15 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         levelUnlocked = 1;
-        AudioManager = this.GetComponent<AudioManager>();
 
+        Scene scene = SceneManager.GetActiveScene();
         if (!audioInit)
         {
-            AudioManager.PlayMainMenu();
+            if (scene.name == "MainMenu" || scene.name == "LevelSelect")
+            {
+                AudioManager AudioManager = this.GetComponent<AudioManager>();
+                AudioManager.PlayMainMenu();
+            }
             SceneManager.sceneLoaded += OnSceneLoaded;
             audioInit = true;
         }
@@ -59,9 +62,11 @@ public class GameManager : MonoBehaviour
     {
         if (scene.name == "MainMenu" || scene.name == "LevelSelect")
         {
+            AudioManager AudioManager = this.GetComponent<AudioManager>();
             AudioManager.PlayMainMenu();
         } else
         {
+            AudioManager AudioManager = this.GetComponent<AudioManager>();
             AudioManager.NoMusic(scene.name);
         }
     }

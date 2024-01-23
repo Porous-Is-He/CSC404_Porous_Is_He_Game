@@ -60,9 +60,22 @@ public class MoverScript : MonoBehaviour
     public bool onMovingPlatform;
     private bool isJumping = false;
 
+    [SerializeField] private Lander landingHitbox;
+    private float lastJumped = 0;
+
     private DifficultyManager diffm;
+    [SerializeField] private AudioSource WetRunningSound;
+    [SerializeField] private AudioSource OilRunningSound;
+    [SerializeField] private AudioSource RunningSound;
 
     [SerializeField] private Animator playerAnimator;
+
+    private float lastGrounded = 0;
+
+
+    [SerializeField] private LiquidTracker liquidTracker;
+    [SerializeField] private float knockbackMultiWithOil = 1f;
+
 
     private void Awake()
     {
@@ -108,16 +121,35 @@ public class MoverScript : MonoBehaviour
 
     }
 
-
-    void Update()
+    void FixedUpdate()
     {
         Vector3 slidingMovement = new Vector3();
+
+
+        if (isGrounded_Custom)
+        {
+            lastGrounded = Time.time;
+        }
+
+        if (landingHitbox.IsGrounded() && Time.time - lastJumped > 0.2f)
+        {
+            StopFallAnim();
+        }
+        else
+        {
+            if (Time.time - lastGrounded > 0.1f && numberOfJumps == 0)
+            {
+                PlayFallAnim(false, false);
+            }
+        }
+
 
         //grounded detection
         if (!isGrounded_Custom)
         {
-            slidingMovement.x += (1f - hitNormal.y) * hitNormal.x * slideSpeed;
-            slidingMovement.z += (1f - hitNormal.y) * hitNormal.z * slideSpeed;
+            float slideMulti = 1f + 1f * Mathf.Min((Time.time - lastGrounded) * 5f, 10f);
+            slidingMovement.x += (1f - hitNormal.y) * hitNormal.x * slideSpeed * slideMulti;
+            slidingMovement.z += (1f - hitNormal.y) * hitNormal.z * slideSpeed * slideMulti;
         }
         if (!(Vector3.Angle(Vector3.up, hitNormal) <= slopeLimit))
         {
@@ -127,6 +159,7 @@ public class MoverScript : MonoBehaviour
         {
             isGrounded_Custom = controller.isGrounded;
         }
+
 
         if (hitObject)
         {
@@ -175,11 +208,80 @@ public class MoverScript : MonoBehaviour
 
     }
 
+    private void PlayRunningSound()
+    {
+
+        if (!IsGrounded() && Time.time - lastGrounded > 0.1f )
+        {
+            StopRunningSound();
+            return;
+        }
+
+        if (liquidTracker.GetLiquidAmountFromIndex(1) > 0)
+        {
+            if (!OilRunningSound.isPlaying)
+            {
+                OilRunningSound.Play();
+            }
+        } else if (liquidTracker.CalcWeight() > 0)
+        {
+            if (!WetRunningSound.isPlaying)
+            {
+                WetRunningSound.Play();
+            }
+        }
+        else
+        {
+            if (!RunningSound.isPlaying)
+            {
+                RunningSound.Play();
+            }
+        }
+    }
+    private void StopRunningSound()
+    {
+        if (RunningSound.isPlaying)
+        {
+            RunningSound.Stop();
+        }
+        if (WetRunningSound.isPlaying)
+        {
+            WetRunningSound.Stop();
+        }
+        if (OilRunningSound.isPlaying)
+        {
+            OilRunningSound.Stop();
+        }
+    }
+
+    private void PlayFallAnim(bool doJump, bool doDoubleJump)
+    {
+        //if (doDoubleJump)
+        //{
+        //    playerAnimator.SetBool("IsDoubleJumping", true);
+        //}
+
+        //if (doJump)
+        //{
+        //    playerAnimator.SetBool("IsJumping", true);
+        //}
+
+        //playerAnimator.SetBool("IsFalling", true);
+    }
+    private void StopFallAnim()
+    {
+        //playerAnimator.SetBool("IsDoubleJumping", false);
+        //playerAnimator.SetBool("IsJumping", false);
+        //playerAnimator.SetBool("IsFalling", false);
+    }
+
+
 
 
     private void MoveWhileAiming()
     {
         playerAnimator.SetBool("IsRunning", false);
+        StopRunningSound();
 
         // To be implemented
         if (IsGrounded() && playerVelocity < 0f)
@@ -216,9 +318,13 @@ public class MoverScript : MonoBehaviour
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
-        } else
+
+            PlayRunningSound();
+        }
+        else
         {
             playerAnimator.SetBool("IsRunning", false);
+            StopRunningSound();
         }
     }
 
@@ -243,7 +349,7 @@ public class MoverScript : MonoBehaviour
         if (numberOfJumps == 0) StartCoroutine(WaitForLanding());
 
 
-        float playerWeight = GameObject.Find("Player").GetComponent<LiquidTracker>().CalcWeight();
+        float playerWeight = liquidTracker.CalcWeight();
         if (playerWeight > 0)
         {
             playerVelocity = jumpPower * (8.0f / 10.0f);
@@ -254,10 +360,14 @@ public class MoverScript : MonoBehaviour
         }
 
         if (numberOfJumps == 0) {
+            lastJumped = Time.time;
+
             gameObject.GetComponent<PoSoundManager>().PlaySound("Jump");
+            PlayFallAnim(true, false);
         } else
         {
             gameObject.GetComponent<PoSoundManager>().PlaySound("DoubleJump");
+            PlayFallAnim(true, true);
         }
 
         numberOfJumps++;
@@ -276,9 +386,11 @@ public class MoverScript : MonoBehaviour
 
     public void KnockBack(Vector3 moveDirection, bool propelUp)
     {
-        //Debug.Log("PUSHHH"); // Nice little debug statement to check stuff
-
         float knockbackMulti = 1f;
+        if (liquidTracker.GetLiquidAmountFromIndex(1) > 0)
+        {
+            knockbackMulti = knockbackMultiWithOil;
+        }
 
         if (propelUp)
         {

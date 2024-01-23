@@ -29,6 +29,7 @@ public class LevelSelectMenu : MonoBehaviour
     public void ChangeScene()
     {
         SceneManager.LoadScene(levelName);
+        GameObject.Find("SelectBoard").GetComponent<BubblesInLevelSelect>().sceneIsSwitched = true;
     }
 
 }

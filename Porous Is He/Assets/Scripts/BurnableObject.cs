@@ -26,14 +26,13 @@ public class BurnableObject : MonoBehaviour
             }
             Invoke("BurnObject", burningTime);
 
-            flameScript.fireLevel = 0;
-
             burned = true;
         }
     }
 
     public void BurnObject()
     {
+        flameScript.fireLevel = 0;
         Destroy(gameObject);
     }
 

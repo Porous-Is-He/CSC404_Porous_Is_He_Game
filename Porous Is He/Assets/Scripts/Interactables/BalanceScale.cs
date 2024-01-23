@@ -33,6 +33,8 @@ public class BalanceScale : MonoBehaviour
 
     bool changed;
 
+    private float lastMoved = 0;
+
 
     // Start is called before the first frame update
     void Start()
@@ -55,6 +57,18 @@ public class BalanceScale : MonoBehaviour
         RotateBar(barRotation, straightAngle + difference);
         UpdatePositionY();
         UpdatePositionZ();
+
+        if (Time.time - lastMoved <= 0.2f && Time.timeSinceLevelLoad > 0.5f)
+        {
+            if (!gameObject.GetComponent<AudioSource>().isPlaying)
+            {
+                gameObject.GetComponent<AudioSource>().Play();
+            }
+        } else
+        {
+            gameObject.GetComponent<AudioSource>().Stop();
+        }
+
         changed = false;
     }
 
@@ -62,6 +76,12 @@ public class BalanceScale : MonoBehaviour
     {
         newX = (newX < minAngle) ? minAngle : newX;
         newX = (newX > maxAngle) ? maxAngle : newX;
+
+        if (Mathf.Abs(oldRotation.x - newX) >= 0.2f)
+        {
+            lastMoved = Time.time;
+        }
+
 
         if (oldRotation.x > newX)
         {

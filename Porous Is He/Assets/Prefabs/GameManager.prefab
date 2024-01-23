@@ -46,7 +46,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b85dc4d043547134f88f30fd9500c336, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPaused: 0
 --- !u!114 &18101657191750321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,7 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicSource: {fileID: 1561308481322928216}
-  mainmenu: {fileID: 8300000, guid: 4fc94c4763f9eeb4182c4cc0d50d9f30, type: 3}
+  mainmenu: {fileID: 8300000, guid: bb8d8d2b33a06419f9055a59b404aa4d, type: 3}
 --- !u!1 &795818581973791883
 GameObject:
   m_ObjectHideFlags: 0
@@ -103,9 +102,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 4fc94c4763f9eeb4182c4cc0d50d9f30, type: 3}
+  m_audioClip: {fileID: 8300000, guid: bb8d8d2b33a06419f9055a59b404aa4d, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.213
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -179,7 +178,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
